@@ -31,6 +31,7 @@ import { PathIllustration } from '@/components/icons/illustrations';
 import { Cover } from '@/components/content/cover';
 import { useToast } from '@/components/ui/toast/toast';
 import { cn } from '@/lib/cn';
+import { CountUp } from '@/components/motion/count-up';
 
 const useWho = () => { const s = useSessionState(); return `${s.userId}:${s.orgId}`; };
 const roles: Role[] = ['student', 'mentor', 'leader', 'admin'];
@@ -49,7 +50,7 @@ export function AdminOverview() {
           <>
             <ul className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {([['members', r.totals.members], ['lessons', r.totals.lessonsCompleted], ['reflections', r.totals.reflections], ['awaiting', r.totals.awaiting]] as const).map(([k, v]) => (
-                <li key={k}><Card interactive className="flex flex-col gap-1"><p className="text-sm text-muted">{t(`admin.stat.${k}`)}</p><p className="font-serif text-4xl font-semibold tracking-tight">{v}</p><p className="text-xs text-subtle">{t('admin.last90')}</p></Card></li>
+                <li key={k}><Card interactive className="flex flex-col gap-1"><p className="text-sm text-muted">{t(`admin.stat.${k}`)}</p><CountUp value={v} className="font-serif text-4xl font-semibold tracking-tight" /><p className="text-xs text-subtle">{t('admin.last90')}</p></Card></li>
               ))}
             </ul>
             <section aria-labelledby="setup-h" className="flex flex-col gap-3"><h2 id="setup-h" className="text-h3 font-semibold">{t('admin.setup')}</h2>

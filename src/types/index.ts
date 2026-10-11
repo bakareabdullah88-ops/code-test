@@ -20,7 +20,7 @@ export interface LocalisedMessage { messageKey: string; params?: Record<string, 
 export interface EntityRef { type: EntityType; id: string }
 export type EntityType =
   | 'lesson' | 'pathway' | 'reflection' | 'feedback' | 'comment' | 'post' | 'thread' | 'meeting'
-  | 'prayer' | 'goal' | 'milestone' | 'checkIn' | 'sessionNote' | 'user' | 'group' | 'verse' | 'approval';
+  | 'prayer' | 'goal' | 'milestone' | 'checkIn' | 'sessionNote' | 'user' | 'group' | 'verse' | 'approval' | 'plan' | 'event';
 
 export interface User {
   id: Id<'usr'>; displayName: string; email: string;           // email visible to self and org admins only
@@ -220,7 +220,7 @@ export interface Milestone { id: Id<'mls'>; userId: Id<'usr'>; key: string; awar
 
 export type TimelineEventType =
   | 'lesson_completed' | 'pathway_started' | 'pathway_completed' | 'reflection_submitted' | 'feedback_received'
-  | 'discussion_shared' | 'memory_verse_added' | 'goal_completed' | 'milestone_awarded' | 'prayer_answered' | 'checkin_held';
+  | 'discussion_shared' | 'memory_verse_added' | 'goal_completed' | 'milestone_awarded' | 'prayer_answered' | 'checkin_held' | 'plan_completed';
 export interface TimelineEvent { id: Id<'tle'>; userId: Id<'usr'>; type: TimelineEventType; occurredAt: ISODateTime; summary: LocalisedMessage; subject: EntityRef; visibility: 'owner' | 'mentor' | 'group' }
 
 export interface AttentionItem {
@@ -230,7 +230,7 @@ export interface AttentionItem {
 
 export type NotificationKind =
   | 'feedback_received' | 'reflection_shared' | 'discussion_reply' | 'meeting_reminder' | 'prayer_update'
-  | 'milestone_awarded' | 'invite_received' | 'ai_approval_result' | 'ai_approval_request' | 'assignment' | 'system';
+  | 'milestone_awarded' | 'invite_received' | 'ai_approval_result' | 'ai_approval_request' | 'assignment' | 'event_rsvp' | 'system';
 export interface Notification { id: Id<'ntf'>; userId: Id<'usr'>; kind: NotificationKind; message: LocalisedMessage; subject: EntityRef | null; href: string; createdAt: ISODateTime; readAt: ISODateTime | null }
 export interface NotificationPreferences { channels: Record<NotificationKind, { inApp: boolean; email: boolean; push: boolean }>; quietHours: { start: string; end: string; timeZone: string } | null }
 
@@ -263,3 +263,24 @@ export interface OrgOverviewReport {
 
 // Client-only types (not part of the API).
 export interface DemoPersona { userId: Id<'usr'>; orgId: Id<'org'> | null; roles: Role[]; blurb: string }
+
+// ---- Events, library and reading plans ----
+export type EventKind = 'service' | 'workshop' | 'retreat' | 'social' | 'prayer';
+export interface OrgEvent {
+  id: Id<'evt'>; orgId: Id<'org'>; title: string; description: string[]; kind: EventKind;
+  startsAt: ISODateTime; endsAt: ISODateTime; location: string; coverKey: string;
+  capacity: number | null; hostId: Id<'usr'>; groupId: Id<'grp'> | null; createdAt: ISODateTime;
+}
+export type RsvpStatus = 'going' | 'maybe' | 'declined';
+export interface EventRsvp { id: string; eventId: Id<'evt'>; userId: Id<'usr'>; status: RsvpStatus; at: ISODateTime }
+
+export type ResourceKind = 'article' | 'guide' | 'audio' | 'book';
+export interface Resource {
+  id: Id<'res'>; orgId: Id<'org'> | null; title: string; kind: ResourceKind; summary: string;
+  author: string; minutes: number; tags: string[]; coverKey: string; body: string[]; refs: string[]; createdAt: ISODateTime;
+}
+export interface ResourceBookmark { id: string; userId: Id<'usr'>; resourceId: Id<'res'>; at: ISODateTime }
+
+export interface PlanDay { day: number; title: string; refs: string[]; prompt: string }
+export interface ReadingPlan { id: Id<'pln'>; title: string; summary: string; coverKey: string; days: PlanDay[]; tags: string[] }
+export interface PlanProgress { id: string; userId: Id<'usr'>; planId: Id<'pln'>; startedAt: ISODateTime; completedDays: number[]; updatedAt: ISODateTime }

@@ -60,7 +60,8 @@
    "available": "More pathways",
    "noneTitle": "No pathway yet",
    "noneBody": "Choose one below to start. You can change at any time.",
-   "allEnrolled": "You're already on every available pathway."
+   "allEnrolled": "You're already on every available pathway.",
+   "library": "Library"
   },
   "pathway": {
    "counts": "{lessons, plural, one {# lesson} other {# lessons}} · {minutes} min",
@@ -75,7 +76,11 @@
    "offlineSoon": "Offline downloads are not in this demo yet",
    "draftNotice": "This pathway is a draft. Only its author can see it.",
    "enrolled": "You're on “{title}”",
-   "noSummary": "No summary yet"
+   "noSummary": "No summary yet",
+   "level": "Level",
+   "author": "Author",
+   "length": "Length",
+   "for": "Made for"
   },
   "lesson": {
    "back": "Back",

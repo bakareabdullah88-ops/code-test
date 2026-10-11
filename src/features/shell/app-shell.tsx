@@ -124,14 +124,17 @@ function OrgBlock() {
     void qc.invalidateQueries();
     nav('/app/today');
   };
-  if (orgs.length < 2) return <p className="truncate px-1 text-sm font-medium text-ink">{current?.name ?? t('shell.personalSpace')}</p>;
+  const label = current?.name ?? t('shell.personalSpace');
+  const tile = <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent font-serif text-base font-semibold text-on-accent shadow-card" aria-hidden="true">{label.slice(0, 1)}</span>;
+  if (orgs.length < 2) return <div className="flex items-center gap-2.5 rounded-xl border border-line bg-raised/70 p-2 shadow-card">{tile}<p className="truncate text-sm font-semibold text-ink">{label}</p></div>;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="justify-between px-2">
-          <span className="truncate">{current?.name ?? t('shell.personalSpace')}</span>
-          <CaretUpDown size={16} aria-hidden="true" />
-        </Button>
+        <button type="button" className="flex w-full items-center gap-2.5 rounded-xl border border-line bg-raised/70 p-2 text-start shadow-card transition-colors motion-fast hover:bg-sunken">
+          {tile}
+          <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">{label}</span>
+          <CaretUpDown size={16} aria-hidden="true" className="text-muted" />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <DropdownMenuLabel>{t('shell.organisation')}</DropdownMenuLabel>

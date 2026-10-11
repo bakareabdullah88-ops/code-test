@@ -12,7 +12,7 @@ import { PathIllustration } from '@/components/icons/illustrations';
 
 const icons: Record<TimelineEventType, typeof Flag> = {
   lesson_completed: CheckCircle, pathway_started: Flag, pathway_completed: Flag, reflection_submitted: NotePencil, feedback_received: ChatCircleText, discussion_shared: Users,
-  memory_verse_added: BookOpenText, goal_completed: CheckCircle, milestone_awarded: Sparkle, prayer_answered: HandsPraying, checkin_held: Users,
+  memory_verse_added: BookOpenText, goal_completed: CheckCircle, milestone_awarded: Sparkle, prayer_answered: HandsPraying, checkin_held: Users, plan_completed: BookOpenText,
 };
 const groupsOf: Record<string, TimelineEventType[]> = {
   lessons: ['lesson_completed', 'pathway_started', 'pathway_completed'],

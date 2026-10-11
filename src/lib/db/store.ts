@@ -39,6 +39,12 @@ export interface Collections {
   aiMessages: T.AiMessage;
   approvals: T.ApprovalRequest;
   audit: T.AuditEvent;
+  events: T.OrgEvent;
+  rsvps: T.EventRsvp;
+  resources: T.Resource;
+  bookmarks: T.ResourceBookmark;
+  plans: T.ReadingPlan;
+  planProgress: T.PlanProgress;
   snoozes: { id: string; mentorId: string; key: string; until: string };
   meta: { id: string; value: unknown };
 }
@@ -47,12 +53,12 @@ export const collectionNames: CollectionName[] = [
   'users', 'organisations', 'memberships', 'invites', 'assignments', 'groups', 'groupMemberships', 'meetings', 'threads', 'posts', 'reports',
   'pathways', 'modules', 'lessons', 'quizzes', 'quizAttempts', 'enrollments', 'progress', 'reflections', 'feedback', 'comments', 'prayers',
   'highlights', 'verseNotes', 'memoryVerses', 'memoryReviews', 'goals', 'checkIns', 'sessionNotes', 'milestones', 'timeline', 'notifications',
-  'aiConversations', 'aiMessages', 'approvals', 'audit', 'snoozes', 'meta',
+  'aiConversations', 'aiMessages', 'approvals', 'audit', 'events', 'rsvps', 'resources', 'bookmarks', 'plans', 'planProgress', 'snoozes', 'meta',
 ];
 
 type AnyRec = { id: string };
 const DB_NAME = 'tessera-demo';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 class Store {
   private data = new Map<CollectionName, Map<string, AnyRec>>();

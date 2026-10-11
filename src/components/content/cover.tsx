@@ -59,7 +59,45 @@ function Table() {
     </>
   );
 }
-const art = { dawn: Dawn, lamp: Lamp, path: Path, table: Table } as const;
+function River() {
+  return (
+    <>
+      <rect width="400" height="240" fill={sky} />
+      <g className="float-slow"><circle cx="90" cy="64" r="26" fill="var(--accent)" opacity="0.85" /><circle cx="90" cy="64" r="48" fill="var(--accent)" opacity="0.12" /></g>
+      <path d="M0 110 C80 90 150 112 240 98 S360 88 400 100 V240 H0Z" fill={hillFar} />
+      <path d="M0 140 C90 124 170 146 260 134 S360 126 400 136 V240 H0Z" fill={hillMid} />
+      <path className="drift" d="M120 240 C150 200 130 176 190 150 C240 128 250 120 300 104" stroke={sky} strokeWidth="34" strokeLinecap="round" fill="none" />
+      <path className="drift" d="M120 240 C150 200 130 176 190 150 C240 128 250 120 300 104" stroke="var(--accent)" strokeOpacity="0.35" strokeWidth="3" strokeLinecap="round" strokeDasharray="2 14" fill="none" />
+      <path d="M0 214 C100 200 180 220 260 212 S360 202 400 210 V240 H0Z" fill={hillNear} />
+    </>
+  );
+}
+function Mountain() {
+  return (
+    <>
+      <rect width="400" height="240" fill={sky} />
+      <g className="float-slow"><circle cx="310" cy="62" r="24" fill="var(--accent)" opacity="0.9" /><circle cx="310" cy="62" r="44" fill="var(--accent)" opacity="0.12" /></g>
+      <g className="drift" opacity="0.5"><ellipse cx="70" cy="56" rx="42" ry="8" fill="var(--surface-raised)" /></g>
+      <path d="M0 170 L110 80 L190 150 L260 70 L400 180 V240 H0Z" fill={hillFar} />
+      <path d="M0 196 L90 124 L170 190 L250 116 L400 200 V240 H0Z" fill={hillMid} />
+      <path d="M0 226 C100 206 200 230 300 214 S380 208 400 214 V240 H0Z" fill={hillNear} />
+      <path d="M244 80 L260 70 L276 86 L262 84Z" fill="var(--surface-raised)" opacity="0.8" />
+    </>
+  );
+}
+function Field() {
+  return (
+    <>
+      <rect width="400" height="240" fill={sky} />
+      <g className="float-slow"><circle cx="200" cy="80" r="34" fill="var(--accent)" opacity="0.88" /><circle cx="200" cy="80" r="62" fill="var(--accent)" opacity="0.1" /></g>
+      <path d="M0 120 C100 104 200 124 400 108 V240 H0Z" fill={hillFar} />
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path key={i} d={`M-20 ${150 + i * 22} C100 ${136 + i * 22} 240 ${166 + i * 22} 420 ${146 + i * 22}`} stroke={i % 2 ? hillNear : hillMid} strokeWidth="14" strokeLinecap="round" fill="none" opacity={0.7 + i * 0.06} />
+      ))}
+    </>
+  );
+}
+const art = { dawn: Dawn, lamp: Lamp, path: Path, table: Table, river: River, mountain: Mountain, field: Field } as const;
 
 export function Cover({ coverKey, className }: { coverKey: string; className?: string }) {
   const Art = art[coverKey as keyof typeof art] ?? Dawn;

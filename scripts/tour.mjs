@@ -12,7 +12,7 @@ const page = await ctx.newPage();
 const errors = [];
 page.on('console', (m) => m.type() === 'error' && !m.text().includes('404') && errors.push(m.text()));
 page.on('pageerror', (e) => errors.push('PAGEERROR ' + e.message));
-await page.goto(base);
+await page.goto(base + '/#/demo');
 await page.evaluate(() => localStorage.setItem('tessera.demo.v1', JSON.stringify({ latency: 'instant', offline: false })));
 await page.reload();
 const first = person.split(' ')[0];

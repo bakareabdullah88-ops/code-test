@@ -28,7 +28,11 @@
   "guidelines": "Be kind and specific. Keep other people's stories private.",
   "hidden": "This post was hidden by a leader.",
   "hiddenForOthers": "Hidden from others",
-  "react": { "amen": "Amen", "thanks": "Thank you", "helpful": "Helpful" },
+  "react": {
+   "amen": "Amen",
+   "thanks": "Thank you",
+   "helpful": "Helpful"
+  },
   "report": "Report",
   "lockedNotice": "This discussion is locked. You can still read it.",
   "addReply": "Add a reply",
@@ -43,9 +47,19 @@
   "reportBody": "Leaders will look at it. The person who wrote it is not told who reported.",
   "reported": "Thank you, a leader will look at this",
   "sendReport": "Send report",
-  "reason": { "unkind": "Unkind", "off_topic": "Off topic", "private_info": "Shares private information", "other": "Something else" },
+  "reason": {
+   "unkind": "Unkind",
+   "off_topic": "Off topic",
+   "private_info": "Shares private information",
+   "other": "Something else"
+  },
   "prayerFilter": "Show prayer requests from",
-  "scope": { "all": "Everyone", "mine": "Mine", "group": "My groups", "organisation": "Organisation" },
+  "scope": {
+   "all": "Everyone",
+   "mine": "Mine",
+   "group": "My groups",
+   "organisation": "Organisation"
+  },
   "prayerStatus": "Status",
   "open": "Open",
   "answered": "Answered",
@@ -53,12 +67,17 @@
   "noPrayersTitle": "No prayer requests here",
   "noPrayersBody": "Add a request when you are ready. You choose who can see it.",
   "privacyGroupNamed": "Group: {group}",
-  "privacy": { "only_me": "Only me", "mentor": "My mentor", "group": "My group", "organisation": "Everyone here" },
+  "privacy": {
+   "only_me": "Only me",
+   "mentor": "My mentor",
+   "group": "My group",
+   "organisation": "Everyone here"
+  },
   "privacyHelp": {
-    "only_me": "Only you can see this.",
-    "mentor": "You and your mentor can see this.",
-    "group": "Members of the group you choose can see this.",
-    "organisation": "Everyone in your organisation can see this."
+   "only_me": "Only you can see this.",
+   "mentor": "You and your mentor can see this.",
+   "group": "Members of the group you choose can see this.",
+   "organisation": "Everyone in your organisation can see this."
   },
   "anonymous": "Anonymous",
   "praying": "Praying",
@@ -73,7 +92,15 @@
   "anonymousHelp": "Others see the request, not who wrote it.",
   "categoryLabel": "Category",
   "noCategory": "No category",
-  "category": { "health": "Health", "family": "Family", "work": "Work", "faith": "Faith", "community": "Community", "thanks": "Thanks", "other": "Other" },
+  "category": {
+   "health": "Health",
+   "family": "Family",
+   "work": "Work",
+   "faith": "Faith",
+   "community": "Community",
+   "thanks": "Thanks",
+   "other": "Other"
+  },
   "answeredTitle": "Mark as answered",
   "markAnswered": "Mark answered",
   "deleted": "Request removed",
@@ -85,6 +112,7 @@
   "answeredHelp": "Add a note about what happened, if you would like to.",
   "answeredToast": "Marked as answered",
   "save": "Save",
-  "answeredNote": "Note"
+  "answeredNote": "Note",
+  "events": "Events"
  }
 }

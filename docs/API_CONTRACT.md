@@ -322,3 +322,18 @@ Digests and quiet hours are applied by the server according to `NotificationPref
 ## 16. Contract test expectations
 
 The same Vitest suite (`src/lib/services/__contract__`) runs against `MockTransport` and, later, a staging URL through `HttpTransport`. It must cover for every route group: success, `validation_failed` with `fieldErrors`, `forbidden` per role, `not_found`, `conflict` with `If-Match`, pagination (cursor stability, last page `nextCursor: null`), idempotent replay, and the privacy matrix from PRODUCT.md §5.
+
+## Auth, events, library and reading plans (added with the sign-in page)
+
+| Service call | Purpose | Errors |
+|---|---|---|
+| `auth.signIn({ email, password })` | Demo sign-in. Matches a seeded email; the password is not checked because there is no real account system. | `validation_failed` (field errors `email`, `password`), `unauthenticated` |
+| `auth.join({ code, name, email })` | Creates an account from a pending invite and signs in. Marks the invite accepted. | `validation_failed`, `not_found` (bad, used or expired code), `conflict` (email already used) |
+| `events.list(scope)` | `upcoming`, `going` or `past` events of the active organisation, with host, counts, my RSVP. | |
+| `events.get(id)` | One event with attendees (those who are going). | `not_found` (also for other organisations) |
+| `events.rsvp(id, status \| null)` | `going`, `maybe`, `declined`, or null to clear. Idempotent. | `conflict` (full, finished), `not_found` |
+| `events.create(input)` / `events.cancel(id)` | Leaders and admins create. Host or admin cancels. | `forbidden`, `validation_failed` |
+| `library.list({ query, kind, saved })`, `library.get(id)`, `library.toggleBookmark(id)` | Searchable resources; bookmarks are per person. | `not_found` |
+| `plans.list()`, `plans.get(id)`, `plans.start(id)`, `plans.toggleDay(id, day)` | Bible reading plans with per-person progress. Finishing a plan adds a `plan_completed` timeline entry. | `conflict` (not started), `not_found` |
+
+New types: `OrgEvent`, `EventRsvp`, `Resource`, `ResourceBookmark`, `PlanDay`, `ReadingPlan`, `PlanProgress`. New notification kind `event_rsvp`; new timeline type `plan_completed`.

@@ -8,7 +8,7 @@ export function JourneyPage() {
   const t = useT();
   const nav = useNavigate();
   const path = usePathname();
-  const value = path.endsWith('/timeline') ? 'timeline' : path.endsWith('/milestones') ? 'milestones' : 'pathways';
+  const value = path.endsWith('/timeline') ? 'timeline' : path.endsWith('/milestones') ? 'milestones' : path.includes('/library') ? 'library' : 'pathways';
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title={t('learn.journey.title')} description={t('learn.journey.description')} />
@@ -16,7 +16,7 @@ export function JourneyPage() {
         label={t('learn.journey.views')}
         value={value}
         onValueChange={(v) => nav(v === 'pathways' ? '/app/journey' : `/app/journey/${v}`)}
-        options={[{ value: 'pathways', label: t('learn.journey.pathways') }, { value: 'timeline', label: t('learn.journey.timeline') }, { value: 'milestones', label: t('learn.journey.milestones') }]}
+        options={[{ value: 'pathways', label: t('learn.journey.pathways') }, { value: 'timeline', label: t('learn.journey.timeline') }, { value: 'milestones', label: t('learn.journey.milestones') }, { value: 'library', label: t('learn.journey.library') }]}
         className="self-start"
       />
       <Outlet />

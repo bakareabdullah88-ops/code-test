@@ -2,6 +2,10 @@ import { createHashRouter, Navigate, Outlet } from 'react-router';
 import { useRouteError } from 'react-router';
 import { AppShell } from '@/features/shell/app-shell';
 import { PersonaPicker } from '@/features/persona/persona-picker';
+import { EventsTab, EventPage } from '@/features/events/events-pages';
+import { LibraryTab, ResourcePage } from '@/features/library/library-pages';
+import { PlansTab, PlanPage } from '@/features/plans/plan-pages';
+import { LoginPage } from '@/features/auth/login-page';
 import { TodayPage } from '@/features/learning/today-page';
 import { JourneyPage } from '@/features/learning/journey-page';
 import { PathwaysTab } from '@/features/learning/pathways-tab';
@@ -39,7 +43,8 @@ function RouteError() {
 }
 
 export const router = createHashRouter([
-  { path: '/', element: <PersonaPicker />, errorElement: <RouteError /> },
+  { path: '/', element: <LoginPage />, errorElement: <RouteError /> },
+  { path: '/demo', element: <PersonaPicker />, errorElement: <RouteError /> },
   { path: '/design', element: <DesignGallery /> },
   {
     element: <AppShell />,
@@ -47,17 +52,20 @@ export const router = createHashRouter([
     children: [
       { path: 'app', element: <Navigate to="/app/today" replace /> },
       { path: 'app/today', element: <TodayPage /> },
-      { path: 'app/journey', element: <JourneyPage />, children: [{ index: true, element: <PathwaysTab /> }, { path: 'timeline', element: <TimelineList /> }, { path: 'milestones', element: <MilestonesTab /> }] },
+      { path: 'app/journey', element: <JourneyPage />, children: [{ index: true, element: <PathwaysTab /> }, { path: 'timeline', element: <TimelineList /> }, { path: 'milestones', element: <MilestonesTab /> }, { path: 'library', element: <LibraryTab /> }] },
       { path: 'app/pathways/:pathwayId', element: <PathwayPage /> },
       { path: 'app/pathways/:pathwayId/lessons/:lessonId', element: <LessonPage /> },
       { path: 'app/lessons/:lessonId', element: <LessonRedirect /> },
       { path: 'app/journal', element: <JournalPage /> },
       { path: 'app/journal/new', element: <NewReflectionPage /> },
       { path: 'app/journal/:reflectionId', element: <ReflectionPage /> },
-      { path: 'app/bible', element: <BibleHub />, children: [{ index: true, element: <BibleLibrary /> }, { path: 'notes', element: <NotesPage /> }, { path: 'memorise', element: <MemorisePage /> }] },
+      { path: 'app/bible', element: <BibleHub />, children: [{ index: true, element: <BibleLibrary /> }, { path: 'plans', element: <PlansTab /> }, { path: 'notes', element: <NotesPage /> }, { path: 'memorise', element: <MemorisePage /> }] },
       { path: 'app/bible/memorise/review', element: <ReviewSession /> },
       { path: 'app/bible/:book/:chapter', element: <BibleReader /> },
-      { path: 'app/community', element: <CommunityHub />, children: [{ index: true, element: <GroupsTab /> }, { path: 'prayer', element: <PrayerWall /> }] },
+      { path: 'app/community', element: <CommunityHub />, children: [{ index: true, element: <GroupsTab /> }, { path: 'events', element: <EventsTab /> }, { path: 'prayer', element: <PrayerWall /> }] },
+      { path: 'app/community/events/:eventId', element: <EventPage /> },
+      { path: 'app/journey/library/:resourceId', element: <ResourcePage /> },
+      { path: 'app/bible/plans/:planId', element: <PlanPage /> },
       { path: 'app/community/prayer/:requestId', element: <PrayerPage /> },
       { path: 'app/groups/:groupId', element: <GroupPage /> },
       { path: 'app/groups/:groupId/discussions/:threadId', element: <ThreadPage /> },

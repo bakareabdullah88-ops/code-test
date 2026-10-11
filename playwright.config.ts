@@ -11,6 +11,7 @@ export default defineConfig({
     baseURL: `http://localhost:${port}`,
     launchOptions: { executablePath: process.env.CHROMIUM_PATH || undefined },
     trace: 'retain-on-failure',
+    reducedMotion: 'reduce',
   },
   projects: [
     { name: 'mobile', use: { viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true } },

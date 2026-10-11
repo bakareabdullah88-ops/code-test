@@ -1,42 +1,71 @@
 {
-  "timeline": {
-    "lesson_completed": "Finished the lesson “{lesson}”",
-    "pathway_started": "Started the pathway “{pathway}”",
-    "pathway_completed": "Finished the pathway “{pathway}”",
-    "reflection_submitted": "Reflected on “{lesson}”",
-    "reflection_free": "Wrote a journal entry",
-    "feedback_received": "{mentor} replied to your reflection on “{lesson}”",
-    "milestone": "Reached a milestone: {title}",
-    "memory_verse_added": "Added {ref} to memory verses",
-    "goal_completed": "Completed a goal",
-    "prayer_answered": "Recorded an answered prayer",
-    "checkin_held": "Met with your mentor"
+ "timeline": {
+  "lesson_completed": "Finished the lesson “{lesson}”",
+  "pathway_started": "Started the pathway “{pathway}”",
+  "pathway_completed": "Finished the pathway “{pathway}”",
+  "reflection_submitted": "Reflected on “{lesson}”",
+  "reflection_free": "Wrote a journal entry",
+  "feedback_received": "{mentor} replied to your reflection on “{lesson}”",
+  "milestone": "Reached a milestone: {title}",
+  "memory_verse_added": "Added {ref} to memory verses",
+  "goal_completed": "Completed a goal",
+  "prayer_answered": "Recorded an answered prayer",
+  "checkin_held": "Met with your mentor",
+  "plan_completed": "Finished the reading plan {title}"
+ },
+ "notif": {
+  "reflection_shared": "{name} shared a reflection on “{lesson}”",
+  "feedback_received": "{mentor} replied to your reflection on “{lesson}”",
+  "milestone": "Milestone: {title}",
+  "assignment": "{mentor} suggested the pathway “{pathway}”",
+  "welcome": "Welcome to {org}",
+  "system_welcome": "Your dashboard shows who might need a word this week.",
+  "event_rsvp": "{name} is coming to {title}"
+ },
+ "attention": {
+  "reflection_waiting": "{name}’s reflection on “{lesson}” has been waiting {days, plural, one {# day} other {# days}}",
+  "quiet": "{name} hasn’t opened the app for {days} days. Might be worth a message.",
+  "goal_due": "{name}’s goal “{goal}” is {days, plural, =0 {due today} one {due tomorrow} other {due in # days}}",
+  "checkin_soon": "Check-in with {name} in about {hours, plural, one {# hour} other {# hours}}",
+  "prayer_shared": "{name} shared a prayer request with you",
+  "milestone": "{name} reached “{title}”. You could affirm it."
+ },
+ "milestones": {
+  "first_lesson": {
+   "title": "First lesson finished",
+   "meaning": "You started. That is the hardest step."
   },
-  "notif": {
-    "reflection_shared": "{name} shared a reflection on “{lesson}”",
-    "feedback_received": "{mentor} replied to your reflection on “{lesson}”",
-    "milestone": "Milestone: {title}",
-    "assignment": "{mentor} suggested the pathway “{pathway}”",
-    "welcome": "Welcome to {org}",
-    "system_welcome": "Your dashboard shows who might need a word this week."
+  "lessons_5": {
+   "title": "Five lessons finished",
+   "meaning": "A steady rhythm is forming."
   },
-  "attention": {
-    "reflection_waiting": "{name}’s reflection on “{lesson}” has been waiting {days, plural, one {# day} other {# days}}",
-    "quiet": "{name} hasn’t opened the app for {days} days. Might be worth a message.",
-    "goal_due": "{name}’s goal “{goal}” is {days, plural, =0 {due today} one {due tomorrow} other {due in # days}}",
-    "checkin_soon": "Check-in with {name} in about {hours, plural, one {# hour} other {# hours}}",
-    "prayer_shared": "{name} shared a prayer request with you",
-    "milestone": "{name} reached “{title}”. You could affirm it."
+  "pathway_complete": {
+   "title": "Finished a pathway",
+   "meaning": "You walked a whole path from start to finish."
   },
-  "milestones": {
-    "first_lesson": { "title": "First lesson finished", "meaning": "You started. That is the hardest step." },
-    "lessons_5": { "title": "Five lessons finished", "meaning": "A steady rhythm is forming." },
-    "pathway_complete": { "title": "Finished a pathway", "meaning": "You walked a whole path from start to finish." },
-    "first_reflection": { "title": "First reflection shared", "meaning": "You put words to what you are learning and let someone read them." },
-    "first_feedback": { "title": "First reply from a mentor", "meaning": "Someone has read your words and answered." },
-    "verses_3": { "title": "Three verses kept close", "meaning": "Scripture you can carry with you." },
-    "goal_completed": { "title": "A goal completed", "meaning": "You set out to do something and did it." },
-    "prayer_answered": { "title": "An answered prayer", "meaning": "You noticed and recorded something good." },
-    "first_discussion": { "title": "Joined a discussion", "meaning": "You added your voice to a group." }
+  "first_reflection": {
+   "title": "First reflection shared",
+   "meaning": "You put words to what you are learning and let someone read them."
+  },
+  "first_feedback": {
+   "title": "First reply from a mentor",
+   "meaning": "Someone has read your words and answered."
+  },
+  "verses_3": {
+   "title": "Three verses kept close",
+   "meaning": "Scripture you can carry with you."
+  },
+  "goal_completed": {
+   "title": "A goal completed",
+   "meaning": "You set out to do something and did it."
+  },
+  "prayer_answered": {
+   "title": "An answered prayer",
+   "meaning": "You noticed and recorded something good."
+  },
+  "first_discussion": {
+   "title": "Joined a discussion",
+   "meaning": "You added your voice to a group."
   }
+ }
 }

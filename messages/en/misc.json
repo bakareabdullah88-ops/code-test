@@ -86,7 +86,8 @@
     "good": "Good",
     "easy": "Easy"
    }
-  }
+  },
+  "plansTab": "Plans"
  },
  "editor": {
   "toolbar": "Formatting",

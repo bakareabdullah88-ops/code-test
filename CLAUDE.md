@@ -13,7 +13,7 @@ A **frontend-only**, production-grade discipleship platform (working name Tesser
 3. **Types are the API contract.** Change `src/types` and `docs/API_CONTRACT.md` together, with the mock server and services.
 4. **No hard-coded user-facing strings.** Everything is in `messages/<locale>/*.json` via next-intl, ICU plurals, no concatenation. The brand name comes from `config/brand.ts` as `{appName}`.
 5. **No raw colours, ad-hoc spacing or arbitrary Tailwind values.** Use tokens only (`src/styles/tokens.css`). Lint enforces this.
-6. **No emoji anywhere** (UI, copy, code comments, commits). No lorem ipsum. No stock images or stock avatars. No purple/blue gradients, glassmorphism or default shadcn styling.
+6. **No emoji anywhere** (UI, copy, code comments, commits). No lorem ipsum. No stock images or stock avatars. No purple/blue gradients or default shadcn styling. Frosted-glass chrome and rich motion are wanted (see DESIGN.md section 3), always reduced-motion safe.
 7. **No spirituality scores, no streaks, no guilt language, no leaderboards.** Growth is milestones and completed goals. Time language is neutral.
 8. **Privacy is enforced in the mock server, not only the UI.** Follow the visibility matrix (PRODUCT.md §5). Admins never read reflections, prayer, notes or AI conversations.
 9. **AI is always labelled, and nothing AI-generated is shared without mentor approval.**
@@ -76,7 +76,7 @@ Warm, steady, plain-spoken, humble. Sentence case. Buttons start with verbs ("Se
 
 - Follow DESIGN.md. Accent colour is for "do this/this matters", used sparingly. Depth via tone and hairlines, not heavy shadow.
 - Touch targets ≥ 44 px. Reading text 18-20 px, measure ≤ 68ch. One primary action per view.
-- Motion is subtle, uses motion tokens, and must degrade under `prefers-reduced-motion` and the in-app toggle. Nothing carries information only through motion.
+- Motion is expressive but tasteful (springs, staggers, reveals), uses motion tokens, and must degrade under `prefers-reduced-motion` and the in-app toggle. Nothing carries information only through motion.
 - New component = variants + all states + keyboard + ARIA + test + axe + gallery entry.
 
 ## Accessibility (WCAG 2.2 AA is the floor)

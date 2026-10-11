@@ -1,5 +1,7 @@
 import { useParams } from 'react-router';
-import { CheckCircle, Circle, CircleHalf } from '@phosphor-icons/react';
+import { CheckCircle, Circle, CircleHalf, Clock, Gauge, Path, UserCircle, Users } from '@phosphor-icons/react';
+import { PropertyList } from '@/components/patterns/property-list/property-list';
+import { Reveal } from '@/components/motion/reveal';
 import { useT } from '@/lib/i18n';
 import { Link } from '@/lib/nav';
 import { useSession } from '@/features/session/hooks';
@@ -32,16 +34,19 @@ export function PathwayPage() {
         const startHref = current ? `/app/pathways/${p.id}/lessons/${current}` : flat[0] ? `/app/pathways/${p.id}/lessons/${flat[0].id}` : '#';
         return (
           <div className="flex flex-col gap-6">
-            <div className="overflow-hidden rounded-lg border border-line"><div className="h-40 md:h-56"><Cover coverKey={p.coverKey} /></div></div>
-            <div className="flex flex-col gap-3">
-              <div className="flex flex-wrap gap-1.5"><Badge>{t(`learn.level.${p.level}`)}</Badge>{p.status === 'draft' ? <Badge tone="warning">{t('learn.status.draft')}</Badge> : null}{p.enrollment?.status === 'completed' ? <Badge tone="success">{t('learn.status.pathwayDone')}</Badge> : null}</div>
-              <h1 className="text-h2 font-semibold">{p.title}</h1>
-              <p className="max-w-prose text-lg text-muted">{p.summary}</p>
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
-                <span className="flex items-center gap-2"><Avatar name={p.author.displayName} size="sm" />{t('learn.pathway.by', { name: p.author.displayName })}</span>
-                <span>{t('learn.pathway.counts', { lessons: p.lessonCount, minutes: p.estimatedMinutes })}</span>
-                <span>{t('learn.pathway.audience', { audience: p.audience })}</span>
-              </div>
+            <header className="enter flex flex-col">
+              <div className="h-36 overflow-hidden rounded-2xl border border-line shadow-card sm:h-48 md:h-56"><Cover coverKey={p.coverKey} /></div>
+              <div className="flex flex-col gap-3 px-1 sm:px-4">
+                <span className="pop -mt-8 grid size-16 place-items-center rounded-2xl border border-line bg-raised text-accent shadow-lift sm:-mt-10 sm:size-20"><Path size={34} weight="duotone" aria-hidden="true" /></span>
+                <div className="flex flex-wrap gap-1.5">{p.status === 'draft' ? <Badge tone="warning">{t('learn.status.draft')}</Badge> : null}{p.enrollment?.status === 'completed' ? <Badge tone="success">{t('learn.status.done')}</Badge> : null}</div>
+                <h1 className="text-h1 font-semibold tracking-tight">{p.title}</h1>
+                <p className="max-w-prose text-lg text-muted">{p.summary}</p>
+                <PropertyList items={[
+                  { icon: Gauge, label: t('learn.pathway.level'), value: t(`learn.level.${p.level}`) },
+                  { icon: UserCircle, label: t('learn.pathway.author'), value: <span className="inline-flex items-center gap-2"><Avatar name={p.author.displayName} size="sm" />{p.author.displayName}</span> },
+                  { icon: Clock, label: t('learn.pathway.length'), value: t('learn.pathway.counts', { lessons: p.lessonCount, minutes: p.estimatedMinutes }) },
+                  { icon: Users, label: t('learn.pathway.for'), value: p.audience },
+                ]} className="max-w-xl" />
               {p.enrollment ? <div className="max-w-md"><Progress value={p.progress.total ? (p.progress.completed / p.progress.total) * 100 : 0} label={p.title} valueText={t('learn.pathway.progressText', { done: p.progress.completed, total: p.progress.total })} /><p className="mt-1 text-sm text-muted">{t('learn.pathway.progressText', { done: p.progress.completed, total: p.progress.total })}</p></div> : null}
               <div className="flex flex-wrap gap-2">
                 {p.enrollment ? (
@@ -53,9 +58,10 @@ export function PathwayPage() {
               </div>
               {p.status !== 'published' ? <Notice tone="warning">{t('learn.pathway.draftNotice')}</Notice> : null}
             </div>
+            </header>
             <div className="flex flex-col gap-6">
               {p.outline.map((m) => (
-                <section key={m.id} aria-labelledby={`m-${m.id}`} className="flex flex-col gap-2">
+                <Reveal key={m.id}><section aria-labelledby={`m-${m.id}`} className="flex flex-col gap-2">
                   <div><h2 id={`m-${m.id}`} className="text-h3 font-semibold">{m.title}</h2>{m.summary ? <p className="text-base text-muted">{m.summary}</p> : null}</div>
                   <Card padding="none">
                     <ol className="divide-y divide-line">
@@ -71,7 +77,7 @@ export function PathwayPage() {
                       ))}
                     </ol>
                   </Card>
-                </section>
+                </section></Reveal>
               ))}
             </div>
           </div>

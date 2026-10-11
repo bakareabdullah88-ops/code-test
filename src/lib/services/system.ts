@@ -3,6 +3,7 @@ import { ApiError, forbidden, notFound } from '../db/errors';
 import { actor, getSessionState, signInAs } from '../db/session';
 import { store } from '../db/store';
 import { call } from '../db/api';
+import { newId, nowIso } from '../db/ids';
 import { SEED_VERSION, seedAll } from '@/seed';
 import { milestoneDefinitions } from './engine';
 import { isMentorOf, userCard } from './access';
@@ -34,6 +35,44 @@ export const bootService = {
 };
 
 export interface PersonaCard { userId: Id<'usr'>; orgId: Id<'org'> | null; name: string; country: string | null; roles: ('student' | 'mentor' | 'leader' | 'admin')[]; orgName: string | null; blurb: string }
+
+export const authService = {
+  /** Demo sign-in: matches a seeded email; the password is not checked because there is no real account system. */
+  signIn: (input: { email: string; password: string }) =>
+    call(() => {
+      const email = input.email.trim().toLowerCase();
+      const fieldErrors: Record<string, string[]> = {};
+      if (!/^\S+@\S+\.\S+$/.test(email)) fieldErrors.email = ['invalid'];
+      if (!input.password) fieldErrors.password = ['required'];
+      if (Object.keys(fieldErrors).length) throw new ApiError('validation_failed', 'Check the highlighted fields.', { fieldErrors });
+      const user = store.find('users', (u) => u.email.toLowerCase() === email)[0];
+      if (!user) throw new ApiError('unauthenticated', 'We could not find an account with that email.');
+      const m = store.find('memberships', (x) => x.userId === user.id && x.status === 'active')[0];
+      signInAs(user.id, m?.orgId ?? null);
+      return { userId: user.id, roles: m?.roles ?? (['student'] as const), name: user.displayName };
+    }),
+
+  /** Joins an organisation with an invite code and creates the account in the demo store. */
+  join: (input: { code: string; name: string; email: string }) =>
+    call(() => {
+      const fieldErrors: Record<string, string[]> = {};
+      if (input.name.trim().length < 2) fieldErrors.name = ['required'];
+      if (!/^\S+@\S+\.\S+$/.test(input.email.trim())) fieldErrors.email = ['invalid'];
+      if (Object.keys(fieldErrors).length) throw new ApiError('validation_failed', 'Check the highlighted fields.', { fieldErrors });
+      const code = input.code.trim().toUpperCase();
+      const inv = store.find('invites', (i) => i.code.toUpperCase() === code)[0];
+      if (!inv || inv.status !== 'pending' || inv.expiresAt < nowIso()) throw new ApiError('not_found', 'That invite code is not valid or has expired.', { fieldErrors: { code: ['invalid'] } });
+      const email = input.email.trim().toLowerCase();
+      if (store.find('users', (u) => u.email.toLowerCase() === email).length) throw new ApiError('conflict', 'An account with that email already exists. Try signing in.', { fieldErrors: { email: ['taken'] } });
+      const now = nowIso();
+      const user = { id: newId('usr'), displayName: input.name.trim(), email, avatarUrl: null, bio: null, country: null, locale: 'en' as const, timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC', createdAt: now };
+      store.put('users', user);
+      store.put('memberships', { id: newId('mem'), userId: user.id, orgId: inv.orgId, roles: inv.roles, status: 'active', joinedAt: now, lastActiveAt: now });
+      store.put('invites', { ...inv, status: 'accepted' });
+      signInAs(user.id, inv.orgId);
+      return { userId: user.id, roles: inv.roles, name: user.displayName };
+    }),
+};
 
 export const sessionService = {
   /** People the demo can sign in as, grouped in the UI by role. */

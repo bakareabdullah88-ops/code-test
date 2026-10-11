@@ -46,11 +46,11 @@ export function BibleHub() {
   const t = useT();
   const nav = useNavigate();
   const path = usePathname();
-  const value = path.includes('/memorise') ? 'memorise' : path.endsWith('/notes') ? 'notes' : 'read';
+  const value = path.includes('/memorise') ? 'memorise' : path.endsWith('/notes') ? 'notes' : path.includes('/plans') ? 'plans' : 'read';
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title={t('bible.title')} description={t('bible.description')} />
-      <SegmentedControl label={t('bible.sections')} className="self-start" value={value} onValueChange={(v) => nav(v === 'read' ? '/app/bible' : `/app/bible/${v}`)} options={[{ value: 'read', label: t('bible.read') }, { value: 'notes', label: t('bible.notesTab') }, { value: 'memorise', label: t('bible.memoriseTab') }]} />
+      <SegmentedControl label={t('bible.sections')} className="self-start" value={value} onValueChange={(v) => nav(v === 'read' ? '/app/bible' : `/app/bible/${v}`)} options={[{ value: 'read', label: t('bible.read') }, { value: 'plans', label: t('bible.plansTab') }, { value: 'notes', label: t('bible.notesTab') }, { value: 'memorise', label: t('bible.memoriseTab') }]} />
       <Outlet />
     </div>
   );

@@ -50,7 +50,7 @@ A continuous hand-drawn-feeling **thread** that connects nodes: the journey loop
 - **Illustration**: spot illustrations in a limited two-ink style (ink + clay) with paper texture avoided. Subjects are objects, not people: lamp, path, open book, seed, bread, bowl, door, hands only in outline. Used for empty states, onboarding and marketing. All original SVG, ≤ 6 KB each.
 - **Photography**: none in the product. No stock photography, no stock avatars.
 - **Avatars**: deterministic **monogram tiles** derived from the name and a warm, restrained palette of six tints that all pass contrast with ink text; user-uploaded photos optional.
-- **Texture**: none (no grain, no glass, no gradients). Depth comes from layered paper tones, hairline borders and soft warm shadows.
+- **Texture and depth (revised)**: frosted-glass bars and overlays (`.glass`, `.glass-strong`: backdrop blur over warm tinted surfaces), a soft ambient accent glow behind the page, layered paper tones, hairline borders and warm shadows (`--shadow-card`, `--shadow-lift`). Still no purple or blue gradients and no grain. Blur is used for chrome that floats over content (header, sidebar, bottom navigation, dialogs, menus, toasts), not for body text surfaces.
 
 ### 1.5 Iconography
 
@@ -173,7 +173,7 @@ Primary series uses accent; categorical sets use clay, moss, ochre, slate-teal, 
 
 ### 3.5 Elevation
 
-Primary separation is **hairline borders and tone**, not shadow. Shadows are warm-tinted (`rgb(34 29 23 / α)`), small and soft.
+Separation uses **hairline borders, tone and soft layered shadow** together (revised: cards lift on hover). Shadows are warm-tinted (`rgb(34 29 23 / α)`), small and soft.
 
 | Level | Use | Light | Dark |
 |---|---|---|---|
@@ -185,6 +185,11 @@ Primary separation is **hairline borders and tone**, not shadow. Shadows are war
 Dark mode elevates by lightening the surface rather than increasing shadow.
 
 ### 3.6 Motion
+
+**Revised direction.** Motion is a visible part of the product's craft, not just a hand on the shoulder: spring-physics sliding pills (navigation, segmented controls), staggered list entrances, scroll reveals (`Reveal`), count-up numbers (`CountUp`), pop-in icon tiles, cross-fading quotes, hover lift on interactive cards, animated progress and checkmarks. Everything below still applies for reduced motion: all of it is removed or becomes instant under `prefers-reduced-motion` and the in-app toggle, and nothing carries information only through motion.
+
+**Document-style pages.** Detail pages (pathway, event, resource, reading plan, group) use `PageCover` (cover art with an icon tile resting on its edge) and `PropertyList` (icon, label and value rows that tint on hover), following the feel of a Notion page. Lists of related items are cards with a cover and hover lift.
+
 
 Purpose: orient, confirm, soften. Never decorate, never block.
 

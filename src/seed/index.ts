@@ -7,12 +7,16 @@ import { foundations } from './pathways/foundations';
 import { prayer } from './pathways/prayer';
 import { mark } from './pathways/mark';
 import { leading } from './pathways/leading';
+import { psalms } from './pathways/psalms';
+import { sermon } from './pathways/sermon';
+import { rhythms } from './pathways/rhythms';
 import type { SeedPathway } from './pathways/types';
 import { assignments, groupFrom, memberships, ORG_A, ORG_B, orgA, orgB, seedGroups, uid, users } from './people';
 import { seedExtras } from './extras';
+import { seedWorkspace } from './workspace';
 import { seedReflections } from './reflections';
 
-export const SEED_VERSION = 1;
+export const SEED_VERSION = 2;
 
 const pathwayId = (k: string) => `pth_${k}` as Id<'pth'>;
 const lessonId = (k: string) => `les_${k}` as Id<'les'>;
@@ -82,6 +86,10 @@ export function seedAll() {
   lessonsByPathway.set('prayer', seedPathway(prayer, 'esperance', created));
   lessonsByPathway.set('mark', seedPathway(mark, 'daniel', created));
   lessonsByPathway.set('leading', seedPathway(leading, 'helena', created));
+  lessonsByPathway.set('psalms', seedPathway(psalms, 'esperance', created));
+  lessonsByPathway.set('sermon', seedPathway(sermon, 'daniel', created));
+  lessonsByPathway.set('rhythms', seedPathway(rhythms, 'grace', created));
+  store.put('invites', { id: 'inv_welcome' as Id<'inv'>, orgId: ORG_A, code: 'LANTERN-2026', email: null, roles: ['student'], expiresAt: daysFromNow(365), status: 'pending', createdBy: uid('helena'), createdAt: daysAgo(10) });
 
   const activeDays: Record<string, number | null> = {
     helena: 0, grace: 0, daniel: 1, esperance: 2, marcos: 3, kwabena: 1, sofia: 2, thandiwe: 4, adaeze: 1, tomas: 0, jinwoo: 18, mateus: 2, fatima: 3, olumide: 9,
@@ -137,6 +145,9 @@ export function seedAll() {
   enroll('salma', 'mark', 3, 24, 'esperance', { inProgress: true, groupKey: 'sunday', lastDaysAgo: 1 });
   enroll('maria', 'mark', 2, 24, 'esperance', { inProgress: true, groupKey: 'sunday', lastDaysAgo: 6 });
   enroll('ananya', 'mark', 4, 24, 'esperance', { inProgress: true, groupKey: 'sunday', lastDaysAgo: 4 });
+  enroll('thandiwe', 'psalms', 1, 6, null, { inProgress: true, lastDaysAgo: 1 });
+  enroll('kwabena', 'sermon', 3, 14, null, { inProgress: true, lastDaysAgo: 2 });
+  enroll('sofia', 'rhythms', 2, 12, null, { inProgress: true, lastDaysAgo: 3 });
   enroll('wanjiku', 'prayer', 2, 18, 'esperance', { inProgress: true, lastDaysAgo: 2 });
   enroll('kwabena', 'leading', 3, 30, 'helena', { inProgress: true, groupKey: 'leaders', lastDaysAgo: 1 });
   enroll('sofia', 'leading', 2, 30, 'helena', { inProgress: true, groupKey: 'leaders', lastDaysAgo: 2 });
@@ -144,6 +155,7 @@ export function seedAll() {
 
   seedReflections();
   seedExtras();
+  seedWorkspace();
 
   // Make sure everyone has their milestones, then add a few mentor affirmations later in extras.
   for (const u of users) evaluateMilestones(u.id, daysAgo(1));

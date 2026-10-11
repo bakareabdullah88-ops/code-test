@@ -57,7 +57,30 @@ test('lesson, reflection, mentor feedback, and back to the student', async ({ pa
 });
 
 test('persona picker and shell have no axe violations', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/demo');
   await expect(page.getByRole('heading', { name: 'Walk the journey as someone else' })).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations.map((v) => v.id)).toEqual([]);
+});
+
+test('sign in page works with a demo account and has no axe violations', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeVisible();
+  expect((await new AxeBuilder({ page }).analyze()).violations.map((v) => v.id)).toEqual([]);
+  await page.getByRole('button', { name: /Adaeze Okafor/ }).click();
+  await page.getByRole('button', { name: 'Sign in' }).last().click();
+  await expect(page).toHaveURL(/#\/app\/today/);
+});
+
+test('sign in shows an error for an unknown email and join creates an account', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('textbox', { name: 'Email' }).fill('nobody@example.org');
+  await page.getByRole('textbox', { name: 'Password' }).fill('x');
+  await page.getByRole('button', { name: 'Sign in' }).last().click();
+  await expect(page.getByRole('alert')).toContainText('could not find an account');
+  await page.getByRole('radio', { name: 'Join with a code' }).click();
+  await page.getByRole('textbox', { name: 'Invite code' }).fill('LANTERN-2026');
+  await page.getByRole('textbox', { name: 'Your name' }).fill('Test Person');
+  await page.getByRole('textbox', { name: 'Email' }).fill('test.person@example.org');
+  await page.getByRole('button', { name: 'Create account' }).click();
+  await expect(page).toHaveURL(/#\/app\/today/);
 });

@@ -9,6 +9,7 @@ import { emptyDoc, isEmptyDoc } from '@/lib/editor/text';
 import { useReflections } from '@/features/reflections/hooks';
 import { useCreatePrayer, useCreateThread, useEncourage, useGroup, useGroups, usePost, usePray, usePrayer, usePrayers, useReact, useReportPost, useAnswered, useDeletePrayer } from './hooks';
 import { QueryState } from '@/components/data/query-state';
+import { PageCover } from '@/components/patterns/page-cover/page-cover';
 import { PageHeader } from '@/components/patterns/page-header/page-header';
 import { EmptyState } from '@/components/patterns/empty-state/empty-state';
 import { Notice } from '@/components/patterns/notice/notice';
@@ -36,11 +37,11 @@ export function CommunityHub() {
   const t = useT();
   const nav = useNavigate();
   const path = usePathname();
-  const value = path.includes('/prayer') ? 'prayer' : 'groups';
+  const value = path.includes('/prayer') ? 'prayer' : path.includes('/events') ? 'events' : 'groups';
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title={t('community.title')} description={t('community.description')} />
-      <SegmentedControl label={t('community.sections')} className="self-start" value={value} onValueChange={(v) => nav(v === 'groups' ? '/app/community' : '/app/community/prayer')} options={[{ value: 'groups', label: t('community.groups') }, { value: 'prayer', label: t('community.prayer') }]} />
+      <SegmentedControl label={t('community.sections')} className="self-start" value={value} onValueChange={(v) => nav(v === 'groups' ? '/app/community' : `/app/community/${v}`)} options={[{ value: 'groups', label: t('community.groups') }, { value: 'events', label: t('community.events') }, { value: 'prayer', label: t('community.prayer') }]} />
       <Outlet />
     </div>
   );
@@ -87,7 +88,7 @@ export function GroupPage({ leaderView = false }: { leaderView?: boolean }) {
       <QueryState query={q} skeleton={<div className="flex flex-col gap-4"><Skeleton className="h-10 w-1/2" /><Skeleton className="h-40 w-full" /></div>}>
         {({ group: g, members, threads }) => (
           <>
-            <PageHeader title={g.name} description={g.description ?? undefined} actions={<Button onClick={() => setComposer(true)}><Plus size={18} aria-hidden="true" />{t('community.newThread')}</Button>} />
+            <PageCover coverKey={covers[g.name.length % covers.length] ?? 'dawn'} icon={UsersThree} title={g.name} description={g.description ?? undefined}><Button onClick={() => setComposer(true)}><Plus size={18} aria-hidden="true" />{t('community.newThread')}</Button></PageCover>
             <div className="stagger grid gap-4 lg:grid-cols-[1fr_20rem]">
               <section aria-labelledby="th-h" className="flex flex-col gap-3">
                 <h2 id="th-h" className="text-h3 font-semibold">{t('community.discussions')}</h2>
