@@ -49,6 +49,12 @@ Definition of done (in addition to global)
 
 Risks: font coverage; scope creep into polishing. Timebox spikes.
 
+### Interactive build status (Phases 2 and 3 started together)
+
+Built and passing (52 unit tests, 4 Playwright checks at 360 and 1280 widths, lint, types, contrast, i18n): the in-browser data layer with seed (30 people, 2 organisations, 4 pathways with 29 lessons, reflections, feedback, groups, prayers, goals, check-ins, memory verses), the full World English Bible, three generated lesson videos, the persona picker, Today, Journey (pathways, timeline, milestones and goals), pathway and lesson player (text, scripture, read-aloud, video, callouts, quiz, reflection prompts, memory verses), reflection editor with autosave and visibility, journal, notifications, command palette, settings and demo controls (latency, offline, reset), mentor dashboard with derived attention items, mentees, feedback inbox and composer, session notes, goals, check-ins, milestone affirmation, pathway library, builder (drag, keyboard and button reordering, publish checklist, assign) and lesson/quiz editor.
+
+Still to build: Bible reader with highlights and notes, memory verse review, groups and discussions, prayer wall, leader tools, admin (members, invites, reports, branding), AI companion and approvals, PWA/offline, marketing site and onboarding.
+
 ### Phase 1 status (built; awaiting review)
 
 Done and verified (Chromium at 360x800 and 1280x800, light and dark): tokens with a contrast gate (288 pairs, 0 failing, including three org accents), Literata + Instrument Sans via self-hosted Fontsource, glyph test page for six languages (renders correctly), 20 Tier 1 and Tier 2 components, `/design` gallery, app shell with four lens navigations, theme and reading preferences without flash, next-intl with `en` and empty locale folders, lint rules for raw hex, console and forbidden imports (proved with failing fixtures), 23 unit/component tests, 26 Playwright checks (axe, overflow, navigation, theme, dialog focus, toast), CI workflow.

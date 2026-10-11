@@ -22,13 +22,14 @@ A **frontend-only**, production-grade discipleship platform (working name Tesser
 
 ## Stack and commands
 
-Next.js (App Router) + TypeScript strict, Tailwind v4 over our tokens, Radix primitives (restyled), TanStack Query, React Hook Form + Zod, Tiptap, Recharts, next-intl, Serwist, Vitest + Testing Library, Playwright. Package manager: pnpm. Node 22.
+Vite + React 19 (hash-routed SPA) + TypeScript strict, Tailwind v4 over our tokens, Radix primitives (restyled), TanStack Query, react-router, Tiptap, dnd-kit, cmdk, use-intl, Vitest + Testing Library, Playwright. (Next.js was dropped so the app can be hosted as static files; see FRONTEND_ARCHITECTURE.md.) Package manager: pnpm. Node 22.
 
-Commands (keep this list accurate; the two marked Phase 2 do not exist yet):
+Commands (keep this list accurate):
 
 ```
-pnpm dev            # next dev
-pnpm build          # production build
+pnpm dev            # vite dev server
+pnpm build          # typecheck + production build (dist/)
+pnpm preview        # serve dist/ on :3100
 pnpm typecheck      # tsc --noEmit
 pnpm lint           # eslint (boundaries, a11y, tokens, i18n literals)
 pnpm test           # vitest run
@@ -37,8 +38,9 @@ pnpm e2e            # playwright (mobile + desktop projects)
 pnpm check          # typecheck + lint + test (run before every commit)
 pnpm check:contrast # token contrast gate
 pnpm check:i18n     # catalogue completeness / ICU validity
-pnpm seed:build     # (Phase 2) content/seed -> public/data/seed/vN
-pnpm bible:build    # (Phase 2) WEB source -> public/data/bible/web
+node scripts/build-bible.mjs <checkout>   # World English Bible JSON -> public/data/bible/web
+node scripts/make-videos.mjs               # regenerate demo videos (needs the app on :3100)
+scripts/pack-preview.sh <dir>              # package dist/ for static hosting
 ```
 
 ## Folder rules
@@ -111,7 +113,7 @@ For any UI change:
 - Develop on the branch named in the task; do not push elsewhere. Do not open a pull request unless asked.
 - Conventional commits (`feat(lessons): …`, `fix(mock-server): …`, `docs: …`). Small, reviewable commits; run `pnpm check` first.
 - TypeScript is pinned to 6.x because typescript-eslint does not support 7.x yet; bump together when it does.
-- To check in the browser: `pnpm build && pnpm start -p 3100`, then `CHROMIUM_PATH=<preinstalled chromium> node scripts/screenshots.mjs http://localhost:3100 /route`. Do not `pkill -f` patterns that appear in your own command line.
+- To check in the browser: `pnpm build && pnpm preview`, then `CHROMIUM_PATH=<preinstalled chromium> node scripts/screenshots.mjs http://localhost:3100 /route`. Do not `pkill -f` patterns that appear in your own command line.
 - Don't commit secrets, `.screenshots/`, build output or large binaries. Media and Bible JSON are generated or licensed assets documented in `content/README.md`.
 - Keep docs in sync: change a type → update API_CONTRACT.md; change a decision → update the relevant doc.
 - When a phase finishes, stop and summarise against its definition of done in ROADMAP.md, with screenshots and any deviations, then wait for review.

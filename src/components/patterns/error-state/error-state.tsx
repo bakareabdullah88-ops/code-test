@@ -11,15 +11,18 @@ export interface ErrorStateProps {
   /** Request ID and technical detail live behind a disclosure. */
   details?: { label: string; requestId: string };
   extraAction?: ReactNode;
+  icon?: ReactNode;
   className?: string;
 }
 
-export function ErrorState({ title, description, retryLabel, onRetry, details, extraAction, className }: ErrorStateProps) {
+export function ErrorState({ title, description, retryLabel, onRetry, details, extraAction, icon, className }: ErrorStateProps) {
   return (
     <div role="alert" className={cn('mx-auto flex max-w-md flex-col items-center gap-3 px-4 py-10 text-center', className)}>
-      <span className="text-danger" aria-hidden="true">
-        <WarningCircle size={36} />
-      </span>
+      {icon ? <div className="text-ink" aria-hidden="true">{icon}</div> : (
+        <span className="text-danger" aria-hidden="true">
+          <WarningCircle size={36} />
+        </span>
+      )}
       <h2 className="text-h4 font-semibold">{title}</h2>
       <p className="text-base text-muted">{description}</p>
       <div className="mt-1 flex flex-wrap justify-center gap-2">

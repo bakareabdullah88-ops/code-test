@@ -1,6 +1,34 @@
 {
-  "learn": { "today": "Today", "journey": "Journey", "bible": "Bible", "journal": "Journal", "community": "Community" },
-  "mentor": { "attention": "Attention", "mentees": "Mentees", "feedback": "Feedback", "pathways": "Pathways", "approvals": "Approvals" },
-  "lead": { "groups": "Groups", "schedule": "Schedule", "discussion": "Discussion", "members": "Members" },
-  "admin": { "overview": "Overview", "members": "Members", "groups": "Groups", "reports": "Reports", "settings": "Settings" }
+  "nav": {
+    "learn": {
+      "today": "Today",
+      "journey": "Journey",
+      "bible": "Bible",
+      "journal": "Journal",
+      "community": "Community"
+    },
+    "mentor": {
+      "attention": "Attention",
+      "mentees": "Mentees",
+      "feedback": "Feedback",
+      "pathways": "Pathways",
+      "approvals": "Approvals"
+    },
+    "lead": {
+      "groups": "Groups",
+      "schedule": "Schedule",
+      "discussion": "Discussion",
+      "members": "Members"
+    },
+    "admin": {
+      "overview": "Overview",
+      "members": "Members",
+      "groups": "Groups",
+      "reports": "Reports",
+      "settings": "Settings"
+    },
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "profile": "Profile"
+  }
 }

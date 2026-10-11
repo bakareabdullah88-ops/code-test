@@ -14,7 +14,28 @@
     "undo": "Undo",
     "openMenu": "Open menu",
     "search": "Search",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "open": "Open",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "send": "Send",
+    "submit": "Submit",
+    "next": "Next",
+    "previous": "Previous",
+    "done": "Done",
+    "clear": "Clear",
+    "reset": "Reset",
+    "seeAll": "See all",
+    "loadMore": "Load more",
+    "remove": "Remove",
+    "create": "Create",
+    "publish": "Publish",
+    "preview": "Preview",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "confirm": "Confirm",
+    "viewAll": "View all"
   },
   "theme": {
     "label": "Appearance",
@@ -30,7 +51,16 @@
     "requestId": "Request ID",
     "showDetails": "Show details",
     "saving": "Saving…",
-    "savedAt": "Saved {time}"
+    "savedAt": "Saved {time}",
+    "emptyTitle": "Nothing here yet",
+    "noAccess": "You don't have access to this",
+    "notFoundTitle": "We couldn't find that",
+    "notFoundBody": "The link may be old, or the page may have moved.",
+    "goHome": "Go to the start",
+    "unsaved": "You have unsaved changes",
+    "loadingPage": "Loading the page",
+    "offlineTitle": "You're offline",
+    "offlineBody": "This needs a connection. Turn the offline simulation off in the demo controls, or try again when you're back online."
   },
   "lens": {
     "label": "View as",
@@ -44,18 +74,38 @@
     "notifications": "Notifications",
     "me": "Me and settings",
     "comingSoon": "This screen arrives in a later phase.",
-    "placeholderBody": "The shell, navigation and states are in place. The content for this screen is built in a later roadmap phase."
+    "placeholderBody": "The shell, navigation and states are in place. The content for this screen is built in a later roadmap phase.",
+    "switchPerson": "Switch person",
+    "organisation": "Organisation",
+    "personalSpace": "Personal space",
+    "demoBadge": "Demo data",
+    "search": "Search or jump to",
+    "commandPalette": "Command palette",
+    "signedInAs": "Signed in as {name}",
+    "lensHint": "You can look at the app as each role you hold.",
+    "skip": "Skip to content",
+    "unread": "{count, plural, =0 {No unread notifications} one {# unread notification} other {# unread notifications}}"
   },
-  "preview": {
-    "eyebrow": "Early preview",
-    "title": "One connected journey, from lesson to growth.",
-    "body": "{appName} is being built in the open. Right now you can explore the design system and the navigation shell. The working journey arrives in the next phases.",
-    "designLink": "Open the design gallery",
-    "shellLink": "Open the app shell"
-  },
-  "notFound": {
-    "title": "We couldn't find that page",
-    "body": "The link may be old, or the page may have moved.",
-    "home": "Go to the start"
+  "palette": {
+    "title": "Command palette",
+    "placeholder": "Type a command, a person, a lesson or a Bible reference",
+    "goTo": "Go to",
+    "actions": "Actions",
+    "results": "Results",
+    "bible": "Bible",
+    "noResults": "Nothing found",
+    "newReflection": "Write a new reflection",
+    "switchPerson": "Switch person",
+    "toggleTheme": "Switch between light and dark",
+    "resetData": "Reset demo data",
+    "openDemo": "Open demo controls",
+    "openVerse": "Open {ref}",
+    "hint": "Search lessons, pathways, your reflections and people. Type a reference such as John 3:16 to jump to it.",
+    "typeOf": {
+      "lesson": "Lesson",
+      "pathway": "Pathway",
+      "reflection": "Reflection",
+      "person": "Person"
+    }
   }
 }

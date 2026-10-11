@@ -34,7 +34,6 @@ export interface AvatarProps {
 /** Monogram tile; the name is the accessible label so it never needs alt text. */
 export function Avatar({ name, size, src, className }: AvatarProps) {
   if (src) {
-    // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={name} className={cn(avatar({ size }), 'object-cover', className)} />;
   }
   const tint = tints[tintOf(name) - 1];

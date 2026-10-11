@@ -2,6 +2,15 @@
 
 > Status: Phase 0 plan, awaiting review. Versions are "latest stable at scaffold time, pinned exactly"; exact numbers are recorded in `package.json` in Phase 1.
 
+> **Implementation update (current build).** The interactive build is a **Vite + React single-page app with hash routing**, not Next.js, so it can be hosted as plain static files and previewed from a link with no server. Everything in the data, service, state, i18n and design sections below still applies, with these differences:
+>
+> - Routing is `react-router` (`createHashRouter`); routes are listed in `src/app/routes.tsx` and match the route map in section 4 except where noted in ROADMAP.md.
+> - i18n uses `use-intl` (the engine inside next-intl) with catalogues in `messages/en/*.json`, merged at startup. `scripts/check-i18n.mjs` fails on any missing key.
+> - Services call an in-browser store (`src/lib/db`, IndexedDB with an in-memory working copy) directly instead of going through a separate Transport and mock router (decision D1 is deferred). Services keep the API contract's shapes, error codes, permission checks and side effects, so replacing their bodies with `fetch` calls is still the swap point. Latency, flaky and offline simulation live in `src/lib/db/api.ts`.
+> - Seed content is bundled TypeScript under `src/seed`; the Bible and videos are static files under `public/`. Captions ship as `.captions.txt` and are turned into WebVTT at runtime.
+> - Lesson audio uses the browser's built-in speech voices, so no audio files are bundled.
+> - Not built yet: service worker and offline downloads (PWA), route-level code splitting (one 1.5 MB bundle today).
+
 ---
 
 ## 1. Key decisions

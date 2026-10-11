@@ -101,6 +101,8 @@
     html { scroll-behavior: auto; }
   }
   body {
+    background: var(--bg);
+    color: var(--text);
     min-block-size: 100dvh;
     font-size: 1rem;
     line-height: 1.5;
@@ -205,3 +207,15 @@
 .popper[data-state='closed'] { animation: pop-out var(--dur-instant) var(--e-exit); }
 .toast-root[data-state='open'] { animation: toast-in var(--dur-base) var(--e-enter); }
 .toast-root[data-state='closed'] { animation: fade-out var(--dur-fast) var(--e-exit); }
+
+/* Editor placeholder (Tiptap) */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--text-subtle);
+  float: inline-start;
+  height: 0;
+  pointer-events: none;
+}
+.tiptap { outline: none; }
+.tiptap ul { list-style: disc; padding-inline-start: 1.5rem; }
+.tiptap blockquote { border-inline-start: 2px solid var(--border-strong); padding-inline-start: 1em; font-style: italic; color: var(--text-muted); }
