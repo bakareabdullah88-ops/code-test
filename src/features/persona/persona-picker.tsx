@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge/badge';
 import { Wordmark } from '@/components/icons/logo';
 import { SkeletonRow } from '@/components/ui/skeleton/skeleton';
 import { ErrorState } from '@/components/patterns/error-state/error-state';
-import { PathIllustration } from '@/components/icons/illustrations';
+import { Cover } from '@/components/content/cover';
 import { usePersonas } from './hooks';
 import { countryName } from '@/lib/countries';
 
@@ -39,15 +39,18 @@ export function PersonaPicker() {
   const featured = q.data?.find((p) => p.userId === FEATURED);
 
   return (
-    <main id="main" className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-8 md:py-14">
+    <main id="main" className="mx-auto flex max-w-5xl flex-col gap-8 px-4 py-6 md:py-10">
       <Wordmark />
-      <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-h1 font-semibold">{t('persona.title')}</h1>
-          <p className="max-w-prose text-lg text-muted">{t('persona.intro')}</p>
+      <section className="enter relative isolate overflow-hidden rounded-3xl border border-line shadow-lift">
+        <div className="absolute inset-0 -z-10"><Cover coverKey="dawn" className="scale-110" /></div>
+        <div className="flex min-h-80 items-end p-3 md:min-h-96 md:p-6">
+          <div className="glass-strong flex max-w-xl flex-col gap-4 rounded-2xl border p-5 md:p-8">
+            <p className="text-sm font-semibold uppercase tracking-wider text-accent-soft-ink">{t('persona.eyebrow')}</p>
+            <h1 className="text-h1 font-semibold tracking-tight">{t('persona.title')}</h1>
+            <p className="text-lg text-muted">{t('persona.intro')}</p>
+          </div>
         </div>
-        <div className="hidden w-52 text-ink md:block"><PathIllustration /></div>
-      </div>
+      </section>
 
       {q.isLoading ? (
         <div className="flex flex-col gap-4" aria-busy="true" aria-label={t('states.loading')}>
@@ -58,7 +61,7 @@ export function PersonaPicker() {
       ) : (
         <>
           {featured ? (
-            <Card padding="lg" className="flex flex-col gap-5 border-accent bg-accent-soft">
+            <Card padding="lg" className="enter flex flex-col gap-5 border-accent bg-accent-soft shadow-lift">
               <div className="flex flex-wrap items-center gap-4">
                 <Avatar name={featured.name} size="lg" />
                 <div className="min-w-0 flex-1">
@@ -68,7 +71,7 @@ export function PersonaPicker() {
                 </div>
               </div>
               <p className="max-w-prose text-base text-ink">{t('persona.tryBody')}</p>
-              <button type="button" onClick={() => pick(featured)} className="inline-flex min-h-12 w-fit items-center gap-2 rounded-md bg-accent px-5 font-medium text-on-accent transition-colors motion-fast hover:bg-accent-hover">
+              <button type="button" onClick={() => pick(featured)} className="inline-flex min-h-12 w-fit items-center gap-2 rounded-xl bg-accent px-6 font-medium text-on-accent shadow-lift transition-[transform,background-color] motion-fast hover:bg-accent-hover active:scale-[0.97]">
                 {t('persona.startAs', { name: featured.name.split(' ')[0] ?? featured.name })}
                 <ArrowRight size={18} aria-hidden="true" />
               </button>
@@ -81,10 +84,10 @@ export function PersonaPicker() {
             return (
               <section key={g.key} aria-labelledby={`g-${g.key}`} className="flex flex-col gap-3">
                 <h2 id={`g-${g.key}`} className="text-h4 font-semibold">{g.label}</h2>
-                <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <ul className="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {list.map((p) => (
                     <li key={p.userId}>
-                      <button type="button" onClick={() => pick(p)} className="flex w-full items-start gap-3 rounded-lg border border-line bg-surface p-4 text-start transition-colors motion-fast hover:border-line-strong hover:bg-sunken">
+                      <button type="button" onClick={() => pick(p)} className="hover-lift flex h-full w-full items-start gap-3 rounded-2xl border border-line bg-surface p-4 text-start shadow-card">
                         <Avatar name={p.name} />
                         <span className="min-w-0 flex-1">
                           <span className="block font-medium text-ink">{p.name}</span>

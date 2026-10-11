@@ -198,7 +198,9 @@
    "deleteBody": "It will be removed from your journal and from anyone you shared it with.",
    "keep": "Keep it",
    "deleteConfirm": "Delete entry",
-   "deleted": "Entry deleted"
+   "deleted": "Entry deleted",
+   "aiNotes": "AI-assisted notes",
+   "reviewedBy": "Reviewed by {name}"
   },
   "journal": {
    "title": "Journal",

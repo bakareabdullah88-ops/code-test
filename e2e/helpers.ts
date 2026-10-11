@@ -3,10 +3,10 @@ import { expect, type Page } from '@playwright/test';
 /** Opens the app fresh (new browser context means fresh IndexedDB) and signs in as a person from the picker. */
 export async function signInAs(page: Page, name: string) {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Choose who to be' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Walk the journey as someone else' })).toBeVisible();
   await page.evaluate(() => localStorage.setItem('tessera.demo.v1', JSON.stringify({ latency: 'instant', offline: false })));
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'Choose who to be' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Walk the journey as someone else' })).toBeVisible();
   await pick(page, name);
 }
 
@@ -17,7 +17,7 @@ export async function switchPerson(page: Page, name: string) {
     await page.getByRole('button', { name: 'Me and settings' }).click();
     await page.getByRole('menuitem', { name: 'Switch person' }).click();
   }
-  await expect(page.getByRole('heading', { name: 'Choose who to be' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Walk the journey as someone else' })).toBeVisible();
   await pick(page, name);
 }
 

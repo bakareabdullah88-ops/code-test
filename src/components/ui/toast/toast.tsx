@@ -57,7 +57,7 @@ export function ToastProvider({ children, regionLabel, closeLabel }: ToastProvid
             onOpenChange={(open) => {
               if (!open) setItems((cur) => cur.filter((x) => x.id !== t.id));
             }}
-            className="toast-root flex items-start gap-3 rounded-md border border-line bg-raised p-3 shadow-pop"
+            className="toast-root glass-strong flex items-start gap-3 rounded-xl border p-3.5 shadow-lift"
           >
             <span className={tone({ tone: t.tone ?? 'neutral' })} aria-hidden="true">
               {t.tone === 'success' ? <CheckCircle size={22} /> : t.tone === 'danger' ? <WarningCircle size={22} /> : <Info size={22} />}

@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { motion } from 'motion/react';
 import { Navigate, Outlet, useNavigate } from 'react-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Bell, CaretUpDown, Check, MagnifyingGlass, SlidersHorizontal, UserSwitch } from '@phosphor-icons/react';
@@ -29,6 +30,12 @@ export function AppShell() {
   const [paletteOpen, setPaletteOpen] = usePaletteHotkey();
   const lens = lensFromPathname(pathname);
 
+  useEffect(() => {
+    const accent = org?.branding.accent ?? 'clay';
+    if (accent === 'clay') document.documentElement.removeAttribute('data-accent');
+    else document.documentElement.setAttribute('data-accent', accent);
+  }, [org?.branding.accent]);
+
   if (!userId) return <Navigate to="/" replace />;
   if (loading || !user) return <div className="grid min-h-dvh place-items-center" aria-busy="true" aria-label={t('states.loading')}><div className="skeleton size-12 rounded-lg" /></div>;
   if (!lenses.includes(lens)) return <Navigate to={lensHome[lenses[0] ?? 'learn']} replace />;
@@ -38,7 +45,7 @@ export function AppShell() {
     <div className="min-h-dvh lg:ps-64">
       <a href="#main" className="sr-only z-[70] rounded-md bg-ink px-4 py-2 text-bg focus:not-sr-only focus:fixed focus:start-4 focus:top-4">{t('shell.skip')}</a>
 
-      <aside className="fixed inset-y-0 start-0 hidden w-64 flex-col gap-4 overflow-y-auto border-e border-line bg-surface p-4 lg:flex">
+      <aside className="glass fixed inset-y-0 start-0 hidden w-64 flex-col gap-5 overflow-y-auto border-e p-4 lg:flex">
         <Link to={lensHome[lens]} aria-label={t('app.name')}><Wordmark /></Link>
         <OrgBlock />
         {lenses.length > 1 ? <LensSwitcher lens={lens} lenses={lenses} /> : null}
@@ -47,9 +54,10 @@ export function AppShell() {
             const active = isActive(item, pathname);
             const Icon = item.icon;
             return (
-              <Link key={item.key} to={item.href} aria-current={active ? 'page' : undefined} className={cn('flex min-h-11 items-center gap-3 rounded-md px-3 text-base font-medium transition-colors motion-fast', active ? 'bg-accent-soft text-accent-soft-ink' : 'text-muted hover:bg-sunken hover:text-ink')}>
-                <Icon size={22} weight={active ? 'fill' : 'regular'} aria-hidden="true" />
-                {t(`nav.${lens}.${item.labelKey}`)}
+              <Link key={item.key} to={item.href} aria-current={active ? 'page' : undefined} className={cn('relative flex min-h-11 items-center gap-3 rounded-xl px-3 text-base font-medium transition-colors motion-fast', active ? 'text-accent-soft-ink' : 'text-muted hover:text-ink')}>
+                {active ? <motion.span layoutId="side-pill" className="absolute inset-0 rounded-xl bg-accent-soft shadow-card" transition={{ type: 'spring', stiffness: 420, damping: 34 }} aria-hidden="true" /> : null}
+                <Icon size={22} weight={active ? 'fill' : 'regular'} aria-hidden="true" className="relative" />
+                <span className="relative">{t(`nav.${lens}.${item.labelKey}`)}</span>
               </Link>
             );
           })}
@@ -61,11 +69,11 @@ export function AppShell() {
       </aside>
 
       <div className="flex min-h-dvh flex-col">
-        <header className="sticky top-0 z-10 flex h-14 items-center justify-between gap-2 border-b border-line bg-bg px-4 pt-safe lg:px-8">
+        <header className="glass sticky top-0 z-10 flex h-16 items-center justify-between gap-2 border-b px-4 pt-safe lg:px-8">
           <div className="lg:hidden"><Link to={lensHome[lens]} aria-label={t('app.name')}><Wordmark /></Link></div>
           <div className="hidden min-w-0 items-center gap-2 text-sm text-muted lg:flex"><span className="truncate">{org?.name ?? t('shell.personalSpace')}</span></div>
           <div className="ms-auto flex items-center gap-1">
-            <button type="button" onClick={() => setPaletteOpen(true)} aria-label={t('shell.commandPalette')} className="hidden min-h-11 items-center gap-2 rounded-md border border-line bg-surface px-3 text-sm text-muted transition-colors motion-fast hover:border-line-strong hover:text-ink md:inline-flex">
+            <button type="button" onClick={() => setPaletteOpen(true)} aria-label={t('shell.commandPalette')} className="hidden min-h-11 items-center gap-2 rounded-xl border border-glass-line bg-surface/60 px-3.5 text-sm text-muted shadow-card transition-all motion-fast hover:border-line-strong hover:text-ink md:inline-flex">
               <MagnifyingGlass size={18} aria-hidden="true" />{t('shell.search')}<kbd className="rounded-xs border border-line px-1.5 text-xs">Ctrl K</kbd>
             </button>
             <button type="button" onClick={() => setPaletteOpen(true)} aria-label={t('shell.commandPalette')} className="inline-flex size-11 items-center justify-center rounded-md text-muted hover:bg-sunken hover:text-ink md:hidden"><MagnifyingGlass size={22} aria-hidden="true" /></button>
@@ -74,21 +82,22 @@ export function AppShell() {
           </div>
         </header>
         {demo.offline ? <OfflineBanner message={t('states.offlineBanner')} /> : null}
-        <main id="main" tabIndex={-1} className="flex-1 px-4 pb-28 pt-6 outline-none lg:px-8 lg:pb-12">
-          <div className="mx-auto w-full max-w-5xl"><Outlet /></div>
+        <main id="main" tabIndex={-1} className="flex-1 px-4 pb-32 pt-8 outline-none lg:px-8 lg:pb-16">
+          <div key={pathname} className="enter mx-auto w-full max-w-5xl"><Outlet /></div>
         </main>
       </div>
 
-      <nav aria-label={t('shell.primaryNav')} className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface pb-safe lg:hidden">
+      <nav aria-label={t('shell.primaryNav')} className="glass-strong fixed inset-x-2 bottom-2 z-20 rounded-2xl border pb-safe shadow-lift lg:hidden">
         <ul className="mx-auto flex max-w-xl">
           {items.map((item) => {
             const active = isActive(item, pathname);
             const Icon = item.icon;
             return (
               <li key={item.key} className="flex-1">
-                <Link to={item.href} aria-current={active ? 'page' : undefined} className={cn('flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 text-xs font-medium transition-colors motion-fast', active ? 'text-accent-soft-ink' : 'text-muted')}>
-                  <Icon size={24} weight={active ? 'fill' : 'regular'} aria-hidden="true" />
-                  <span className="max-w-full truncate">{t(`nav.${lens}.${item.labelKey}`)}</span>
+                <Link to={item.href} aria-current={active ? 'page' : undefined} className={cn('relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 text-xs font-medium transition-colors motion-fast', active ? 'text-accent-soft-ink' : 'text-muted')}>
+                  {active ? <motion.span layoutId="tab-pill" className="absolute inset-x-1.5 inset-y-1 rounded-xl bg-accent-soft" transition={{ type: 'spring', stiffness: 420, damping: 34 }} aria-hidden="true" /> : null}
+                  <Icon size={24} weight={active ? 'fill' : 'regular'} aria-hidden="true" className="relative" />
+                  <span className="relative max-w-full truncate">{t(`nav.${lens}.${item.labelKey}`)}</span>
                 </Link>
               </li>
             );
@@ -203,6 +212,7 @@ function MeMenu({ lens, lenses, onDemo }: { lens: Lens; lenses: Lens[]; onDemo: 
           </>
         ) : null}
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild><Link to="/app/companion">{t('companion.title')}</Link></DropdownMenuItem>
         <DropdownMenuItem asChild><Link to="/settings">{t('nav.settings')}</Link></DropdownMenuItem>
         <DropdownMenuItem onSelect={onDemo}>{t('demo.title')}</DropdownMenuItem>
         <DropdownMenuItem onSelect={() => { signInAs(null, null); void qc.invalidateQueries(); nav('/'); }}>{t('shell.switchPerson')}</DropdownMenuItem>

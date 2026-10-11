@@ -33,6 +33,9 @@
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-subtle);
   --color-scrim: var(--scrim);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-line: var(--glass-line);
   --color-hl-straw: var(--hl-straw);
   --color-hl-sage: var(--hl-sage);
   --color-hl-rose: var(--hl-rose);
@@ -54,7 +57,8 @@
   --radius-lg: var(--rad-lg);
   --radius-xl: var(--rad-xl);
 
-  --shadow-card: var(--shadow-1);
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
   --shadow-pop: var(--shadow-2);
   --shadow-dialog: var(--shadow-3);
 
@@ -101,7 +105,12 @@
     html { scroll-behavior: auto; }
   }
   body {
-    background: var(--bg);
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(60rem 32rem at 88% -8%, var(--glow-1), transparent 70%),
+      radial-gradient(44rem 28rem at -8% 22%, var(--glow-2), transparent 70%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     color: var(--text);
     min-block-size: 100dvh;
     font-size: 1rem;
@@ -183,8 +192,12 @@
 @keyframes sheet-down { from { transform: translateY(0); } to { transform: translateY(100%); } }
 @keyframes sheet-in-end { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes sheet-out-end { from { transform: translateX(0); } to { transform: translateX(100%); } }
-@keyframes pop-in { from { opacity: 0; transform: translateY(4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: none; } }
 @keyframes pop-out { from { opacity: 1; } to { opacity: 0; transform: scale(0.98); } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes drift { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+@keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 @utility motion-fast { transition-duration: var(--dur-fast); transition-timing-function: var(--e-standard); }
@@ -193,20 +206,55 @@
 @utility pt-safe { padding-block-start: env(safe-area-inset-top); }
 
 /* Overlay surfaces (Radix data-state driven). Motion collapses via duration tokens. */
-.overlay { position: fixed; inset: 0; background: var(--scrim); z-index: 40; }
+.overlay { position: fixed; inset: 0; background: var(--scrim); z-index: 40; backdrop-filter: blur(6px) saturate(1.1); -webkit-backdrop-filter: blur(6px) saturate(1.1); }
 .overlay[data-state='open'] { animation: fade-in var(--dur-base) var(--e-enter); }
 .overlay[data-state='closed'] { animation: fade-out var(--dur-fast) var(--e-exit); }
-.dialog-panel { animation-duration: var(--dur-base); animation-timing-function: var(--e-enter); }
+.dialog-panel { animation-duration: var(--dur-base); animation-timing-function: var(--e-spring); }
 .dialog-panel[data-state='open'] { animation-name: pop-in; }
-.dialog-panel[data-state='closed'] { animation-name: pop-out; animation-duration: var(--dur-fast); }
-.sheet-bottom[data-state='open'] { animation: sheet-up var(--dur-base) var(--e-enter); }
+.dialog-panel[data-state='closed'] { animation-name: pop-out; animation-duration: var(--dur-fast); animation-timing-function: var(--e-exit); }
+.sheet-bottom[data-state='open'] { animation: sheet-up var(--dur-slow) var(--e-spring); }
 .sheet-bottom[data-state='closed'] { animation: sheet-down var(--dur-fast) var(--e-exit); }
-.sheet-end[data-state='open'] { animation: sheet-in-end var(--dur-base) var(--e-enter); }
+.sheet-end[data-state='open'] { animation: sheet-in-end var(--dur-slow) var(--e-spring); }
 .sheet-end[data-state='closed'] { animation: sheet-out-end var(--dur-fast) var(--e-exit); }
-.popper[data-state='open'] { animation: pop-in var(--dur-fast) var(--e-enter); }
+.popper[data-state='open'] { animation: pop-in var(--dur-base) var(--e-spring); }
 .popper[data-state='closed'] { animation: pop-out var(--dur-instant) var(--e-exit); }
-.toast-root[data-state='open'] { animation: toast-in var(--dur-base) var(--e-enter); }
+.toast-root[data-state='open'] { animation: toast-in var(--dur-slow) var(--e-spring); }
 .toast-root[data-state='closed'] { animation: fade-out var(--dur-fast) var(--e-exit); }
+
+/* Frosted surfaces */
+.glass { background: var(--glass); backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5); border-color: var(--glass-line); }
+.glass-strong { background: var(--glass-strong); backdrop-filter: blur(22px) saturate(1.6); -webkit-backdrop-filter: blur(22px) saturate(1.6); border-color: var(--glass-line); }
+
+/* Entrances */
+.enter { animation: rise var(--dur-slow) var(--e-spring) both; }
+.stagger > * { animation: rise var(--dur-slow) var(--e-spring) both; }
+.stagger > *:nth-child(1) { animation-delay: 30ms; }
+.stagger > *:nth-child(2) { animation-delay: 90ms; }
+.stagger > *:nth-child(3) { animation-delay: 150ms; }
+.stagger > *:nth-child(4) { animation-delay: 210ms; }
+.stagger > *:nth-child(5) { animation-delay: 270ms; }
+.stagger > *:nth-child(6) { animation-delay: 330ms; }
+.stagger > *:nth-child(n+7) { animation-delay: 380ms; }
+.hover-lift { transition: transform var(--dur-base) var(--e-spring), box-shadow var(--dur-base) var(--e-standard), border-color var(--dur-fast) var(--e-standard); }
+.hover-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); border-color: var(--border-strong); }
+.hover-lift:active { transform: translateY(-1px) scale(0.995); }
+.float-slow { animation: float 9s ease-in-out infinite; }
+.drift { animation: drift 40s linear infinite; }
+.grow-x { transform-origin: left center; animation: grow-x 900ms var(--e-spring) both; animation-delay: 200ms; }
+.pop { animation: pop-in var(--dur-slow) var(--e-spring) both; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .enter, :root:not([data-motion='full']) .stagger > *, :root:not([data-motion='full']) .float-slow, :root:not([data-motion='full']) .drift, :root:not([data-motion='full']) .grow-x, :root:not([data-motion='full']) .pop { animation: none; }
+  :root:not([data-motion='full']) .hover-lift { transition: none; }
+  :root:not([data-motion='full']) .hover-lift:hover { transform: none; }
+}
+:root[data-motion='reduce'] .enter, :root[data-motion='reduce'] .stagger > *, :root[data-motion='reduce'] .float-slow, :root[data-motion='reduce'] .drift, :root[data-motion='reduce'] .grow-x, :root[data-motion='reduce'] .pop { animation: none; }
+:root[data-motion='reduce'] .hover-lift { transition: none; }
+:root[data-motion='reduce'] .hover-lift:hover { transform: none; }
+
+@utility motion-fast { transition-duration: var(--dur-fast); transition-timing-function: var(--e-standard); }
+@utility motion-base { transition-duration: var(--dur-base); transition-timing-function: var(--e-standard); }
+@utility pb-safe { padding-block-end: env(safe-area-inset-bottom); }
+@utility pt-safe { padding-block-start: env(safe-area-inset-top); }
 
 /* Editor placeholder (Tiptap) */
 .tiptap p.is-editor-empty:first-child::before {

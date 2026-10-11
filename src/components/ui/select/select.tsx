@@ -35,7 +35,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(function Select
         </RadixSelect.Icon>
       </RadixSelect.Trigger>
       <RadixSelect.Portal>
-        <RadixSelect.Content position="popper" sideOffset={6} className="popper z-50 max-h-72 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-md border border-line bg-raised shadow-pop">
+        <RadixSelect.Content position="popper" sideOffset={6} className="popper glass-strong z-50 max-h-72 min-w-[var(--radix-select-trigger-width)] overflow-hidden rounded-xl border shadow-lift">
           <RadixSelect.Viewport className="p-1">
             {options.map((o) => (
               <SelectItem key={o.value} value={o.value}>

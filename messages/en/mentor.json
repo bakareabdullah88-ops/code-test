@@ -129,9 +129,11 @@
    "affirmLabel": "Affirm a milestone (optional)",
    "affirmHelp": "If this reflection shows growth, you can mark it for {name}.",
    "affirmNone": "None",
-   "aiLater": "An AI drafting assistant will be added here later. Replies are always written and sent by you.",
    "send": "Send reply",
-   "sentToast": "Reply sent to {name}"
+   "sentToast": "Reply sent to {name}",
+   "aiDraft": "Suggest a draft (AI)",
+   "aiDraftHelp": "A starting point only. You edit it and you send it.",
+   "aiDraftNotice": "This draft came from the AI study companion (demo). Read it, change it so it sounds like you, then send it."
   },
   "builder": {
    "libraryTitle": "Pathways",

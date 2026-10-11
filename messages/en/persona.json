@@ -1,6 +1,6 @@
 {
   "persona": {
-    "title": "Choose who to be",
+    "title": "Walk the journey as someone else",
     "intro": "{appName} is a demo you can use right now. Pick a person to see the app through their eyes. Everything you do is saved in this browser, and you can switch person at any time to see the other side of a conversation.",
     "loading": "Preparing your demo",
     "loadingBody": "Setting up the sample church, its people and the lessons. This happens once.",
@@ -21,7 +21,8 @@
     "tryThis": "A good path to try",
     "tryBody": "Start as Adaeze, read a lesson and share a reflection with her mentor. Then switch to Grace to reply, and back to Adaeze to see it arrive.",
     "featuredBlurb": "New to faith, working through her first pathway. Has a mentor and a group.",
-    "resetNote": "Everything here is sample data. You can reset it from the menu at any time."
+    "resetNote": "Everything here is sample data. You can reset it from the menu at any time.",
+    "eyebrow": "Interactive demo"
   },
   "demo": {
     "title": "Demo controls",

@@ -37,7 +37,7 @@ export function ReflectionPage({ backTo = '/app/journal' }: { backTo?: string })
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
       <Link to={backTo} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-muted hover:text-ink"><ArrowLeft size={16} aria-hidden="true" />{t('learn.journal.title')}</Link>
       <QueryState query={q} skeleton={<div className="flex flex-col gap-4"><Skeleton className="h-8 w-2/3" /><SkeletonText lines={5} /></div>}>
-        {({ reflection: r, feedback, isAuthor }) => (
+        {({ reflection: r, feedback, isAuthor, aiNotes }) => (
           <>
             <header className="flex flex-col gap-2">
               <div className="flex flex-wrap items-center gap-2">
@@ -68,6 +68,7 @@ export function ReflectionPage({ backTo = '/app/journal' }: { backTo?: string })
                 </Card>
               )) : <p className="text-base text-muted">{r.visibility === 'private' ? t('learn.reflect.noRepliesPrivate') : r.status === 'draft' ? t('learn.reflect.noRepliesDraft') : t('learn.reflect.noRepliesYet')}</p>}
             </section>
+            {aiNotes.length ? <section aria-labelledby="ai-h" className="flex flex-col gap-3"><h2 id="ai-h" className="text-h3 font-semibold">{t('learn.reflect.aiNotes')}</h2>{aiNotes.map((n) => <Card key={n.id} className="flex flex-col gap-2"><div className="flex flex-wrap items-center gap-2"><Badge tone="accent">{t('companion.label')}</Badge><span className="text-sm text-muted">{t('learn.reflect.reviewedBy', { name: n.reviewer.displayName })}</span></div><p className="whitespace-pre-line font-serif text-base">{n.body}</p></Card>)}</section> : null}
             <Dialog open={confirm} onOpenChange={setConfirm}>
               <DialogContent title={t('learn.reflect.deleteTitle')} description={t('learn.reflect.deleteBody')} closeLabel={t('actions.close')} footer={<><DialogClose asChild><Button variant="secondary">{t('learn.reflect.keep')}</Button></DialogClose><Button variant="danger" loading={del.isPending} onClick={() => del.mutate(r.id, { onSuccess: () => { toast.show({ title: t('learn.reflect.deleted'), tone: 'success' }); nav('/app/journal'); } })}>{t('learn.reflect.deleteConfirm')}</Button></>} />
             </Dialog>

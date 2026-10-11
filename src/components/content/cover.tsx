@@ -11,8 +11,8 @@ function Dawn() {
   return (
     <>
       <rect width="400" height="240" fill={sky} />
-      <circle cx="270" cy="128" r="46" fill="var(--accent)" opacity="0.9" />
-      <circle cx="270" cy="128" r="70" fill="var(--accent)" opacity="0.12" />
+      <g className="float-slow"><circle cx="270" cy="128" r="46" fill="var(--accent)" opacity="0.92" /><circle cx="270" cy="128" r="70" fill="var(--accent)" opacity="0.14" /><circle cx="270" cy="128" r="104" fill="var(--accent)" opacity="0.07" /></g>
+      <g className="drift" opacity="0.55"><ellipse cx="90" cy="64" rx="46" ry="9" fill="var(--surface-raised)" /><ellipse cx="130" cy="74" rx="34" ry="7" fill="var(--surface-raised)" /><ellipse cx="330" cy="40" rx="40" ry="8" fill="var(--surface-raised)" /></g>
       <path d="M0 150 C70 120 120 135 190 150 S320 140 400 126 V240 H0Z" fill={hillFar} />
       <path d="M0 176 C80 150 150 180 230 168 S350 156 400 170 V240 H0Z" fill={hillMid} />
       <path d="M0 208 C90 190 160 212 250 204 S360 192 400 206 V240 H0Z" fill={hillNear} />
@@ -23,9 +23,8 @@ function Lamp() {
   return (
     <>
       <rect width="400" height="240" fill={`color-mix(in srgb, ${ink} 88%, var(--accent))`} />
-      <circle cx="200" cy="112" r="96" fill="var(--accent)" opacity="0.14" />
-      <circle cx="200" cy="112" r="56" fill="var(--accent)" opacity="0.2" />
-      <path d="M200 70 C184 98 186 116 200 126 C214 116 216 98 200 70Z" fill="var(--accent)" />
+      <g className="float-slow"><circle cx="200" cy="112" r="120" fill="var(--accent)" opacity="0.08" /><circle cx="200" cy="112" r="96" fill="var(--accent)" opacity="0.14" /><circle cx="200" cy="112" r="56" fill="var(--accent)" opacity="0.2" /></g>
+      <path className="float-slow" d="M200 70 C184 98 186 116 200 126 C214 116 216 98 200 70Z" fill="var(--accent)" />
       <rect x="168" y="128" width="64" height="40" rx="10" fill={`color-mix(in srgb, var(--accent) 60%, ${ink})`} />
       <rect x="150" y="168" width="100" height="10" rx="5" fill={`color-mix(in srgb, var(--accent) 40%, ${ink})`} />
       <rect y="196" width="400" height="44" fill={`color-mix(in srgb, ${ink} 94%, var(--accent))`} />
@@ -36,7 +35,8 @@ function Path() {
   return (
     <>
       <rect width="400" height="240" fill={sky} />
-      <circle cx="300" cy="70" r="22" fill="var(--accent)" opacity="0.85" />
+      <g className="float-slow"><circle cx="300" cy="70" r="22" fill="var(--accent)" opacity="0.9" /><circle cx="300" cy="70" r="42" fill="var(--accent)" opacity="0.14" /></g>
+      <g className="drift" opacity="0.5"><ellipse cx="80" cy="50" rx="44" ry="8" fill="var(--surface-raised)" /><ellipse cx="190" cy="34" rx="32" ry="6" fill="var(--surface-raised)" /></g>
       <path d="M0 120 C60 96 140 112 220 100 S340 90 400 104 V240 H0Z" fill={hillFar} />
       <path d="M0 150 C80 128 170 150 260 138 S360 128 400 140 V240 H0Z" fill={hillMid} />
       <path d="M170 240 C186 206 198 184 214 160 C226 142 238 130 262 120" stroke={hillNear} strokeWidth="26" strokeLinecap="round" fill="none" />

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import { CheckCircle, Circle, CircleHalf, DownloadSimple } from '@phosphor-icons/react';
+import { CheckCircle, Circle, CircleHalf } from '@phosphor-icons/react';
 import { useT } from '@/lib/i18n';
 import { Link } from '@/lib/nav';
 import { useSession } from '@/features/session/hooks';
@@ -50,7 +50,6 @@ export function PathwayPage() {
                   <Button size="lg" loading={enrol.isPending} disabled={p.status !== 'published'} onClick={() => enrol.mutate(p.id, { onSuccess: () => toast.show({ title: t('learn.pathway.enrolled', { title: p.title }), tone: 'success' }), onError: (e) => toast.show({ title: e instanceof ApiError ? e.message : t('states.errorTitle'), tone: 'danger' }) })}>{t('learn.pathway.start')}</Button>
                 )}
                 {isAuthor ? <Link to={`/mentor/pathways/${p.id}`} className={buttonStyles({ size: 'lg', variant: 'secondary' })}>{t('learn.pathway.edit')}</Link> : null}
-                <Button size="lg" variant="ghost" disabled title={t('learn.pathway.offlineSoon')}><DownloadSimple size={18} aria-hidden="true" />{t('learn.pathway.download')}</Button>
               </div>
               {p.status !== 'published' ? <Notice tone="warning">{t('learn.pathway.draftNotice')}</Notice> : null}
             </div>

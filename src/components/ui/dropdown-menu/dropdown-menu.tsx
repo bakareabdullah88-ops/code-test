@@ -13,7 +13,7 @@ export function DropdownMenuContent({ className, ...props }: ComponentPropsWitho
       <RadixMenu.Content
         sideOffset={6}
         align="end"
-        className={cn('popper z-50 min-w-52 rounded-md border border-line bg-raised p-1 shadow-pop', className)}
+        className={cn('popper glass-strong z-50 min-w-52 rounded-xl border p-1.5 shadow-lift', className)}
         {...props}
       />
     </RadixMenu.Portal>

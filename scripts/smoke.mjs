@@ -12,7 +12,7 @@ page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 page.on('pageerror', (e) => errors.push('PAGEERROR ' + e.message));
 const shot = (n) => page.screenshot({ path: `.screenshots/${process.env.PREFIX ?? 'd'}-${n}.png` });
 await page.goto(base);
-await page.getByRole('heading', { name: 'Choose who to be' }).waitFor();
+await page.getByRole('heading', { name: 'Walk the journey as someone else' }).waitFor();
 await shot('1-picker');
 await page.getByRole('button', { name: /Continue as Adaeze/ }).click();
 await page.getByRole('heading', { level: 1 }).first().waitFor();

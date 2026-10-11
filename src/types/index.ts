@@ -167,6 +167,7 @@ export type CommentSubject = 'reflection' | 'post' | 'prayer' | 'goal' | 'checkI
 export interface Comment {
   id: Id<'cmt'>; subject: { type: CommentSubject; id: string }; parentId: Id<'cmt'> | null; authorId: Id<'usr'>;
   body: string; kind: 'comment' | 'encouragement'; createdAt: ISODateTime; editedAt: ISODateTime | null; status: 'visible' | 'hidden';
+  aiReviewedBy?: Id<'usr'> | null;                      // set when the text began as AI output and a mentor approved it
 }
 
 export type PrayerPrivacy = 'only_me' | 'mentor' | 'group' | 'organisation';

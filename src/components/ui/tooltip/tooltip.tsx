@@ -13,7 +13,7 @@ export function Tooltip({ content, children }: { content: string; children: Reac
     <RadixTooltip.Root>
       <RadixTooltip.Trigger asChild>{children}</RadixTooltip.Trigger>
       <RadixTooltip.Portal>
-        <RadixTooltip.Content sideOffset={6} className="popper z-50 max-w-xs rounded-sm bg-ink px-2.5 py-1.5 text-sm text-bg shadow-pop">
+        <RadixTooltip.Content sideOffset={6} className="popper z-50 max-w-xs rounded-md bg-ink/90 px-2.5 py-1.5 text-sm text-bg shadow-lift backdrop-blur">
           {content}
         </RadixTooltip.Content>
       </RadixTooltip.Portal>

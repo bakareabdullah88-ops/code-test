@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router';
+import { useMutation } from '@tanstack/react-query';
+import { aiService } from '@/lib/services/ai';
 import { ArrowLeft, Sparkle } from '@phosphor-icons/react';
 import { useT, useFormat } from '@/lib/i18n';
 import { Link } from '@/lib/nav';
@@ -39,6 +41,8 @@ export function FeedbackPage() {
   const [shareable, setShareable] = useState(false);
   const [milestone, setMilestone] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [ai, setAi] = useState(false);
+  const draft = useMutation({ mutationFn: (id: string) => aiService.draftFeedback(id) });
 
   const insert = (text: string) => {
     const paras = isEmptyDoc(body) ? [] : body.content;
@@ -76,12 +80,13 @@ export function FeedbackPage() {
                 <Field label={t('mentor.feedback.affirmLabel')} description={t('mentor.feedback.affirmHelp', { name: first })}>
                   {(p) => <Select {...p} value={milestone} onValueChange={setMilestone} placeholder={t('mentor.feedback.affirmNone')} options={[{ value: 'none', label: t('mentor.feedback.affirmNone') }, ...milestoneDefinitions.map((m) => ({ value: m.key, label: t(m.titleKey) }))]} />}
                 </Field>
-                <Notice><span className="flex items-start gap-2"><Sparkle size={18} className="mt-0.5 shrink-0" aria-hidden="true" />{t('mentor.feedback.aiLater')}</span></Notice>
+                <div className="flex flex-wrap items-center gap-2"><Button variant="secondary" loading={draft.isPending} onClick={() => draft.mutate(r.id, { onSuccess: (d) => { setBody({ type: 'doc', content: d.suggestion.split('\n\n').map((x) => ({ type: 'paragraph', content: [{ type: 'text', text: x }] })) }); setAi(true); setEditorKey((k) => k + 1); } })}><Sparkle size={18} aria-hidden="true" />{t('mentor.feedback.aiDraft')}</Button><span className="text-sm text-muted">{t('mentor.feedback.aiDraftHelp')}</span></div>
+                {ai ? <Notice>{t('mentor.feedback.aiDraftNotice')}</Notice> : null}
                 {error ? <Notice tone="danger">{error}</Notice> : null}
                 <div>
                   <Button size="lg" loading={send.isPending} onClick={() => {
                     setError(null);
-                    send.mutate({ reflectionId: r.id, body, shareableToGroup: shareable }, {
+                    send.mutate({ reflectionId: r.id, body, shareableToGroup: shareable, aiAssisted: ai }, {
                       onSuccess: async () => {
                         if (milestone && milestone !== 'none') await affirm.mutateAsync({ userId: r.authorId, key: milestone });
                         toast.show({ title: t('mentor.feedback.sentToast', { name: first }), tone: 'success' });

@@ -23,7 +23,11 @@ import { PathwaysLibraryPage } from '@/features/builder/pathways-library-page';
 import { BuilderPage } from '@/features/builder/builder-page';
 import { LessonEditorPage } from '@/features/builder/lesson-editor-page';
 import { SettingsPage } from '@/features/shell/settings-page';
-import { ComingSoon } from '@/features/shell/coming-soon';
+import { BibleHub, BibleLibrary, BibleReader, MemorisePage, NotesPage, ReviewSession } from '@/features/bible/bible-pages';
+import { CommunityHub, GroupPage, GroupsTab, PrayerPage, PrayerWall, ThreadPage } from '@/features/community/community-pages';
+import { ApprovalsPage, CompanionPage } from '@/features/companion/companion-pages';
+import { LeaderGroupPage, LeaderHome, MeetingPrepPage, MembersPage as LeaderMembers, ModerationPage, SchedulePage } from '@/features/leader/leader-pages';
+import { AdminGroups, AdminOverview, AdminSettings, MembersPage as AdminMembers, ReportsPage } from '@/features/admin/admin-pages';
 import { DesignGallery } from '@/features/design/gallery';
 import { ErrorState } from '@/components/patterns/error-state/error-state';
 import { useT } from '@/lib/i18n';
@@ -50,20 +54,35 @@ export const router = createHashRouter([
       { path: 'app/journal', element: <JournalPage /> },
       { path: 'app/journal/new', element: <NewReflectionPage /> },
       { path: 'app/journal/:reflectionId', element: <ReflectionPage /> },
-      { path: 'app/bible/*', element: <ComingSoon /> },
-      { path: 'app/community/*', element: <ComingSoon /> },
-      { path: 'app/groups/*', element: <ComingSoon /> },
+      { path: 'app/bible', element: <BibleHub />, children: [{ index: true, element: <BibleLibrary /> }, { path: 'notes', element: <NotesPage /> }, { path: 'memorise', element: <MemorisePage /> }] },
+      { path: 'app/bible/memorise/review', element: <ReviewSession /> },
+      { path: 'app/bible/:book/:chapter', element: <BibleReader /> },
+      { path: 'app/community', element: <CommunityHub />, children: [{ index: true, element: <GroupsTab /> }, { path: 'prayer', element: <PrayerWall /> }] },
+      { path: 'app/community/prayer/:requestId', element: <PrayerPage /> },
+      { path: 'app/groups/:groupId', element: <GroupPage /> },
+      { path: 'app/groups/:groupId/discussions/:threadId', element: <ThreadPage /> },
+      { path: 'app/companion', element: <CompanionPage /> },
       { path: 'mentor', element: <MentorDashboardPage /> },
       { path: 'mentor/mentees', element: <MenteesPage /> },
       { path: 'mentor/mentees/:menteeId', element: <MenteePage /> },
       { path: 'mentor/feedback', element: <FeedbackInboxPage /> },
       { path: 'mentor/feedback/:reflectionId', element: <FeedbackPage /> },
-      { path: 'mentor/approvals', element: <ComingSoon /> },
+      { path: 'mentor/approvals', element: <ApprovalsPage /> },
       { path: 'mentor/pathways', element: <PathwaysLibraryPage /> },
       { path: 'mentor/pathways/:pathwayId', element: <BuilderPage /> },
       { path: 'mentor/pathways/:pathwayId/lessons/:lessonId', element: <LessonEditorPage /> },
-      { path: 'leader/*', element: <ComingSoon /> },
-      { path: 'admin/*', element: <ComingSoon /> },
+      { path: 'leader', element: <LeaderHome /> },
+      { path: 'leader/schedule', element: <SchedulePage /> },
+      { path: 'leader/discussion', element: <ModerationPage /> },
+      { path: 'leader/members', element: <LeaderMembers /> },
+      { path: 'leader/groups/:groupId', element: <LeaderGroupPage /> },
+      { path: 'leader/groups/:groupId/meetings/:meetingId', element: <MeetingPrepPage /> },
+      { path: 'leader/groups/:groupId/discussions/:threadId', element: <ThreadPage leaderView /> },
+      { path: 'admin', element: <AdminOverview /> },
+      { path: 'admin/members', element: <AdminMembers /> },
+      { path: 'admin/groups', element: <AdminGroups /> },
+      { path: 'admin/reports', element: <ReportsPage /> },
+      { path: 'admin/settings', element: <AdminSettings /> },
       { path: 'notifications', element: <NotificationsPage /> },
       { path: 'settings', element: <SettingsPage /> },
       { path: '*', element: <NotFound /> },

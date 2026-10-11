@@ -1,4 +1,6 @@
+import { useId } from 'react';
 import { ToggleGroup } from 'radix-ui';
+import { motion } from 'motion/react';
 import { cn } from '@/lib/cn';
 
 export interface SegmentOption {
@@ -14,8 +16,9 @@ export interface SegmentedControlProps {
   className?: string;
 }
 
-/** Single-choice switcher for sibling views (for example Pathways | Timeline | Milestones). */
+/** Single-choice switcher for sibling views. The selected pill slides between options. */
 export function SegmentedControl({ label, value, onValueChange, options, className }: SegmentedControlProps) {
+  const id = useId();
   return (
     <ToggleGroup.Root
       type="single"
@@ -24,17 +27,21 @@ export function SegmentedControl({ label, value, onValueChange, options, classNa
       onValueChange={(v) => {
         if (v) onValueChange(v);
       }}
-      className={cn('inline-flex rounded-md border border-line bg-sunken p-1', className)}
+      className={cn('glass inline-flex rounded-xl border p-1', className)}
     >
-      {options.map((o) => (
-        <ToggleGroup.Item
-          key={o.value}
-          value={o.value}
-          className="inline-flex min-h-9 items-center rounded-sm px-3 text-sm font-medium text-muted transition-colors motion-fast hover:text-ink data-[state=on]:bg-raised data-[state=on]:text-ink data-[state=on]:shadow-card coarse:min-h-10"
-        >
-          {o.label}
-        </ToggleGroup.Item>
-      ))}
+      {options.map((o) => {
+        const on = o.value === value;
+        return (
+          <ToggleGroup.Item
+            key={o.value}
+            value={o.value}
+            className={cn('relative inline-flex min-h-9 items-center rounded-lg px-3.5 text-sm font-medium transition-colors motion-fast coarse:min-h-10', on ? 'text-ink' : 'text-muted hover:text-ink')}
+          >
+            {on ? <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-lg bg-raised shadow-card" transition={{ type: 'spring', stiffness: 520, damping: 38 }} aria-hidden="true" /> : null}
+            <span className="relative">{o.label}</span>
+          </ToggleGroup.Item>
+        );
+      })}
     </ToggleGroup.Root>
   );
 }

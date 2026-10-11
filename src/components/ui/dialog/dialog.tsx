@@ -23,7 +23,7 @@ export function DialogContent({ title, description, closeLabel, children, footer
       <RadixDialog.Overlay className="overlay" />
       <RadixDialog.Content
         className={cn(
-          'dialog-panel fixed start-1/2 top-1/2 z-50 flex max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col rounded-lg border border-line bg-raised shadow-dialog rtl:translate-x-1/2',
+          'dialog-panel fixed start-1/2 top-1/2 z-50 glass-strong flex max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col rounded-2xl border shadow-lift rtl:translate-x-1/2',
           className,
         )}
         {...(description ? {} : { 'aria-describedby': undefined })}

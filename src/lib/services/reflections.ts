@@ -70,8 +70,9 @@ export const reflectionsService = {
       const { a, r } = mustReadReflection(id);
       const feedback = store.find('feedback', (f) => f.reflectionId === id && (f.status === 'sent' || f.mentorId === a.user.id)).sort((x, y) => x.createdAt.localeCompare(y.createdAt));
       const visibleFeedback = r.authorId === a.user.id ? feedback.filter((f) => f.status === 'sent') : feedback;
+      const aiNotes = store.find('comments', (c) => c.subject.type === 'reflection' && c.subject.id === id && !!c.aiReviewedBy).map((c) => ({ id: c.id, body: c.body, createdAt: c.createdAt, reviewer: userCard(c.aiReviewedBy as string) }));
       const posts = r.visibility === 'group' ? store.find('posts', (p) => p.sharedReflection?.reflectionId === id).length : 0;
-      return { reflection: view(r), feedback: visibleFeedback.map((f) => ({ ...f, mentor: userCard(f.mentorId) })) as FeedbackView[], isAuthor: r.authorId === a.user.id, sharedPosts: posts, mentorIds: mentorsOf(r.authorId, r.orgId) };
+      return { reflection: view(r), feedback: visibleFeedback.map((f) => ({ ...f, mentor: userCard(f.mentorId) })) as FeedbackView[], isAuthor: r.authorId === a.user.id, sharedPosts: posts, aiNotes, mentorIds: mentorsOf(r.authorId, r.orgId) };
     }),
 
   create: (input: { lessonId?: string | null; title?: string | null; body: RichDoc; visibility?: ReflectionVisibility; groupId?: string | null }) =>

@@ -58,6 +58,6 @@ test('lesson, reflection, mentor feedback, and back to the student', async ({ pa
 
 test('persona picker and shell have no axe violations', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Choose who to be' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Walk the journey as someone else' })).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations.map((v) => v.id)).toEqual([]);
 });

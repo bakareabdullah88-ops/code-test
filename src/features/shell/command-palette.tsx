@@ -51,7 +51,7 @@ export function CommandPalette({ open, onOpenChange, lens }: { open: boolean; on
     <Dialog open={open} onOpenChange={(o) => { onOpenChange(o); if (!o) setQ(''); }}>
       <RadixDialog.Portal>
         <RadixDialog.Overlay className="overlay" />
-        <RadixDialog.Content aria-describedby={undefined} className="dialog-panel fixed start-1/2 top-[12dvh] z-50 w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-line bg-raised shadow-dialog">
+        <RadixDialog.Content aria-describedby={undefined} className="dialog-panel fixed start-1/2 top-[12dvh] z-50 w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 glass-strong overflow-hidden rounded-2xl border shadow-lift">
           <RadixDialog.Title className="sr-only">{t('palette.title')}</RadixDialog.Title>
           <Command shouldFilter={!q.trim() || !search.data} label={t('palette.title')} className="flex max-h-[70dvh] flex-col">
             <div className="flex items-center gap-2 border-b border-line px-3">
@@ -87,6 +87,7 @@ export function CommandPalette({ open, onOpenChange, lens }: { open: boolean; on
                   <Command.Item key={l} value={`go ${t(`lens.${l}`)} view`} className={itemCls} onSelect={() => go(lensHome[l])}>{t('lens.label')} {t(`lens.${l}`)}</Command.Item>
                 ))}
                 <Command.Item value="go notifications" className={itemCls} onSelect={() => go('/notifications')}>{t('nav.notifications')}</Command.Item>
+ <Command.Item value="go study companion ai" className={itemCls} onSelect={() => go('/app/companion')}>{t('companion.title')}</Command.Item>
                 <Command.Item value="go settings" className={itemCls} onSelect={() => go('/settings')}>{t('nav.settings')}</Command.Item>
               </Command.Group>
               <Command.Group heading={t('palette.actions')} className={groupCls}>
