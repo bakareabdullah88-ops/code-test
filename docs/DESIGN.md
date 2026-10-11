@@ -184,7 +184,20 @@ Separation uses **hairline borders, tone and soft layered shadow** together (rev
 
 Dark mode elevates by lightening the surface rather than increasing shadow.
 
+### 3.0 Dawn to Night (visual system, current)
+
+The interface follows the time of day. Tokens live in `src/styles/tokens.css`; this section supersedes older colour and type notes below where they conflict.
+
+- **Sky.** Light theme is dawn: pale sky blue to warm cream. Dark theme is night: deep navy to indigo with faint starlight. Each theme has morning, afternoon and evening layers (`--sky-*`), cross-faded by opacity when the local day part changes (`Sky` component, checked every 15 minutes). A fixed SVG grain (3 to 5% opacity) stops banding.
+- **Type.** Geist (400 to 600) for all UI and headings, tight tracking on large sizes. Literata only for scripture and lesson reading. Five sizes: label 12, body 15, reading 19, title 28, display 40 to 56 (fluid). Existing class names are aliased onto these.
+- **Colour.** One accent, amber. `--accent` (deep amber) passes as text and fill; `--accent-bright` is for decorative fills only (progress ring, day dots, play circle). The main button is a solid pill: black on dawn, white at night (`--solid`, `--on-solid`).
+- **Glass.** `.glass` and `.glass-strong`: blur 32px with saturate 160%, white at 60/74% (dawn) or 8/12% (night), 1px edge at white 55% or 10%, inner top highlight. Without backdrop-filter they fall back to a near-solid fill. Cards are 28px radius on phones and 32px on desktop. `check:contrast` blends each glass fill over every sky colour stop and requires 4.5:1 for body and muted text.
+- **Depth.** Large, soft, low-opacity layered shadows (`--shadow-card`, `--shadow-lift`); no hard shadows. At night depth comes from the glass edge and inner highlight.
+- **Focal element.** One per screen. On Today it is the focus card, with the next lesson peeking from behind it; everything else is quiet text in glass.
+
 ### 3.6 Motion
+
+**Springs.** One spring for UI movement: stiffness 300, damping 30 (`src/lib/motion.ts`). Entrances stagger children 50ms apart, rising 10px. Animate transform and opacity only.
 
 **Revised direction.** Motion is a visible part of the product's craft, not just a hand on the shoulder: spring-physics sliding pills (navigation, segmented controls), staggered list entrances, scroll reveals (`Reveal`), count-up numbers (`CountUp`), pop-in icon tiles, cross-fading quotes, hover lift on interactive cards, animated progress and checkmarks. Everything below still applies for reduced motion: all of it is removed or becomes instant under `prefers-reduced-motion` and the in-app toggle, and nothing carries information only through motion.
 

@@ -58,7 +58,7 @@ export function ProgressRing({ value, label, caption, className }: { value: numb
     <div role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} className={cn('relative grid size-22 shrink-0 place-items-center', className)}>
       <svg viewBox="0 0 100 100" className="absolute inset-0 -rotate-90" aria-hidden="true">
         <circle cx="50" cy="50" r={r} fill="none" stroke="currentColor" strokeWidth="3" className="text-line" />
-        <motion.circle cx="50" cy="50" r={r} fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" className="text-accent" strokeDasharray={c} initial={{ strokeDashoffset: c }} animate={{ strokeDashoffset: c * (1 - pct / 100) }} transition={{ type: 'spring', stiffness: 60, damping: 18, delay: 0.2 }} />
+        <motion.circle cx="50" cy="50" r={r} fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" className="text-accent-bright" strokeDasharray={c} initial={{ strokeDashoffset: c }} animate={{ strokeDashoffset: c * (1 - pct / 100) }} transition={{ type: 'spring', stiffness: 60, damping: 18, delay: 0.2 }} />
       </svg>
       <span className="flex flex-col items-center leading-tight" aria-hidden="true">
         <span className="text-xl font-semibold tracking-tight text-ink">{pct}%</span>

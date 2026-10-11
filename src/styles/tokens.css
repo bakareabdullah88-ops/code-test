@@ -1,202 +1,288 @@
 /* Design tokens: single source of truth. See docs/DESIGN.md section 3.
+   "Dawn to Night": the light theme is dawn, the dark theme is night, and the sky shifts with the local time of day.
    Primitives -> semantic roles -> (Tailwind maps roles in globals.css). */
 
 :root {
-  /* Paper (warm neutral) */
-  --paper-50: #fdfaf5;
-  --paper-100: #f8f3ea;
-  --paper-200: #efe8db;
-  --paper-300: #e2d9c8;
-  --paper-400: #c9bea9;
-  --paper-500: #9c927f;
-  --paper-600: #6f6657;
-  --paper-700: #4f473b;
-  --paper-800: #342e25;
-  --paper-900: #221d17;
-  --paper-950: #16120e;
+  /* Slate neutrals */
+  --slate-50: #f6f7f9;
+  --slate-100: #eceff3;
+  --slate-200: #dde2e8;
+  --slate-300: #c5ccd6;
+  --slate-500: #64708a;
+  --slate-600: #4a5568;
+  --slate-700: #334155;
+  --slate-900: #0f172a;
+  --slate-950: #0a0f1e;
 
-  /* Clay (accent) */
-  --clay-50: #fbf1ec;
-  --clay-100: #f5ded3;
-  --clay-200: #ebbfac;
-  --clay-300: #de9879;
-  --clay-400: #cf7452;
-  --clay-500: #bc5a38;
-  --clay-600: #a5482b;
-  --clay-700: #873a23;
-  --clay-800: #6a2e1e;
-  --clay-900: #4a2117;
+  /* Amber (the one accent) */
+  --amber-50: #fdf3e1;
+  --amber-100: #fbe4bc;
+  --amber-300: #f7c172;
+  --amber-400: #f5b14c;
+  --amber-500: #e8952a;
+  --amber-600: #d97c12;
+  --amber-800: #8a4a0b;
 
   /* Radius */
-  --rad-xs: 4px;
-  --rad-sm: 6px;
-  --rad-md: 10px;
-  --rad-lg: 16px;
-  --rad-xl: 24px;
+  --rad-xs: 6px;
+  --rad-sm: 10px;
+  --rad-md: 14px;
+  --rad-lg: 20px;
+  --rad-xl: 28px;
+  --rad-2xl: 32px;
 
   /* Motion */
   --dur-instant: 90ms;
-  --dur-fast: 150ms;
-  --dur-base: 240ms;
-  --dur-slow: 400ms;
+  --dur-fast: 160ms;
+  --dur-base: 260ms;
+  --dur-slow: 420ms;
+  --dur-sky: 2400ms;
   --e-standard: cubic-bezier(0.2, 0, 0, 1);
   --e-enter: cubic-bezier(0, 0, 0.2, 1);
   --e-exit: cubic-bezier(0.4, 0, 1, 1);
-  --e-spring: cubic-bezier(0.22, 1.2, 0.36, 1);
-
-  /* Elevation (warm tinted) */
-  --shadow-1: 0 1px 2px rgb(34 29 23 / 0.06);
-  --shadow-2: 0 8px 24px -8px rgb(34 29 23 / 0.18);
-  --shadow-3: 0 24px 48px -16px rgb(34 29 23 / 0.28);
+  --e-spring: cubic-bezier(0.22, 1.1, 0.36, 1);
 
   /* Reading preferences (set on <html> by prefs) */
   --reading-scale: 1;
   --reading-leading: 1.7;
 
-  /* Light roles */
-  --bg: var(--paper-50);
-  --surface: #fffefb;
+  /* Dawn roles */
+  --bg: #f5f1e8;
+  --surface: #ffffff;
   --surface-raised: #ffffff;
-  --surface-sunken: var(--paper-100);
-  --border: var(--paper-300);
-  --border-strong: #8f8572;
-  --text: var(--paper-900);
-  --text-muted: var(--paper-600);
-  --text-subtle: #72695a;
-  --accent: var(--clay-600);
-  --accent-hover: var(--clay-700);
-  --accent-subtle: var(--clay-50);
-  --accent-subtle-text: var(--clay-700);
+  --surface-sunken: var(--slate-100);
+  --border: #e2e0d8;
+  --border-strong: #7a8496;
+  --text: var(--slate-900);
+  --text-muted: var(--slate-600);
+  --text-subtle: #5b6578;
+  /* Accent is deep amber so it passes as text and button fill; accent-bright is for decorative fills only (ring, dots). */
+  --accent: #9a5306;
+  --accent-hover: #864805;
+  --accent-bright: var(--amber-500);
+  --on-accent-bright: #1a1206;
+  --accent-subtle: var(--amber-50);
+  --accent-subtle-text: var(--amber-800);
   --on-accent: #ffffff;
-  --focus-ring: var(--clay-600);
-  --success: #4f6b3a;
-  --success-subtle: #eef2e6;
-  --warning: #8a5c0e;
-  --warning-subtle: #f8eedb;
+  --focus-ring: #9a5306;
+  --solid: var(--slate-950);
+  --on-solid: #ffffff;
+  --success: #3f6b3a;
+  --success-subtle: #e9f1e4;
+  --warning: #8a560b;
+  --warning-subtle: #fbeedb;
   --danger: #b3263e;
   --danger-subtle: #fbeaec;
-  --scrim: rgb(34 29 23 / 0.45);
+  --scrim: rgb(15 23 42 / 0.4);
 
   --hl-straw: #f6e7a8;
   --hl-sage: #d3e2bf;
   --hl-rose: #f1cfc9;
-  --hl-mist: #d6e3e2;
+  --hl-mist: #d6e3ea;
 
-  --tint-1: #f1ddd0; --tint-2: #e3e8d2; --tint-3: #f2e4c4; --tint-4: #d9e5e4; --tint-5: #ebd9d6; --tint-6: #e6dfd2;
+  --tint-1: #f6e2c4; --tint-2: #dfe8d6; --tint-3: #f3e6c4; --tint-4: #d8e4ee; --tint-5: #eedcd8; --tint-6: #e6e2d8;
 
-  /* Depth and glass */
-  --glass: color-mix(in srgb, var(--bg) 72%, transparent);
-  --glass-strong: color-mix(in srgb, var(--surface-raised) 82%, transparent);
-  --glass-line: color-mix(in srgb, var(--border) 70%, transparent);
-  --glow-1: color-mix(in srgb, var(--accent) 13%, transparent);
-  --glow-2: color-mix(in srgb, var(--accent) 7%, transparent);
-  --shadow-lift: 0 12px 32px -12px rgb(34 29 23 / 0.28), 0 2px 6px rgb(34 29 23 / 0.06);
-  --shadow-card: 0 1px 2px rgb(34 29 23 / 0.05), 0 8px 24px -16px rgb(34 29 23 / 0.2);
+  /* Sky: three layers per theme, cross-faded by time of day */
+  --sky-morning: linear-gradient(180deg, #c9dcec 0%, #dfe9ef 34%, #f1efe8 68%, #f7f1e6 100%);
+  --sky-afternoon: linear-gradient(180deg, #d6e4ee 0%, #e9eeee 36%, #f5f0e6 70%, #f8f1e2 100%);
+  --sky-evening: linear-gradient(180deg, #d5d9ea 0%, #e9e3e6 38%, #f4e6d6 72%, #f6e2c8 100%);
+  --sky-glow: radial-gradient(70rem 36rem at 85% -10%, rgb(255 255 255 / 0.7), transparent 70%);
+  --stars: none;
+  --noise-opacity: 0.035;
+
+  /* Glass */
+  --glass: rgb(255 255 255 / 0.6);
+  --glass-strong: rgb(255 255 255 / 0.74);
+  --glass-solid: rgb(255 255 255 / 0.94);
+  --glass-line: rgb(255 255 255 / 0.55);
+  --glass-edge: 0 0 0 1px rgb(15 23 42 / 0.04);
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.7);
+  --glass-blur: blur(32px) saturate(160%);
+
+  /* Depth: large, soft, low-opacity layered shadows */
+  --shadow-card: 0 20px 60px rgb(15 23 42 / 0.09), 0 2px 6px rgb(15 23 42 / 0.04);
+  --shadow-lift: 0 28px 72px rgb(15 23 42 / 0.15), 0 4px 12px rgb(15 23 42 / 0.05);
+  --shadow-2: 0 12px 40px rgb(15 23 42 / 0.12), 0 2px 6px rgb(15 23 42 / 0.05);
+  --shadow-3: 0 32px 90px rgb(15 23 42 / 0.22);
   color-scheme: light;
 }
 
-/* Dark roles. Applied by explicit choice, or by system preference unless light is forced. */
+/* Night roles. Applied by explicit choice, or by system preference unless light is forced. */
 :root[data-theme='dark'] {
-  --bg: var(--paper-950);
-  --surface: #1e1914;
-  --surface-raised: #272019;
-  --surface-sunken: #120f0b;
-  --border: #3a3228;
-  --border-strong: #74685a;
-  --text: #f2ebdd;
-  --text-muted: #bfb4a0;
-  --text-subtle: #8f8573;
-  --accent: #e08a66;
-  --accent-hover: #eb9c7b;
-  --accent-subtle: #2e1d16;
-  --accent-subtle-text: #f0aa8c;
-  --on-accent: #16120e;
-  --focus-ring: #f0aa8c;
-  --success: #9dbb7c;
-  --success-subtle: #1f2916;
-  --warning: #d9a441;
-  --warning-subtle: #31230c;
-  --danger: #e5707f;
-  --danger-subtle: #34161b;
-  --scrim: rgb(0 0 0 / 0.6);
-  --shadow-1: none;
-  --shadow-2: 0 0 0 1px #3a3228;
-  --shadow-3: 0 0 0 1px #3a3228;
+  --bg: #0a1026;
+  --surface: #121a38;
+  --surface-raised: #18214a;
+  --surface-sunken: #070b1c;
+  --border: #263157;
+  --border-strong: #5f6b96;
+  --text: #eef1fa;
+  --text-muted: #c3c9de;
+  --text-subtle: #8c95b6;
+  --accent: var(--amber-400);
+  --accent-hover: var(--amber-300);
+  --accent-bright: var(--amber-400);
+  --on-accent-bright: #1a1206;
+  --accent-subtle: #2a2214;
+  --accent-subtle-text: var(--amber-300);
+  --on-accent: #1a1206;
+  --focus-ring: var(--amber-300);
+  --solid: #ffffff;
+  --on-solid: var(--slate-950);
+  --success: #9dc28a;
+  --success-subtle: #172a1c;
+  --warning: #f0b860;
+  --warning-subtle: #2e230f;
+  --danger: #f08594;
+  --danger-subtle: #361622;
+  --scrim: rgb(3 6 18 / 0.6);
 
   --hl-straw: #5b4d17;
-  --hl-sage: #3b4a2b;
-  --hl-rose: #5a2f2a;
-  --hl-mist: #2f4a49;
+  --hl-sage: #34472b;
+  --hl-rose: #5a2f37;
+  --hl-mist: #26405a;
+  --tint-1: #3a2c18; --tint-2: #213524; --tint-3: #3a3216; --tint-4: #1c2f4d; --tint-5: #3a2232; --tint-6: #262a3c;
 
-  --tint-1: #4a2a1e; --tint-2: #2f3a22; --tint-3: #4a3a16; --tint-4: #223e3f; --tint-5: #4a2a2e; --tint-6: #3a3328;
-  --shadow-lift: 0 16px 40px -12px rgb(0 0 0 / 0.65), 0 0 0 1px #3a3228;
-  --shadow-card: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 10px 30px -18px rgb(0 0 0 / 0.7);
+  --sky-morning: linear-gradient(180deg, #0b1434 0%, #17245c 46%, #242c66 80%, #2b2d6c 100%);
+  --sky-afternoon: linear-gradient(180deg, #0c1638 0%, #172660 50%, #1f2b62 100%);
+  --sky-evening: linear-gradient(180deg, #060a1d 0%, #10183f 44%, #1d1f5a 78%, #2a2462 100%);
+  --sky-glow: radial-gradient(60rem 30rem at 80% -12%, rgb(120 140 255 / 0.18), transparent 70%);
+  --stars:
+    radial-gradient(1px 1px at 12% 18%, rgb(255 255 255 / 0.7), transparent),
+    radial-gradient(1px 1px at 28% 8%, rgb(255 255 255 / 0.5), transparent),
+    radial-gradient(1.5px 1.5px at 46% 22%, rgb(255 255 255 / 0.6), transparent),
+    radial-gradient(1px 1px at 64% 12%, rgb(255 255 255 / 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 78% 30%, rgb(255 255 255 / 0.55), transparent),
+    radial-gradient(1px 1px at 90% 6%, rgb(255 255 255 / 0.5), transparent),
+    radial-gradient(1px 1px at 8% 42%, rgb(255 255 255 / 0.35), transparent),
+    radial-gradient(1px 1px at 56% 40%, rgb(255 255 255 / 0.3), transparent);
+  --noise-opacity: 0.05;
+
+  --glass: rgb(255 255 255 / 0.08);
+  --glass-strong: rgb(255 255 255 / 0.12);
+  --glass-solid: rgb(24 33 74 / 0.96);
+  --glass-line: rgb(255 255 255 / 0.1);
+  --glass-edge: 0 0 0 1px rgb(255 255 255 / 0.02);
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
+
+  --shadow-card: 0 20px 60px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --shadow-lift: 0 30px 80px rgb(0 0 0 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.08);
+  --shadow-2: 0 16px 48px rgb(0 0 0 / 0.45);
+  --shadow-3: 0 32px 90px rgb(0 0 0 / 0.6);
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']):not([data-theme='dark']) {
-    --bg: var(--paper-950);
-    --surface: #1e1914;
-    --surface-raised: #272019;
-    --surface-sunken: #120f0b;
-    --border: #3a3228;
-    --border-strong: #74685a;
-    --text: #f2ebdd;
-    --text-muted: #bfb4a0;
-    --text-subtle: #8f8573;
-    --accent: #e08a66;
-    --accent-hover: #eb9c7b;
-    --accent-subtle: #2e1d16;
-    --accent-subtle-text: #f0aa8c;
-    --on-accent: #16120e;
-    --focus-ring: #f0aa8c;
-    --success: #9dbb7c;
-    --success-subtle: #1f2916;
-    --warning: #d9a441;
-    --warning-subtle: #31230c;
-    --danger: #e5707f;
-    --danger-subtle: #34161b;
-    --scrim: rgb(0 0 0 / 0.6);
-    --shadow-1: none;
-    --shadow-2: 0 0 0 1px #3a3228;
-    --shadow-3: 0 0 0 1px #3a3228;
+    --bg: #0a1026;
+    --surface: #121a38;
+    --surface-raised: #18214a;
+    --surface-sunken: #070b1c;
+    --border: #263157;
+    --border-strong: #5f6b96;
+    --text: #eef1fa;
+    --text-muted: #c3c9de;
+    --text-subtle: #8c95b6;
+    --accent: var(--amber-400);
+    --accent-hover: var(--amber-300);
+    --accent-bright: var(--amber-400);
+    --on-accent-bright: #1a1206;
+    --accent-subtle: #2a2214;
+    --accent-subtle-text: var(--amber-300);
+    --on-accent: #1a1206;
+    --focus-ring: var(--amber-300);
+    --solid: #ffffff;
+    --on-solid: var(--slate-950);
+    --success: #9dc28a;
+    --success-subtle: #172a1c;
+    --warning: #f0b860;
+    --warning-subtle: #2e230f;
+    --danger: #f08594;
+    --danger-subtle: #361622;
+    --scrim: rgb(3 6 18 / 0.6);
     --hl-straw: #5b4d17;
-    --hl-sage: #3b4a2b;
-    --hl-rose: #5a2f2a;
-    --hl-mist: #2f4a49;
-    --tint-1: #4a2a1e; --tint-2: #2f3a22; --tint-3: #4a3a16; --tint-4: #223e3f; --tint-5: #4a2a2e; --tint-6: #3a3328;
-    --shadow-lift: 0 16px 40px -12px rgb(0 0 0 / 0.65), 0 0 0 1px #3a3228;
-    --shadow-card: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 10px 30px -18px rgb(0 0 0 / 0.7);
+    --hl-sage: #34472b;
+    --hl-rose: #5a2f37;
+    --hl-mist: #26405a;
+    --tint-1: #3a2c18; --tint-2: #213524; --tint-3: #3a3216; --tint-4: #1c2f4d; --tint-5: #3a2232; --tint-6: #262a3c;
+    --sky-morning: linear-gradient(180deg, #0b1434 0%, #17245c 46%, #242c66 80%, #2b2d6c 100%);
+    --sky-afternoon: linear-gradient(180deg, #0c1638 0%, #172660 50%, #1f2b62 100%);
+    --sky-evening: linear-gradient(180deg, #060a1d 0%, #10183f 44%, #1d1f5a 78%, #2a2462 100%);
+    --sky-glow: radial-gradient(60rem 30rem at 80% -12%, rgb(120 140 255 / 0.18), transparent 70%);
+    --stars:
+      radial-gradient(1px 1px at 12% 18%, rgb(255 255 255 / 0.7), transparent),
+      radial-gradient(1px 1px at 28% 8%, rgb(255 255 255 / 0.5), transparent),
+      radial-gradient(1.5px 1.5px at 46% 22%, rgb(255 255 255 / 0.6), transparent),
+      radial-gradient(1px 1px at 64% 12%, rgb(255 255 255 / 0.45), transparent),
+      radial-gradient(1.5px 1.5px at 78% 30%, rgb(255 255 255 / 0.55), transparent),
+      radial-gradient(1px 1px at 90% 6%, rgb(255 255 255 / 0.5), transparent),
+      radial-gradient(1px 1px at 8% 42%, rgb(255 255 255 / 0.35), transparent),
+      radial-gradient(1px 1px at 56% 40%, rgb(255 255 255 / 0.3), transparent);
+    --noise-opacity: 0.05;
+    --glass: rgb(255 255 255 / 0.08);
+    --glass-strong: rgb(255 255 255 / 0.12);
+    --glass-solid: rgb(24 33 74 / 0.96);
+    --glass-line: rgb(255 255 255 / 0.1);
+    --glass-edge: 0 0 0 1px rgb(255 255 255 / 0.02);
+    --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
+    --shadow-card: 0 20px 60px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.06);
+    --shadow-lift: 0 30px 80px rgb(0 0 0 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.08);
+    --shadow-2: 0 16px 48px rgb(0 0 0 / 0.45);
+    --shadow-3: 0 32px 90px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
 }
 
-/* Organisation accents (curated so contrast is guaranteed). Clay is the default. */
+/* Organisation accents (curated so contrast is guaranteed). Amber is the default. */
 :root[data-accent='moss'] {
-  --accent: #4f6b3a;
-  --accent-hover: #3f5730;
-  --accent-subtle: #eef2e6;
-  --accent-subtle-text: #3f5730;
-  --focus-ring: #4f6b3a;
+  --accent: #3f6b2e;
+  --accent-hover: #345a26;
+  --accent-bright: #6f9a4f;
+  --accent-subtle: #e9f1e4;
+  --accent-subtle-text: #2f4f22;
+  --focus-ring: #3f6b2e;
 }
 :root[data-accent='ochre'] {
-  --accent: #8a5c0e;
-  --accent-hover: #704a0a;
+  --accent: #8a6408;
+  --accent-hover: #74540a;
+  --accent-bright: #d9a520;
   --accent-subtle: #f8eedb;
-  --accent-subtle-text: #704a0a;
-  --focus-ring: #8a5c0e;
+  --accent-subtle-text: #6e4f07;
+  --focus-ring: #8a6408;
 }
 :root[data-accent='slate'] {
-  --accent: #3f6e73;
-  --accent-hover: #335a5e;
-  --accent-subtle: #e4eeee;
-  --accent-subtle-text: #335a5e;
-  --focus-ring: #3f6e73;
+  --accent: #2f5f7a;
+  --accent-hover: #264f66;
+  --accent-bright: #5f93b3;
+  --accent-subtle: #e2ecf2;
+  --accent-subtle-text: #264f66;
+  --focus-ring: #2f5f7a;
 }
-:root[data-theme='dark'][data-accent='moss'] { --accent: #a3c183; --accent-hover: #b5cf99; --accent-subtle: #1f2916; --accent-subtle-text: #b5cf99; --focus-ring: #b5cf99; }
-:root[data-theme='dark'][data-accent='ochre'] { --accent: #e0a94a; --accent-hover: #eab965; --accent-subtle: #31230c; --accent-subtle-text: #eab965; --focus-ring: #eab965; }
-:root[data-theme='dark'][data-accent='slate'] { --accent: #7fb3b8; --accent-hover: #96c3c7; --accent-subtle: #17292b; --accent-subtle-text: #96c3c7; --focus-ring: #96c3c7; }
+:root[data-theme='dark'][data-accent='moss'] {
+  --accent: #a3c183;
+  --accent-hover: #b5cf99;
+  --accent-bright: #a3c183;
+  --accent-subtle: #1f2916;
+  --accent-subtle-text: #b5cf99;
+  --focus-ring: #b5cf99;
+  --on-accent: #10180a;
+}
+:root[data-theme='dark'][data-accent='ochre'] {
+  --accent: #e0a94a;
+  --accent-hover: #eab965;
+  --accent-bright: #e0a94a;
+  --accent-subtle: #31230c;
+  --accent-subtle-text: #eab965;
+  --focus-ring: #eab965;
+}
+:root[data-theme='dark'][data-accent='slate'] {
+  --accent: #8fbdd8;
+  --accent-hover: #a5cbe2;
+  --accent-bright: #8fbdd8;
+  --accent-subtle: #15283a;
+  --accent-subtle-text: #a5cbe2;
+  --focus-ring: #a5cbe2;
+  --on-accent: #0a1626;
+}
 
 @media (prefers-reduced-motion: reduce) {
   :root:not([data-motion='full']) {
@@ -204,6 +290,7 @@
     --dur-fast: 0.01ms;
     --dur-base: 0.01ms;
     --dur-slow: 0.01ms;
+    --dur-sky: 0.01ms;
   }
 }
 :root[data-motion='reduce'] {
@@ -211,4 +298,5 @@
   --dur-fast: 0.01ms;
   --dur-base: 0.01ms;
   --dur-slow: 0.01ms;
+  --dur-sky: 0.01ms;
 }

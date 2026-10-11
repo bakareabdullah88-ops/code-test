@@ -13,6 +13,7 @@ import { TooltipProvider } from '@/components/ui/tooltip/tooltip';
 import { Wordmark } from '@/components/icons/logo';
 import { ErrorState } from '@/components/patterns/error-state/error-state';
 import { router } from '@/app/routes';
+import { Sky } from '@/components/patterns/sky/sky';
 
 function Boot() {
   const t = useT();
@@ -45,6 +46,7 @@ const root = document.getElementById('root');
 if (root) {
   createRoot(root).render(
     <StrictMode>
+      <Sky />
       <I18nProvider>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>

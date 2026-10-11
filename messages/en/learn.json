@@ -60,7 +60,11 @@
    "reflectionShort": "Write a few honest lines. Private unless you share it.",
    "readingShort": "Read the passage for today",
    "ask": "Ask the study companion anything",
-   "minShort": "{minutes} min"
+   "minShort": "{minutes} min",
+   "reflected": "Reflection written",
+   "notReflected": "No reflection",
+   "askPassage": "Ask about this passage…",
+   "aiTag": "AI"
   },
   "journey": {
    "title": "Your journey",

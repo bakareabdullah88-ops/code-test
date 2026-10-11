@@ -34,7 +34,7 @@ export function SheetContent({ title, description, closeLabel, side = 'responsiv
       >
         <div className="flex items-start justify-between gap-4 p-5 pb-2">
           <div>
-            <RadixDialog.Title className="font-serif text-h4 font-semibold">{title}</RadixDialog.Title>
+            <RadixDialog.Title className="text-h4 font-medium">{title}</RadixDialog.Title>
             {description ? <RadixDialog.Description className="mt-1 text-sm text-muted">{description}</RadixDialog.Description> : null}
           </div>
           <RadixDialog.Close asChild>

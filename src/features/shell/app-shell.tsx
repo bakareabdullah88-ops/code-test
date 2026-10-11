@@ -125,7 +125,7 @@ function OrgBlock() {
     nav('/app/today');
   };
   const label = current?.name ?? t('shell.personalSpace');
-  const tile = <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent font-serif text-base font-semibold text-on-accent shadow-card" aria-hidden="true">{label.slice(0, 1)}</span>;
+  const tile = <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent text-base font-semibold text-on-accent shadow-card" aria-hidden="true">{label.slice(0, 1)}</span>;
   if (orgs.length < 2) return <div className="flex items-center gap-2.5 rounded-xl border border-line bg-raised/70 p-2 shadow-card">{tile}<p className="truncate text-sm font-semibold text-ink">{label}</p></div>;
   return (
     <DropdownMenu>

@@ -29,7 +29,7 @@ function DateTile({ iso }: { iso: string }) {
   return (
     <span className="grid size-14 shrink-0 place-items-center rounded-xl border border-line bg-raised text-center shadow-card transition-transform motion-fast group-hover:-translate-y-0.5" aria-hidden="true">
       <span className="-mb-1 text-[0.7rem] font-semibold uppercase tracking-wider text-accent">{f.date(iso, { month: 'short' })}</span>
-      <span className="font-serif text-2xl font-semibold leading-none">{f.date(iso, { day: 'numeric' })}</span>
+      <span className="text-2xl font-medium leading-none">{f.date(iso, { day: 'numeric' })}</span>
     </span>
   );
 }

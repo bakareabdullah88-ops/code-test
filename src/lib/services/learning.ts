@@ -400,7 +400,8 @@ export const todayService = {
           ...store.find('meetings', (m) => groups.includes(m.groupId) && sameDay(m.startsAt, d)).map((m): TodayDayItem => ({ kind: 'meeting', at: m.startsAt, message: null, title: store.get('groups', m.groupId)?.name ?? '', href: `/app/groups/${m.groupId}` })),
           ...store.find('events', (e) => going.has(e.id) && sameDay(e.startsAt, d)).map((e): TodayDayItem => ({ kind: 'event', at: e.startsAt, message: null, title: e.title, href: `/app/community/events/${e.id}` })),
         ].sort((x, y) => x.at.localeCompare(y.at));
-        return { date: d.toISOString(), items };
+        const reflected = store.find('reflections', (r) => r.authorId === a.user.id && r.status !== 'draft' && !!r.submittedAt && sameDay(r.submittedAt, d)).length > 0;
+        return { date: d.toISOString(), items, reflected };
       });
       const flat = next ? next.pathway.outline.flatMap((m) => m.lessons) : [];
       const upNext = next ? flat[flat.findIndex((l) => l.id === next?.lesson.id) + 1] ?? null : null;

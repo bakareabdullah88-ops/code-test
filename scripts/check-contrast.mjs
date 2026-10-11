@@ -72,5 +72,25 @@ for (const [name, map] of themes) {
     }
   }
 }
+// Text on glass: blend the glass fill over every colour stop of each sky and check muted text against the result.
+const hexes = (v) => [...(v ?? '').matchAll(/#[0-9a-f]{6}/gi)].map((m) => m[0]);
+const rgba = (v) => { const m = v?.match(/rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)/); return m ? { c: [m[1], m[2], m[3]].map(Number), a: Number(m[4]) } : null; };
+const blend = (fill, under) => { const u = [0, 2, 4].map((i) => parseInt(under.slice(1 + i, 3 + i), 16)); return '#' + fill.c.map((c, i) => Math.round(c * fill.a + (u[i] ?? 0) * (1 - fill.a)).toString(16).padStart(2, '0')).join(''); };
+for (const [name, map] of [['light', root], ['dark', dark]]) {
+  for (const g of ['glass', 'glass-strong']) {
+    const fill = rgba(map[`--${g}`]);
+    for (const sky of ['sky-morning', 'sky-afternoon', 'sky-evening']) for (const stop of hexes(map[`--${sky}`])) {
+      for (const fg of ['text', 'text-muted']) {
+        const f = resolve(map, `--${fg}`);
+        if (!fill || !f) continue;
+        const r = ratio(f, blend(fill, stop));
+        checked++;
+        if (r < 4.5) { failures++; console.error(`FAIL [${name}] ${fg} on ${g} over ${sky} ${stop}: ${r.toFixed(2)} < 4.5`); }
+      }
+    }
+  }
+  const sf = resolve(map, '--on-solid'); const sb = resolve(map, '--solid');
+  if (sf && sb) { checked++; if (ratio(sf, sb) < 4.5) { failures++; console.error(`FAIL [${name}] on-solid on solid`); } }
+}
 console.log(`${checked} pairs checked, ${failures} failing`);
 process.exit(failures ? 1 : 0);

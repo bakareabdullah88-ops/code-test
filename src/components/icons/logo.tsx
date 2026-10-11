@@ -16,7 +16,7 @@ export function Wordmark({ className }: { className?: string }) {
     <span className={className}>
       <span className="inline-flex items-center gap-2">
         <LogoMark />
-        <span className="font-serif text-lg font-semibold tracking-tight">{brand.appName}</span>
+        <span className="text-lg font-semibold tracking-tight">{brand.appName}</span>
       </span>
     </span>
   );
