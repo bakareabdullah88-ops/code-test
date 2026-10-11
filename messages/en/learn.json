@@ -47,7 +47,20 @@
    "noMentorBody": "A mentor can read what you choose to share and write back. Ask your organisation's admin to match you with someone.",
    "soloTitle": "Learning on your own",
    "soloBody": "Everything here works without a church or group. When you're ready, you can join an organisation and invite a mentor.",
-   "soloAction": "Join an organisation"
+   "soloAction": "Join an organisation",
+   "title": "Today",
+   "focus": "Today's focus",
+   "upNext": "Next up",
+   "thisWeek": "This week",
+   "ringLabel": "Progress through {pathway}",
+   "ringCaption": "of pathway",
+   "dayCount": "{count, plural, =0 {Nothing recorded} one {# item} other {# items}}",
+   "dayEmpty": "Nothing on this day.",
+   "alsoToday": "Also today",
+   "reflectionShort": "Write a few honest lines. Private unless you share it.",
+   "readingShort": "Read the passage for today",
+   "ask": "Ask the study companion anything",
+   "minShort": "{minutes} min"
   },
   "journey": {
    "title": "Your journey",

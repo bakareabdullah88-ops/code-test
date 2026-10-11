@@ -1,4 +1,4 @@
-import type { Enrollment, Id, Lesson, LessonBlock, LessonProgress, Milestone, Module, Pathway, PublishStatus, Quiz, QuizAttempt } from '@/types';
+import type { Enrollment, Id, Lesson, LessonBlock, LessonProgress, LocalisedMessage, Milestone, Module, Pathway, PublishStatus, Quiz, QuizAttempt } from '@/types';
 import { ApiError, forbidden, notFound } from '../db/errors';
 import { daysFromNow, newId, nowIso } from '../db/ids';
 import { actor } from '../db/session';
@@ -359,6 +359,8 @@ export const enrolmentsService = {
     }, { write: true }),
 };
 
+export interface TodayDayItem { kind: 'done' | 'meeting' | 'event'; at: string; message: LocalisedMessage | null; title: string | null; href: string }
+
 export const todayService = {
   get: () =>
     call(() => {
@@ -385,7 +387,24 @@ export const todayService = {
       const group = nextMeeting ? store.get('groups', nextMeeting.groupId) ?? null : null;
       const recentMilestone = store.find('milestones', (m) => m.userId === a.user.id && m.awardedAt > new Date(Date.now() - 3 * 86_400_000).toISOString()).sort((x, y) => y.awardedAt.localeCompare(x.awardedAt))[0] ?? null;
       const mentor = mentorsOf(a.user.id, a.orgId)[0];
-      return { next, draft, dueVerses, feedback, feedbackReflection, nextMeeting, groupName: group?.name ?? null, recentMilestone, mentorName: mentor ? nameOf(mentor) : null, hasMentor: !!mentor, inOrg: !!a.orgId, enrolledCount: enrollments.length };
+      // Monday-to-Sunday of the current week, with what happened (timeline) or is planned (meetings, events) each day.
+      const monday = new Date();
+      monday.setHours(0, 0, 0, 0);
+      monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7));
+      const sameDay = (iso: string, d: Date) => { const x = new Date(iso); return x.getFullYear() === d.getFullYear() && x.getMonth() === d.getMonth() && x.getDate() === d.getDate(); };
+      const going = new Set(store.find('rsvps', (r) => r.userId === a.user.id && r.status !== 'declined').map((r) => r.eventId));
+      const week = Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(monday.getTime() + i * 86_400_000);
+        const items: TodayDayItem[] = [
+          ...store.find('timeline', (e) => e.userId === a.user.id && sameDay(e.occurredAt, d)).map((e): TodayDayItem => ({ kind: 'done', at: e.occurredAt, message: e.summary, title: null, href: '/app/journey/timeline' })),
+          ...store.find('meetings', (m) => groups.includes(m.groupId) && sameDay(m.startsAt, d)).map((m): TodayDayItem => ({ kind: 'meeting', at: m.startsAt, message: null, title: store.get('groups', m.groupId)?.name ?? '', href: `/app/groups/${m.groupId}` })),
+          ...store.find('events', (e) => going.has(e.id) && sameDay(e.startsAt, d)).map((e): TodayDayItem => ({ kind: 'event', at: e.startsAt, message: null, title: e.title, href: `/app/community/events/${e.id}` })),
+        ].sort((x, y) => x.at.localeCompare(y.at));
+        return { date: d.toISOString(), items };
+      });
+      const flat = next ? next.pathway.outline.flatMap((m) => m.lessons) : [];
+      const upNext = next ? flat[flat.findIndex((l) => l.id === next?.lesson.id) + 1] ?? null : null;
+      return { week, upNext, next, draft, dueVerses, feedback, feedbackReflection, nextMeeting, groupName: group?.name ?? null, recentMilestone, mentorName: mentor ? nameOf(mentor) : null, hasMentor: !!mentor, inOrg: !!a.orgId, enrolledCount: enrollments.length };
     }),
 };
 

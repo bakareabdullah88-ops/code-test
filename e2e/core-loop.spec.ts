@@ -4,7 +4,7 @@ import { signInAs, switchPerson } from './helpers';
 
 test('lesson, reflection, mentor feedback, and back to the student', async ({ page }) => {
   await signInAs(page, 'Adaeze Okafor');
-  await expect(page.getByRole('heading', { level: 1, name: /Adaeze/ })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Today' })).toBeVisible();
 
   // Open today's lesson and finish it.
   await page.getByRole('link', { name: /Continue lesson/ }).click();

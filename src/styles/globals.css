@@ -267,3 +267,19 @@
 .tiptap { outline: none; }
 .tiptap ul { list-style: disc; padding-inline-start: 1.5rem; }
 .tiptap blockquote { border-inline-start: 2px solid var(--border-strong); padding-inline-start: 1em; font-style: italic; color: var(--text-muted); }
+
+/* Today: an atmospheric wash behind the top of the page, fading into the background. */
+.today-sky {
+  position: absolute;
+  inset-inline: -1rem;
+  top: -6rem;
+  height: 38rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 70% at 15% 0%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 62%),
+    radial-gradient(80% 60% at 100% 18%, color-mix(in srgb, var(--accent) 16%, var(--surface-sunken)), transparent 70%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 14%, var(--bg)), var(--bg));
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}
+@media (min-width: 64rem) { .today-sky { inset-inline: -2rem; } }
