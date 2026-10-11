@@ -1,0 +1,61 @@
+{
+  "app": {
+    "name": "{appName}",
+    "tagline": "One connected journey"
+  },
+  "actions": {
+    "retry": "Try again",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "continue": "Continue",
+    "back": "Back",
+    "dismiss": "Dismiss",
+    "undo": "Undo",
+    "openMenu": "Open menu",
+    "search": "Search",
+    "skipToContent": "Skip to content"
+  },
+  "theme": {
+    "label": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "Match my device"
+  },
+  "states": {
+    "loading": "Loading",
+    "offlineBanner": "You're offline. Showing what's saved on this device.",
+    "errorTitle": "Something didn't load",
+    "errorBody": "Check your connection and try again. Nothing you wrote has been lost.",
+    "requestId": "Request ID",
+    "showDetails": "Show details",
+    "saving": "Saving…",
+    "savedAt": "Saved {time}"
+  },
+  "lens": {
+    "label": "View as",
+    "learn": "Learn",
+    "mentor": "Mentor",
+    "lead": "Lead",
+    "admin": "Admin"
+  },
+  "shell": {
+    "primaryNav": "Primary",
+    "notifications": "Notifications",
+    "me": "Me and settings",
+    "comingSoon": "This screen arrives in a later phase.",
+    "placeholderBody": "The shell, navigation and states are in place. The content for this screen is built in a later roadmap phase."
+  },
+  "preview": {
+    "eyebrow": "Early preview",
+    "title": "One connected journey, from lesson to growth.",
+    "body": "{appName} is being built in the open. Right now you can explore the design system and the navigation shell. The working journey arrives in the next phases.",
+    "designLink": "Open the design gallery",
+    "shellLink": "Open the app shell"
+  },
+  "notFound": {
+    "title": "We couldn't find that page",
+    "body": "The link may be old, or the page may have moved.",
+    "home": "Go to the start"
+  }
+}

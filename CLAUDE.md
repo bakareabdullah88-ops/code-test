@@ -24,7 +24,7 @@ A **frontend-only**, production-grade discipleship platform (working name Tesser
 
 Next.js (App Router) + TypeScript strict, Tailwind v4 over our tokens, Radix primitives (restyled), TanStack Query, React Hook Form + Zod, Tiptap, Recharts, next-intl, Serwist, Vitest + Testing Library, Playwright. Package manager: pnpm. Node 22.
 
-Commands (created in Phase 1; keep this list accurate):
+Commands (keep this list accurate; the two marked Phase 2 do not exist yet):
 
 ```
 pnpm dev            # next dev
@@ -37,8 +37,8 @@ pnpm e2e            # playwright (mobile + desktop projects)
 pnpm check          # typecheck + lint + test (run before every commit)
 pnpm check:contrast # token contrast gate
 pnpm check:i18n     # catalogue completeness / ICU validity
-pnpm seed:build     # content/seed -> public/data/seed/vN
-pnpm bible:build    # WEB source -> public/data/bible/web
+pnpm seed:build     # (Phase 2) content/seed -> public/data/seed/vN
+pnpm bible:build    # (Phase 2) WEB source -> public/data/bible/web
 ```
 
 ## Folder rules
@@ -110,6 +110,8 @@ For any UI change:
 
 - Develop on the branch named in the task; do not push elsewhere. Do not open a pull request unless asked.
 - Conventional commits (`feat(lessons): …`, `fix(mock-server): …`, `docs: …`). Small, reviewable commits; run `pnpm check` first.
+- TypeScript is pinned to 6.x because typescript-eslint does not support 7.x yet; bump together when it does.
+- To check in the browser: `pnpm build && pnpm start -p 3100`, then `CHROMIUM_PATH=<preinstalled chromium> node scripts/screenshots.mjs http://localhost:3100 /route`. Do not `pkill -f` patterns that appear in your own command line.
 - Don't commit secrets, `.screenshots/`, build output or large binaries. Media and Bible JSON are generated or licensed assets documented in `content/README.md`.
 - Keep docs in sync: change a type → update API_CONTRACT.md; change a decision → update the relevant doc.
 - When a phase finishes, stop and summarise against its definition of done in ROADMAP.md, with screenshots and any deviations, then wait for review.

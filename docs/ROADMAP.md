@@ -49,6 +49,19 @@ Definition of done (in addition to global)
 
 Risks: font coverage; scope creep into polishing. Timebox spikes.
 
+### Phase 1 status (built; awaiting review)
+
+Done and verified (Chromium at 360x800 and 1280x800, light and dark): tokens with a contrast gate (288 pairs, 0 failing, including three org accents), Literata + Instrument Sans via self-hosted Fontsource, glyph test page for six languages (renders correctly), 20 Tier 1 and Tier 2 components, `/design` gallery, app shell with four lens navigations, theme and reading preferences without flash, next-intl with `en` and empty locale folders, lint rules for raw hex, console and forbidden imports (proved with failing fixtures), 23 unit/component tests, 26 Playwright checks (axe, overflow, navigation, theme, dialog focus, toast), CI workflow.
+
+Measured (Lighthouse, mobile preset): `/app/today` performance 100, accessibility 100, best practices 96. `/design` performance 76, accessibility 100.
+
+Known gaps against this phase's definition of done (planned follow-up before Phase 2 unless you prefer to move on):
+- `/design` performance is below 95 because the whole gallery hydrates as one client page. Fix: split into `/design/<section>` routes.
+- Not built yet: Combobox, Calendar/DatePicker, Table, Pagination, Popover, Slider, ContextMenu, Breadcrumbs; a custom icon set (Phosphor only); about 4 of the ~10 planned spot illustrations; `en-XA` pseudo-locale; the lint rules for literal JSX strings and arbitrary Tailwind values (gallery copy is intentionally not localised).
+- Not run: WebKit, a real Android device, screen reader pass (TalkBack/VoiceOver/NVDA). Keyboard and focus were checked only through automated tests plus one focus screenshot.
+- Message catalogues are merged per locale rather than split per route (fine at this size; revisit in Phase 9).
+- Placeholder lens routes are simpler than the final routing map (for example `/leader/schedule` instead of per-group routes).
+
 ---
 
 ## Phase 2: Data foundation and app services (L)
