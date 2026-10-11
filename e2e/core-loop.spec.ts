@@ -7,7 +7,7 @@ test('lesson, reflection, mentor feedback, and back to the student', async ({ pa
   await expect(page.getByRole('heading', { level: 1, name: 'Today' })).toBeVisible();
 
   // Open today's lesson and finish it.
-  await page.getByRole('link', { name: /Continue lesson/ }).click();
+  await page.getByRole('link', { name: /Foundations of Faith/ }).first().click();
   await expect(page.getByRole('heading', { level: 1, name: 'Grace' })).toBeVisible();
   await expect(page.getByText('Ephesians 2:8-9').first()).toBeVisible();
   await expect(page.getByText('For by grace you have been saved').first()).toBeVisible();

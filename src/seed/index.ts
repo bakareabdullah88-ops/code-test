@@ -16,7 +16,7 @@ import { seedExtras } from './extras';
 import { seedWorkspace } from './workspace';
 import { seedReflections } from './reflections';
 
-export const SEED_VERSION = 2;
+export const SEED_VERSION = 3;
 
 const pathwayId = (k: string) => `pth_${k}` as Id<'pth'>;
 const lessonId = (k: string) => `les_${k}` as Id<'les'>;
@@ -146,6 +146,8 @@ export function seedAll() {
   enroll('maria', 'mark', 2, 24, 'esperance', { inProgress: true, groupKey: 'sunday', lastDaysAgo: 6 });
   enroll('ananya', 'mark', 4, 24, 'esperance', { inProgress: true, groupKey: 'sunday', lastDaysAgo: 4 });
   enroll('thandiwe', 'psalms', 1, 6, null, { inProgress: true, lastDaysAgo: 1 });
+  enroll('adaeze', 'psalms', 2, 9, null, { inProgress: false, lastDaysAgo: 3 });
+  enroll('adaeze', 'sermon', 1, 7, 'grace', { inProgress: false, lastDaysAgo: 5 });
   enroll('kwabena', 'sermon', 3, 14, null, { inProgress: true, lastDaysAgo: 2 });
   enroll('sofia', 'rhythms', 2, 12, null, { inProgress: true, lastDaysAgo: 3 });
   enroll('wanjiku', 'prayer', 2, 18, 'esperance', { inProgress: true, lastDaysAgo: 2 });

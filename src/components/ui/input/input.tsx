@@ -2,7 +2,7 @@ import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes } fro
 import { cn } from '@/lib/cn';
 
 export const controlStyles =
-  'w-full rounded-xl border border-line-strong bg-raised/70 px-3.5 text-base text-ink placeholder:text-subtle transition-colors motion-fast hover:border-ink focus-visible:border-accent aria-[invalid=true]:border-danger disabled:cursor-not-allowed disabled:opacity-60';
+  'w-full rounded-xl border border-line-strong bg-surface px-3.5 text-base text-ink placeholder:text-subtle transition-colors motion-fast hover:border-line-strong focus-visible:border-accent aria-[invalid=true]:border-danger disabled:cursor-not-allowed disabled:opacity-60';
 
 export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(function Input({ className, type, ...props }, ref) {
   return <input ref={ref} type={type ?? 'text'} className={cn(controlStyles, 'min-h-11', className)} {...props} />;

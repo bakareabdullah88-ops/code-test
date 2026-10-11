@@ -405,7 +405,22 @@ export const todayService = {
       });
       const flat = next ? next.pathway.outline.flatMap((m) => m.lessons) : [];
       const upNext = next ? flat[flat.findIndex((l) => l.id === next?.lesson.id) + 1] ?? null : null;
-      return { week, upNext, next, draft, dueVerses, feedback, feedbackReflection, nextMeeting, groupName: group?.name ?? null, recentMilestone, mentorName: mentor ? nameOf(mentor) : null, hasMentor: !!mentor, inOrg: !!a.orgId, enrolledCount: enrollments.length };
+      const pathways = enrollments.map((e) => store.get('pathways', e.pathwayId)).filter((p): p is Pathway => !!p).map((p) => {
+        const dd = detail(p, a.user.id);
+        const lessons = dd.outline.flatMap((m) => m.lessons);
+        const current = lessons.find((l) => l.progress !== 'completed') ?? null;
+        return { id: p.id, title: p.title, level: p.level, coverKey: p.coverKey, author: dd.author.displayName, completed: dd.progress.completed, total: dd.progress.total, current: current ? { id: current.id, title: current.title, minutes: current.estimatedMinutes } : null };
+      });
+      const recentReflections = store.find('reflections', (r) => r.authorId === a.user.id).sort((x, y) => y.updatedAt.localeCompare(x.updatedAt)).slice(0, 2)
+        .map((r) => ({ id: r.id, title: r.lessonId ? store.get('lessons', r.lessonId)?.title ?? null : null, plainText: r.plainText, status: r.status, updatedAt: r.updatedAt }));
+      const activity = store.find('timeline', (e) => e.userId === a.user.id).sort((x, y) => y.occurredAt.localeCompare(x.occurredAt)).slice(0, 3)
+        .map((e) => ({ id: e.id, type: e.type, summary: e.summary, at: e.occurredAt }));
+      const goingIds = new Set(store.find('rsvps', (r) => r.userId === a.user.id && r.status !== 'declined').map((r) => r.eventId));
+      const upcoming = [
+        ...store.find('meetings', (m) => groups.includes(m.groupId) && m.status === 'scheduled' && m.startsAt > nowIso()).map((m) => ({ id: m.id, kind: 'meeting' as const, title: store.get('groups', m.groupId)?.name ?? '', detail: m.location ?? null, at: m.startsAt, href: `/app/groups/${m.groupId}` })),
+        ...store.find('events', (e) => goingIds.has(e.id) && e.startsAt > nowIso()).map((e) => ({ id: e.id, kind: 'event' as const, title: e.title, detail: e.location, at: e.startsAt, href: `/app/community/events/${e.id}` })),
+      ].sort((x, y) => x.at.localeCompare(y.at)).slice(0, 3);
+      return { pathways, recentReflections, activity, upcoming, week, upNext, next, draft, dueVerses, feedback, feedbackReflection, nextMeeting, groupName: group?.name ?? null, recentMilestone, mentorName: mentor ? nameOf(mentor) : null, hasMentor: !!mentor, inOrg: !!a.orgId, enrolledCount: enrollments.length };
     }),
 };
 

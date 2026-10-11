@@ -27,7 +27,7 @@ export function SegmentedControl({ label, value, onValueChange, options, classNa
       onValueChange={(v) => {
         if (v) onValueChange(v);
       }}
-      className={cn('glass inline-flex rounded-full border p-1', className)}
+      className={cn('inline-flex rounded-xl border border-line bg-sunken p-1', className)}
     >
       {options.map((o) => {
         const on = o.value === value;
@@ -35,9 +35,9 @@ export function SegmentedControl({ label, value, onValueChange, options, classNa
           <ToggleGroup.Item
             key={o.value}
             value={o.value}
-            className={cn('relative inline-flex min-h-9 items-center rounded-full px-4 text-sm font-medium transition-colors motion-fast coarse:min-h-10', on ? 'text-ink' : 'text-muted hover:text-ink')}
+            className={cn('relative inline-flex min-h-9 items-center rounded-lg px-4 text-sm font-medium transition-colors motion-fast coarse:min-h-10', on ? 'text-ink' : 'text-muted hover:text-ink')}
           >
-            {on ? <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-full bg-raised shadow-card" transition={{ type: 'spring', stiffness: 520, damping: 38 }} aria-hidden="true" /> : null}
+            {on ? <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-lg border border-line bg-surface shadow-card" transition={{ type: 'spring', stiffness: 520, damping: 38 }} aria-hidden="true" /> : null}
             <span className="relative">{o.label}</span>
           </ToggleGroup.Item>
         );

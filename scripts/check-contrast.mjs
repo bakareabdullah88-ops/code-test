@@ -50,6 +50,10 @@ const text = [
   ['danger', 'bg'], ['danger', 'danger-subtle'], ['on-accent', 'danger'],
   ['text', 'hl-straw'], ['text', 'hl-sage'], ['text', 'hl-rose'], ['text', 'hl-mist'],
   ...[1, 2, 3, 4, 5, 6].map((i) => ['text', `tint-${i}`]),
+  ...[1, 2, 3, 4, 5, 6].map((i) => ['text-muted', `tint-${i}`]),
+  ['tag-amber', 'tint-1'], ['tag-green', 'tint-2'], ['tag-blue', 'tint-3'], ['tag-violet', 'tint-5'], ['tag-rose', 'tint-6'],
+  ['tag-amber', 'surface'], ['tag-green', 'surface'], ['tag-blue', 'surface'], ['danger', 'surface'], ['success', 'surface'],
+  ['on-solid', 'solid'], ['accent-subtle-text', 'accent-subtle'],
 ];
 // Non-text UI: control borders and focus indicators (WCAG 1.4.11).
 const ui = [['border-strong', 'bg'], ['focus-ring', 'bg'], ['accent', 'bg']];
@@ -91,6 +95,12 @@ for (const [name, map] of [['light', root], ['dark', dark]]) {
   }
   const sf = resolve(map, '--on-solid'); const sb = resolve(map, '--solid');
   if (sf && sb) { checked++; if (ratio(sf, sb) < 4.5) { failures++; console.error(`FAIL [${name}] on-solid on solid`); } }
+}
+// White text on every stop of the promo gradient.
+for (const [name, map] of [['light', root], ['dark', dark]]) for (const stop of hexes(map['--promo'])) {
+  checked++;
+  const r = ratio('#ffffff', stop);
+  if (r < 3) { failures++; console.error(`FAIL [${name}] white on promo ${stop}: ${r.toFixed(2)} < 3 (large text)`); }
 }
 console.log(`${checked} pairs checked, ${failures} failing`);
 process.exit(failures ? 1 : 0);

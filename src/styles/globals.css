@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/literata/wght.css';
 @import '@fontsource-variable/literata/wght-italic.css';
-@import '@fontsource-variable/geist/wght.css';
+@import '@fontsource-variable/inter/wght.css';
 @import './tokens.css';
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
@@ -50,8 +50,20 @@
   --color-tint-4: var(--tint-4);
   --color-tint-5: var(--tint-5);
   --color-tint-6: var(--tint-6);
+  --color-tint-line-1: var(--tint-line-1);
+  --color-tint-line-2: var(--tint-line-2);
+  --color-tint-line-3: var(--tint-line-3);
+  --color-tint-line-4: var(--tint-line-4);
+  --color-tint-line-5: var(--tint-line-5);
+  --color-tint-line-6: var(--tint-line-6);
+  --color-tag-amber: var(--tag-amber);
+  --color-tag-blue: var(--tag-blue);
+  --color-tag-green: var(--tag-green);
+  --color-tag-violet: var(--tag-violet);
+  --color-tag-rose: var(--tag-rose);
+  --color-on-promo: var(--on-promo);
 
-  --font-sans: 'Geist Variable', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
   --font-serif: 'Literata Variable', 'Source Serif 4', Georgia, serif;
   --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 
@@ -62,40 +74,41 @@
   --radius-xl: var(--rad-xl);
   --radius-2xl: var(--rad-xl);
   --radius-3xl: var(--rad-2xl);
+  --radius-4xl: var(--rad-2xl);
 
   --shadow-card: var(--shadow-card);
   --shadow-lift: var(--shadow-lift);
   --shadow-pop: var(--shadow-2);
   --shadow-dialog: var(--shadow-3);
 
-  /* Five sizes only: label 12, body 15, reading 19, title 28, display 40-56. Aliases keep existing class names. */
+  /* Type scale: label 13, body 15, title 17, section 24, page 32. Aliases keep existing class names. */
   --text-*: initial;
-  --text-xs: 0.75rem;
+  --text-xs: 0.8125rem;
   --text-xs--line-height: 1.4;
-  --text-sm: 0.9375rem;
+  --text-sm: 0.875rem;
   --text-sm--line-height: 1.5;
   --text-base: 0.9375rem;
   --text-base--line-height: 1.55;
-  --text-lg: 1.1875rem;
-  --text-lg--line-height: 1.5;
-  --text-xl: 1.1875rem;
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.45;
+  --text-xl: 1.0625rem;
   --text-xl--line-height: 1.45;
-  --text-h4: 1.1875rem;
-  --text-h4--line-height: 1.35;
-  --text-2xl: 1.75rem;
-  --text-2xl--line-height: 1.2;
-  --text-3xl: 1.75rem;
-  --text-3xl--line-height: 1.2;
-  --text-h3: 1.75rem;
-  --text-h3--line-height: 1.2;
-  --text-h2: 1.75rem;
-  --text-h2--line-height: 1.2;
-  --text-4xl: clamp(2.5rem, 2rem + 2vw, 3.5rem);
-  --text-4xl--line-height: 1.05;
-  --text-5xl: clamp(2.5rem, 2rem + 2vw, 3.5rem);
-  --text-5xl--line-height: 1.05;
-  --text-h1: clamp(2.5rem, 2rem + 2vw, 3.5rem);
-  --text-h1--line-height: 1.05;
+  --text-h4: 1.0625rem;
+  --text-h4--line-height: 1.4;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 1.5rem;
+  --text-3xl--line-height: 1.25;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.25;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 1.25;
+  --text-4xl: 2rem;
+  --text-4xl--line-height: 1.15;
+  --text-5xl: 2rem;
+  --text-5xl--line-height: 1.15;
+  --text-h1: 2rem;
+  --text-h1--line-height: 1.15;
 
   --ease-standard: var(--e-standard);
   --ease-enter: var(--e-enter);
@@ -131,8 +144,8 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-sans); font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
-  h1 { font-weight: 500; letter-spacing: -0.035em; }
+  h1, h2, h3, h4 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.015em; text-wrap: balance; }
+  h1 { letter-spacing: -0.02em; }
   p { text-wrap: pretty; }
   :focus-visible {
     outline: 2px solid var(--focus-ring);
@@ -243,6 +256,9 @@
 }
 
 }
+
+/* Promo panel (the one gradient). */
+.promo { background: var(--promo); color: var(--on-promo); }
 
 /* The sky: fixed layers behind everything. Day parts cross-fade with opacity only. */
 .sky { position: fixed; inset: 0; z-index: -10; pointer-events: none; background: var(--bg); }

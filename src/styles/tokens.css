@@ -1,42 +1,41 @@
-/* Design tokens: single source of truth. See docs/DESIGN.md section 3.
-   "Dawn to Night": the light theme is dawn, the dark theme is night, and the sky shifts with the local time of day.
+/* Design tokens: single source of truth. See docs/DESIGN.md section 3.0 ("Clarity").
+   A calm, bright workspace: near-white page, white cards with hairline borders, one blue for action and progress,
+   and soft tints (amber, blue, green, mint, lavender, rose) for tags and activity.
    Primitives -> semantic roles -> (Tailwind maps roles in globals.css). */
 
 :root {
-  /* Slate neutrals */
-  --slate-50: #f6f7f9;
-  --slate-100: #eceff3;
-  --slate-200: #dde2e8;
-  --slate-300: #c5ccd6;
-  --slate-500: #64708a;
-  --slate-600: #4a5568;
-  --slate-700: #334155;
-  --slate-900: #0f172a;
-  --slate-950: #0a0f1e;
+  /* Neutrals */
+  --gray-25: #fafafb;
+  --gray-50: #f6f6f8;
+  --gray-100: #efeff2;
+  --gray-200: #e6e6ea;
+  --gray-300: #d4d5db;
+  --gray-500: #6b6f7b;
+  --gray-600: #555a66;
+  --gray-700: #3d414b;
+  --gray-900: #16181d;
 
-  /* Amber (the one accent) */
-  --amber-50: #fdf3e1;
-  --amber-100: #fbe4bc;
-  --amber-300: #f7c172;
-  --amber-400: #f5b14c;
-  --amber-500: #e8952a;
-  --amber-600: #d97c12;
-  --amber-800: #8a4a0b;
+  /* Blue (the one action colour) */
+  --blue-50: #eef3ff;
+  --blue-100: #dde7ff;
+  --blue-500: #4a78f5;
+  --blue-600: #2f5fe8;
+  --blue-700: #2650c8;
 
   /* Radius */
   --rad-xs: 6px;
-  --rad-sm: 10px;
-  --rad-md: 14px;
-  --rad-lg: 20px;
-  --rad-xl: 28px;
-  --rad-2xl: 32px;
+  --rad-sm: 8px;
+  --rad-md: 10px;
+  --rad-lg: 12px;
+  --rad-xl: 14px;
+  --rad-2xl: 16px;
 
   /* Motion */
   --dur-instant: 90ms;
-  --dur-fast: 160ms;
-  --dur-base: 260ms;
-  --dur-slow: 420ms;
-  --dur-sky: 2400ms;
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+  --dur-slow: 380ms;
+  --dur-sky: 0.01ms;
   --e-standard: cubic-bezier(0.2, 0, 0, 1);
   --e-enter: cubic-bezier(0, 0, 0.2, 1);
   --e-exit: cubic-bezier(0.4, 0, 1, 1);
@@ -46,216 +45,196 @@
   --reading-scale: 1;
   --reading-leading: 1.7;
 
-  /* Dawn roles */
-  --bg: #f5f1e8;
+  /* Light roles */
+  --bg: var(--gray-50);
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --surface-sunken: var(--slate-100);
-  --border: #e2e0d8;
-  --border-strong: #7a8496;
-  --text: var(--slate-900);
-  --text-muted: var(--slate-600);
-  --text-subtle: #5b6578;
-  /* Accent is deep amber so it passes as text and button fill; accent-bright is for decorative fills only (ring, dots). */
-  --accent: #9a5306;
-  --accent-hover: #864805;
-  --accent-bright: var(--amber-500);
-  --on-accent-bright: #1a1206;
-  --accent-subtle: var(--amber-50);
-  --accent-subtle-text: var(--amber-800);
+  --surface-sunken: var(--gray-25);
+  --border: var(--gray-200);
+  --border-strong: #8a8e99;
+  --text: var(--gray-900);
+  --text-muted: var(--gray-600);
+  --text-subtle: #6a6e79;
+  --accent: var(--blue-600);
+  --accent-hover: var(--blue-700);
+  --accent-bright: var(--blue-500);
+  --on-accent-bright: #ffffff;
+  --accent-subtle: var(--blue-50);
+  --accent-subtle-text: var(--blue-700);
   --on-accent: #ffffff;
-  --focus-ring: #9a5306;
-  --solid: var(--slate-950);
+  --focus-ring: var(--blue-600);
+  --solid: var(--blue-600);
   --on-solid: #ffffff;
-  --success: #3f6b3a;
-  --success-subtle: #e9f1e4;
-  --warning: #8a560b;
-  --warning-subtle: #fbeedb;
-  --danger: #b3263e;
-  --danger-subtle: #fbeaec;
-  --scrim: rgb(15 23 42 / 0.4);
+  --success: #15803d;
+  --success-subtle: #e8f8ef;
+  --warning: #9a6700;
+  --warning-subtle: #fff6dc;
+  --danger: #d1242f;
+  --danger-subtle: #fdecee;
+  --scrim: rgb(22 24 29 / 0.4);
 
-  --hl-straw: #f6e7a8;
-  --hl-sage: #d3e2bf;
-  --hl-rose: #f1cfc9;
-  --hl-mist: #d6e3ea;
+  /* Highlight and tint swatches (tags, activity cards, covers) */
+  --hl-straw: #fbeeb4;
+  --hl-sage: #d6ecd2;
+  --hl-rose: #f8d7df;
+  --hl-mist: #d8e4fb;
+  --tint-1: #fff6dc; --tint-2: #e8f8ef; --tint-3: #eef3ff; --tint-4: #effaf6; --tint-5: #f4f2ff; --tint-6: #fdf1f5;
+  --tint-line-1: #f6e2a6; --tint-line-2: #bfe8d0; --tint-line-3: #cddcff; --tint-line-4: #c9eedf; --tint-line-5: #dcd6fb; --tint-line-6: #f6d3df;
+  --tag-amber: #8f5e00; --tag-blue: #2650c8; --tag-green: #13753a; --tag-violet: #5b45c9; --tag-rose: #b4235a;
 
-  --tint-1: #f6e2c4; --tint-2: #dfe8d6; --tint-3: #f3e6c4; --tint-4: #d8e4ee; --tint-5: #eedcd8; --tint-6: #e6e2d8;
+  /* Promo panel: soft periwinkle, the only gradient in the system */
+  --promo: linear-gradient(120deg, #5a67e0 0%, #6672e6 55%, #7d88ee 100%);
+  --on-promo: #ffffff;
 
-  /* Sky: three layers per theme, cross-faded by time of day */
-  --sky-morning: linear-gradient(180deg, #c9dcec 0%, #dfe9ef 34%, #f1efe8 68%, #f7f1e6 100%);
-  --sky-afternoon: linear-gradient(180deg, #d6e4ee 0%, #e9eeee 36%, #f5f0e6 70%, #f8f1e2 100%);
-  --sky-evening: linear-gradient(180deg, #d5d9ea 0%, #e9e3e6 38%, #f4e6d6 72%, #f6e2c8 100%);
-  --sky-glow: radial-gradient(70rem 36rem at 85% -10%, rgb(255 255 255 / 0.7), transparent 70%);
+  /* The page is flat in this system; the sky layers collapse to the background */
+  --sky-morning: var(--bg);
+  --sky-afternoon: var(--bg);
+  --sky-evening: var(--bg);
+  --sky-glow: none;
   --stars: none;
-  --noise-opacity: 0.035;
+  --noise-opacity: 0;
 
-  /* Glass */
-  --glass: rgb(255 255 255 / 0.6);
-  --glass-strong: rgb(255 255 255 / 0.74);
-  --glass-solid: rgb(255 255 255 / 0.94);
-  --glass-line: rgb(255 255 255 / 0.55);
-  --glass-edge: 0 0 0 1px rgb(15 23 42 / 0.04);
-  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.7);
-  --glass-blur: blur(32px) saturate(160%);
+  /* "Glass" surfaces are now plain cards: white, hairline border, faint shadow */
+  --glass: #ffffff;
+  --glass-strong: #ffffff;
+  --glass-solid: #ffffff;
+  --glass-line: var(--gray-200);
+  --glass-edge: 0 1px 2px rgb(22 24 29 / 0.04);
+  --glass-highlight: 0 0 0 0 transparent;
+  --glass-blur: none;
 
-  /* Depth: large, soft, low-opacity layered shadows */
-  --shadow-card: 0 20px 60px rgb(15 23 42 / 0.09), 0 2px 6px rgb(15 23 42 / 0.04);
-  --shadow-lift: 0 28px 72px rgb(15 23 42 / 0.15), 0 4px 12px rgb(15 23 42 / 0.05);
-  --shadow-2: 0 12px 40px rgb(15 23 42 / 0.12), 0 2px 6px rgb(15 23 42 / 0.05);
-  --shadow-3: 0 32px 90px rgb(15 23 42 / 0.22);
+  /* Depth: barely there */
+  --shadow-card: 0 1px 2px rgb(22 24 29 / 0.04), 0 6px 16px -10px rgb(22 24 29 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(22 24 29 / 0.04), 0 14px 32px -14px rgb(22 24 29 / 0.16);
+  --shadow-2: 0 10px 30px -12px rgb(22 24 29 / 0.18);
+  --shadow-3: 0 24px 60px -20px rgb(22 24 29 / 0.3);
   color-scheme: light;
 }
 
-/* Night roles. Applied by explicit choice, or by system preference unless light is forced. */
+/* Dark roles. Applied by explicit choice, or by system preference unless light is forced. */
 :root[data-theme='dark'] {
-  --bg: #0a1026;
-  --surface: #121a38;
-  --surface-raised: #18214a;
-  --surface-sunken: #070b1c;
-  --border: #263157;
-  --border-strong: #5f6b96;
-  --text: #eef1fa;
-  --text-muted: #c3c9de;
-  --text-subtle: #8c95b6;
-  --accent: var(--amber-400);
-  --accent-hover: var(--amber-300);
-  --accent-bright: var(--amber-400);
-  --on-accent-bright: #1a1206;
-  --accent-subtle: #2a2214;
-  --accent-subtle-text: var(--amber-300);
-  --on-accent: #1a1206;
-  --focus-ring: var(--amber-300);
-  --solid: #ffffff;
-  --on-solid: var(--slate-950);
-  --success: #9dc28a;
-  --success-subtle: #172a1c;
-  --warning: #f0b860;
-  --warning-subtle: #2e230f;
-  --danger: #f08594;
-  --danger-subtle: #361622;
-  --scrim: rgb(3 6 18 / 0.6);
-
+  --bg: #0e0f12;
+  --surface: #16181d;
+  --surface-raised: #1b1d23;
+  --surface-sunken: #121317;
+  --border: #272a31;
+  --border-strong: #6c717e;
+  --text: #eef0f4;
+  --text-muted: #b2b6c1;
+  --text-subtle: #9a9eaa;
+  --accent: #7c9dfb;
+  --accent-hover: #9bb4fc;
+  --accent-bright: #7c9dfb;
+  --on-accent-bright: #0e1222;
+  --accent-subtle: #17213d;
+  --accent-subtle-text: #a9bffd;
+  --on-accent: #0e1222;
+  --focus-ring: #9bb4fc;
+  --solid: #7c9dfb;
+  --on-solid: #0e1222;
+  --success: #5dd28b;
+  --success-subtle: #12291c;
+  --warning: #f0c050;
+  --warning-subtle: #2c2410;
+  --danger: #ff8189;
+  --danger-subtle: #361519;
+  --scrim: rgb(0 0 0 / 0.6);
   --hl-straw: #5b4d17;
-  --hl-sage: #34472b;
-  --hl-rose: #5a2f37;
-  --hl-mist: #26405a;
-  --tint-1: #3a2c18; --tint-2: #213524; --tint-3: #3a3216; --tint-4: #1c2f4d; --tint-5: #3a2232; --tint-6: #262a3c;
-
-  --sky-morning: linear-gradient(180deg, #0b1434 0%, #17245c 46%, #242c66 80%, #2b2d6c 100%);
-  --sky-afternoon: linear-gradient(180deg, #0c1638 0%, #172660 50%, #1f2b62 100%);
-  --sky-evening: linear-gradient(180deg, #060a1d 0%, #10183f 44%, #1d1f5a 78%, #2a2462 100%);
-  --sky-glow: radial-gradient(60rem 30rem at 80% -12%, rgb(120 140 255 / 0.18), transparent 70%);
-  --stars:
-    radial-gradient(1px 1px at 12% 18%, rgb(255 255 255 / 0.7), transparent),
-    radial-gradient(1px 1px at 28% 8%, rgb(255 255 255 / 0.5), transparent),
-    radial-gradient(1.5px 1.5px at 46% 22%, rgb(255 255 255 / 0.6), transparent),
-    radial-gradient(1px 1px at 64% 12%, rgb(255 255 255 / 0.45), transparent),
-    radial-gradient(1.5px 1.5px at 78% 30%, rgb(255 255 255 / 0.55), transparent),
-    radial-gradient(1px 1px at 90% 6%, rgb(255 255 255 / 0.5), transparent),
-    radial-gradient(1px 1px at 8% 42%, rgb(255 255 255 / 0.35), transparent),
-    radial-gradient(1px 1px at 56% 40%, rgb(255 255 255 / 0.3), transparent);
-  --noise-opacity: 0.05;
-
-  --glass: rgb(255 255 255 / 0.08);
-  --glass-strong: rgb(255 255 255 / 0.12);
-  --glass-solid: rgb(24 33 74 / 0.96);
-  --glass-line: rgb(255 255 255 / 0.1);
-  --glass-edge: 0 0 0 1px rgb(255 255 255 / 0.02);
-  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
-
-  --shadow-card: 0 20px 60px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.06);
-  --shadow-lift: 0 30px 80px rgb(0 0 0 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.08);
-  --shadow-2: 0 16px 48px rgb(0 0 0 / 0.45);
-  --shadow-3: 0 32px 90px rgb(0 0 0 / 0.6);
+  --hl-sage: #2e4a2c;
+  --hl-rose: #5a2a3a;
+  --hl-mist: #24365a;
+  --tint-1: #2a2410; --tint-2: #12291c; --tint-3: #17213d; --tint-4: #10271f; --tint-5: #1f1b3a; --tint-6: #2d1622;
+  --tint-line-1: #4a3d17; --tint-line-2: #1f4a31; --tint-line-3: #2a3a66; --tint-line-4: #1d4436; --tint-line-5: #3a3366; --tint-line-6: #4d2538;
+  --tag-amber: #f0c050; --tag-blue: #a9bffd; --tag-green: #5dd28b; --tag-violet: #b9adff; --tag-rose: #ff9cc0;
+  --promo: linear-gradient(120deg, #3f4ab0 0%, #5560c8 60%, #6f78d6 100%);
+  --glass: var(--surface);
+  --glass-strong: var(--surface-raised);
+  --glass-solid: var(--surface);
+  --glass-line: var(--border);
+  --glass-edge: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lift: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  --shadow-2: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  --shadow-3: 0 30px 80px -20px rgb(0 0 0 / 0.7);
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']):not([data-theme='dark']) {
-    --bg: #0a1026;
-    --surface: #121a38;
-    --surface-raised: #18214a;
-    --surface-sunken: #070b1c;
-    --border: #263157;
-    --border-strong: #5f6b96;
-    --text: #eef1fa;
-    --text-muted: #c3c9de;
-    --text-subtle: #8c95b6;
-    --accent: var(--amber-400);
-    --accent-hover: var(--amber-300);
-    --accent-bright: var(--amber-400);
-    --on-accent-bright: #1a1206;
-    --accent-subtle: #2a2214;
-    --accent-subtle-text: var(--amber-300);
-    --on-accent: #1a1206;
-    --focus-ring: var(--amber-300);
-    --solid: #ffffff;
-    --on-solid: var(--slate-950);
-    --success: #9dc28a;
-    --success-subtle: #172a1c;
-    --warning: #f0b860;
-    --warning-subtle: #2e230f;
-    --danger: #f08594;
-    --danger-subtle: #361622;
-    --scrim: rgb(3 6 18 / 0.6);
+    --bg: #0e0f12;
+    --surface: #16181d;
+    --surface-raised: #1b1d23;
+    --surface-sunken: #121317;
+    --border: #272a31;
+    --border-strong: #6c717e;
+    --text: #eef0f4;
+    --text-muted: #b2b6c1;
+    --text-subtle: #9a9eaa;
+    --accent: #7c9dfb;
+    --accent-hover: #9bb4fc;
+    --accent-bright: #7c9dfb;
+    --on-accent-bright: #0e1222;
+    --accent-subtle: #17213d;
+    --accent-subtle-text: #a9bffd;
+    --on-accent: #0e1222;
+    --focus-ring: #9bb4fc;
+    --solid: #7c9dfb;
+    --on-solid: #0e1222;
+    --success: #5dd28b;
+    --success-subtle: #12291c;
+    --warning: #f0c050;
+    --warning-subtle: #2c2410;
+    --danger: #ff8189;
+    --danger-subtle: #361519;
+    --scrim: rgb(0 0 0 / 0.6);
     --hl-straw: #5b4d17;
-    --hl-sage: #34472b;
-    --hl-rose: #5a2f37;
-    --hl-mist: #26405a;
-    --tint-1: #3a2c18; --tint-2: #213524; --tint-3: #3a3216; --tint-4: #1c2f4d; --tint-5: #3a2232; --tint-6: #262a3c;
-    --sky-morning: linear-gradient(180deg, #0b1434 0%, #17245c 46%, #242c66 80%, #2b2d6c 100%);
-    --sky-afternoon: linear-gradient(180deg, #0c1638 0%, #172660 50%, #1f2b62 100%);
-    --sky-evening: linear-gradient(180deg, #060a1d 0%, #10183f 44%, #1d1f5a 78%, #2a2462 100%);
-    --sky-glow: radial-gradient(60rem 30rem at 80% -12%, rgb(120 140 255 / 0.18), transparent 70%);
-    --stars:
-      radial-gradient(1px 1px at 12% 18%, rgb(255 255 255 / 0.7), transparent),
-      radial-gradient(1px 1px at 28% 8%, rgb(255 255 255 / 0.5), transparent),
-      radial-gradient(1.5px 1.5px at 46% 22%, rgb(255 255 255 / 0.6), transparent),
-      radial-gradient(1px 1px at 64% 12%, rgb(255 255 255 / 0.45), transparent),
-      radial-gradient(1.5px 1.5px at 78% 30%, rgb(255 255 255 / 0.55), transparent),
-      radial-gradient(1px 1px at 90% 6%, rgb(255 255 255 / 0.5), transparent),
-      radial-gradient(1px 1px at 8% 42%, rgb(255 255 255 / 0.35), transparent),
-      radial-gradient(1px 1px at 56% 40%, rgb(255 255 255 / 0.3), transparent);
-    --noise-opacity: 0.05;
-    --glass: rgb(255 255 255 / 0.08);
-    --glass-strong: rgb(255 255 255 / 0.12);
-    --glass-solid: rgb(24 33 74 / 0.96);
-    --glass-line: rgb(255 255 255 / 0.1);
-    --glass-edge: 0 0 0 1px rgb(255 255 255 / 0.02);
-    --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.08);
-    --shadow-card: 0 20px 60px rgb(0 0 0 / 0.35), inset 0 1px 0 rgb(255 255 255 / 0.06);
-    --shadow-lift: 0 30px 80px rgb(0 0 0 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.08);
-    --shadow-2: 0 16px 48px rgb(0 0 0 / 0.45);
-    --shadow-3: 0 32px 90px rgb(0 0 0 / 0.6);
+    --hl-sage: #2e4a2c;
+    --hl-rose: #5a2a3a;
+    --hl-mist: #24365a;
+    --tint-1: #2a2410; --tint-2: #12291c; --tint-3: #17213d; --tint-4: #10271f; --tint-5: #1f1b3a; --tint-6: #2d1622;
+    --tint-line-1: #4a3d17; --tint-line-2: #1f4a31; --tint-line-3: #2a3a66; --tint-line-4: #1d4436; --tint-line-5: #3a3366; --tint-line-6: #4d2538;
+    --tag-amber: #f0c050; --tag-blue: #a9bffd; --tag-green: #5dd28b; --tag-violet: #b9adff; --tag-rose: #ff9cc0;
+    --promo: linear-gradient(120deg, #3f4ab0 0%, #5560c8 60%, #6f78d6 100%);
+    --glass: var(--surface);
+    --glass-strong: var(--surface-raised);
+    --glass-solid: var(--surface);
+    --glass-line: var(--border);
+    --glass-edge: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-lift: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+    --shadow-2: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+    --shadow-3: 0 30px 80px -20px rgb(0 0 0 / 0.7);
     color-scheme: dark;
   }
 }
 
-/* Organisation accents (curated so contrast is guaranteed). Amber is the default. */
+/* Organisation accents (curated so contrast is guaranteed). Blue is the default. */
 :root[data-accent='moss'] {
   --accent: #3f6b2e;
   --accent-hover: #345a26;
-  --accent-bright: #6f9a4f;
+  --accent-bright: #4f7f3a;
   --accent-subtle: #e9f1e4;
   --accent-subtle-text: #2f4f22;
   --focus-ring: #3f6b2e;
+  --solid: #3f6b2e;
 }
 :root[data-accent='ochre'] {
   --accent: #8a6408;
   --accent-hover: #74540a;
-  --accent-bright: #d9a520;
+  --accent-bright: #a87a0c;
   --accent-subtle: #f8eedb;
   --accent-subtle-text: #6e4f07;
   --focus-ring: #8a6408;
+  --solid: #8a6408;
 }
 :root[data-accent='slate'] {
   --accent: #2f5f7a;
   --accent-hover: #264f66;
-  --accent-bright: #5f93b3;
+  --accent-bright: #3a7090;
   --accent-subtle: #e2ecf2;
   --accent-subtle-text: #264f66;
   --focus-ring: #2f5f7a;
+  --solid: #2f5f7a;
 }
 :root[data-theme='dark'][data-accent='moss'] {
   --accent: #a3c183;
@@ -264,7 +243,9 @@
   --accent-subtle: #1f2916;
   --accent-subtle-text: #b5cf99;
   --focus-ring: #b5cf99;
+  --solid: #a3c183;
   --on-accent: #10180a;
+  --on-solid: #10180a;
 }
 :root[data-theme='dark'][data-accent='ochre'] {
   --accent: #e0a94a;
@@ -273,6 +254,9 @@
   --accent-subtle: #31230c;
   --accent-subtle-text: #eab965;
   --focus-ring: #eab965;
+  --solid: #e0a94a;
+  --on-accent: #1a1206;
+  --on-solid: #1a1206;
 }
 :root[data-theme='dark'][data-accent='slate'] {
   --accent: #8fbdd8;
@@ -281,7 +265,9 @@
   --accent-subtle: #15283a;
   --accent-subtle-text: #a5cbe2;
   --focus-ring: #a5cbe2;
+  --solid: #8fbdd8;
   --on-accent: #0a1626;
+  --on-solid: #0a1626;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -290,7 +276,6 @@
     --dur-fast: 0.01ms;
     --dur-base: 0.01ms;
     --dur-slow: 0.01ms;
-    --dur-sky: 0.01ms;
   }
 }
 :root[data-motion='reduce'] {
@@ -298,5 +283,4 @@
   --dur-fast: 0.01ms;
   --dur-base: 0.01ms;
   --dur-slow: 0.01ms;
-  --dur-sky: 0.01ms;
 }

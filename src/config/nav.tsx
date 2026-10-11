@@ -1,7 +1,7 @@
 import type { Icon } from '@phosphor-icons/react';
 import {
   BookOpenText, CalendarBlank, ChartBar, ChatsCircle, ChatCircleText, GearSix, HandHeart, House, IdentificationBadge,
-  NotePencil, Path, SealCheck, Signpost, SquaresFour, UsersThree, Users,
+  NotePencil, Path, SealCheck, Signpost, SquaresFour, UsersThree, Users, Sparkle, Books, CalendarCheck, Ticket, Bell,
 } from '@phosphor-icons/react';
 
 export type Lens = 'learn' | 'mentor' | 'lead' | 'admin';
@@ -48,6 +48,25 @@ export const navByLens: Record<Lens, NavItem[]> = {
     { key: 'settings', href: '/admin/settings', labelKey: 'settings', icon: GearSix },
   ],
 };
+
+/** Secondary links shown under "Tools" in the sidebar. Labels live under `nav.tools`. */
+export const toolsByLens: Record<Lens, NavItem[]> = {
+  learn: [
+    { key: 'companion', href: '/app/companion', labelKey: 'companion', icon: Sparkle },
+    { key: 'plans', href: '/app/bible/plans', labelKey: 'plans', icon: CalendarCheck },
+    { key: 'library', href: '/app/journey/library', labelKey: 'library', icon: Books },
+    { key: 'events', href: '/app/community/events', labelKey: 'events', icon: Ticket },
+  ],
+  mentor: [{ key: 'companion', href: '/app/companion', labelKey: 'companion', icon: Sparkle }, { key: 'library', href: '/app/journey/library', labelKey: 'library', icon: Books }],
+  lead: [{ key: 'events', href: '/app/community/events', labelKey: 'events', icon: Ticket }, { key: 'library', href: '/app/journey/library', labelKey: 'library', icon: Books }],
+  admin: [{ key: 'events', href: '/app/community/events', labelKey: 'events', icon: Ticket }],
+};
+
+/** Account links under "Account". Labels live under `nav.account`. */
+export const accountNav: NavItem[] = [
+  { key: 'notifications', href: '/notifications', labelKey: 'notifications', icon: Bell },
+  { key: 'settings', href: '/settings', labelKey: 'settings', icon: GearSix },
+];
 
 export function lensFromPathname(pathname: string): Lens {
   if (pathname.startsWith('/mentor')) return 'mentor';

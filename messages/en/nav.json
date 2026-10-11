@@ -29,6 +29,21 @@
     },
     "settings": "Settings",
     "notifications": "Notifications",
-    "profile": "Profile"
+    "profile": "Profile",
+    "tools": {
+      "companion": "Study companion",
+      "plans": "Reading plans",
+      "library": "Library",
+      "events": "Events"
+    },
+    "account": {
+      "notifications": "Notifications",
+      "settings": "Settings"
+    },
+    "section": {
+      "main": "Main menu",
+      "tools": "Tools",
+      "account": "Account"
+    }
   }
 }

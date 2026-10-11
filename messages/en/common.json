@@ -84,7 +84,10 @@
     "signedInAs": "Signed in as {name}",
     "lensHint": "You can look at the app as each role you hold.",
     "skip": "Skip to content",
-    "unread": "{count, plural, =0 {No unread notifications} one {# unread notification} other {# unread notifications}}"
+    "unread": "{count, plural, =0 {No unread notifications} one {# unread notification} other {# unread notifications}}",
+    "hello": "Hello,",
+    "toggleTheme": "Switch between light and dark",
+    "searchShort": "Search…"
   },
   "palette": {
     "title": "Command palette",

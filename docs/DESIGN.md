@@ -184,16 +184,16 @@ Separation uses **hairline borders, tone and soft layered shadow** together (rev
 
 Dark mode elevates by lightening the surface rather than increasing shadow.
 
-### 3.0 Dawn to Night (visual system, current)
+### 3.0 Clarity (visual system, current)
 
-The interface follows the time of day. Tokens live in `src/styles/tokens.css`; this section supersedes older colour and type notes below where they conflict.
+Replaces the short-lived Dawn to Night sky system. Tokens live in `src/styles/tokens.css`; this section supersedes older colour and type notes below where they conflict.
 
-- **Sky.** Light theme is dawn: pale sky blue to warm cream. Dark theme is night: deep navy to indigo with faint starlight. Each theme has morning, afternoon and evening layers (`--sky-*`), cross-faded by opacity when the local day part changes (`Sky` component, checked every 15 minutes). A fixed SVG grain (3 to 5% opacity) stops banding.
-- **Type.** Geist (400 to 600) for all UI and headings, tight tracking on large sizes. Literata only for scripture and lesson reading. Five sizes: label 12, body 15, reading 19, title 28, display 40 to 56 (fluid). Existing class names are aliased onto these.
-- **Colour.** One accent, amber. `--accent` (deep amber) passes as text and fill; `--accent-bright` is for decorative fills only (progress ring, day dots, play circle). The main button is a solid pill: black on dawn, white at night (`--solid`, `--on-solid`).
-- **Glass.** `.glass` and `.glass-strong`: blur 32px with saturate 160%, white at 60/74% (dawn) or 8/12% (night), 1px edge at white 55% or 10%, inner top highlight. Without backdrop-filter they fall back to a near-solid fill. Cards are 28px radius on phones and 32px on desktop. `check:contrast` blends each glass fill over every sky colour stop and requires 4.5:1 for body and muted text.
-- **Depth.** Large, soft, low-opacity layered shadows (`--shadow-card`, `--shadow-lift`); no hard shadows. At night depth comes from the glass edge and inner highlight.
-- **Focal element.** One per screen. On Today it is the focus card, with the next lesson peeking from behind it; everything else is quiet text in glass.
+- **Page and surfaces.** Near-white page (`--bg`), white cards with a hairline border (`--border`) and a barely-there shadow; 14 to 16px card radius, 12px for buttons and inputs. Dark mode is neutral charcoal with the same structure. The legacy `.glass` classes now render as plain cards, and the `Sky` layer is flat.
+- **Colour.** One action colour, blue (`--accent`, `--solid`), used for primary buttons, links, progress bars and the active-nav indicator. Soft tints (`--tint-1..6` with matching `--tint-line-*` borders and `--tag-*` text) mark tags (level, day) and activity cards (mint for completed, lavender for lessons and reflections, rose for community, amber for prayer). Due dates use red, amber and green text. The one gradient is the periwinkle promo panel (`.promo`).
+- **Type.** Inter for everything except scripture and lesson reading (Literata). Scale: label 13, body 15, card title 17, section 24, page 32. Section headings are semibold with slight negative tracking; secondary text is grey 15px; sidebar section labels are small uppercase.
+- **Layout.** A white sidebar with a profile card, sections (Main menu, Tools, Account) and an active item drawn as a bordered white card with a blue edge indicator. The header greets the person by name and holds search, notifications, theme and the account menu. The student home is a dashboard: a horizontally scrolling "Today's schedule", "Recent reflections", "My pathways" and a right column with the companion promo, "Recent activity" and "Upcoming".
+- **Imagery.** No 3D or stock illustrations: duotone icons in tinted rounded tiles.
+- **Contrast.** `check:contrast` covers tags on their tints, white on every promo stop (3:1, large text) and the usual role pairs.
 
 ### 3.6 Motion
 
