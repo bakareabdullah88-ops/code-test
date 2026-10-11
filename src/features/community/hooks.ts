@@ -1,0 +1,40 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
+import type { PrayerPrivacy, PrayerRequest, Report, RichDoc } from '@/types';
+import { discussionService, groupsService, prayerService } from '@/lib/services/community';
+import { bibleService } from '@/lib/services/bible';
+import { useSessionState } from '@/lib/db/session';
+
+const useWho = () => { const s = useSessionState(); return `${s.userId}:${s.orgId}`; };
+
+export const useGroups = (scope: 'mine' | 'led' | 'org') => { const w = useWho(); return useQuery({ queryKey: ['groups', scope, w], queryFn: () => groupsService.list(scope) }); };
+export const useGroup = (id: string) => { const w = useWho(); return useQuery({ queryKey: ['group', id, w], queryFn: () => groupsService.get(id) }); };
+export const useMeetings = (groupId: string) => { const w = useWho(); return useQuery({ queryKey: ['meetings', groupId, w], queryFn: () => groupsService.meetings(groupId), enabled: !!groupId }); };
+export const useMeeting = (id: string) => { const w = useWho(); return useQuery({ queryKey: ['meeting', id, w], queryFn: () => groupsService.meeting(id) }); };
+export const useGroupSummary = (groupId: string) => { const w = useWho(); return useQuery({ queryKey: ['group-summary', groupId, w], queryFn: () => groupsService.summary(groupId), enabled: !!groupId }); };
+export const useCandidates = (groupId: string, enabled: boolean) => useQuery({ queryKey: ['candidates', groupId], queryFn: () => groupsService.candidates(groupId), enabled });
+export const useThread = (id: string) => { const w = useWho(); return useQuery({ queryKey: ['thread', id, w], queryFn: () => discussionService.thread(id) }); };
+export const useGroupReports = (groupId: string) => { const w = useWho(); return useQuery({ queryKey: ['group-reports', groupId, w], queryFn: () => discussionService.reports(groupId), enabled: !!groupId }); };
+export const usePrayers = (scope: 'all' | 'mine' | 'group' | 'organisation', status: 'open' | 'answered') => { const w = useWho(); return useQuery({ queryKey: ['prayers', scope, status, w], queryFn: () => prayerService.list(scope, status) }); };
+export const usePrayer = (id: string) => { const w = useWho(); return useQuery({ queryKey: ['prayer', id, w], queryFn: () => prayerService.get(id) }); };
+export const useAnnotations = (book: string, chapter: number) => { const w = useWho(); return useQuery({ queryKey: ['annotations', book, chapter, w], queryFn: () => bibleService.annotations(book, chapter) }); };
+export const useAllAnnotations = () => { const w = useWho(); return useQuery({ queryKey: ['annotations-all', w], queryFn: bibleService.allAnnotations }); };
+
+export const useCreateMeeting = () => useMutation({ mutationFn: (v: { groupId: string; input: Parameters<typeof groupsService.createMeeting>[1] }) => groupsService.createMeeting(v.groupId, v.input) });
+export const useUpdateMeeting = () => useMutation({ mutationFn: (v: { id: string; patch: Parameters<typeof groupsService.updateMeeting>[1] }) => groupsService.updateMeeting(v.id, v.patch) });
+export const useSetAttendance = () => useMutation({ mutationFn: (v: { id: string; attendance: Parameters<typeof groupsService.setAttendance>[1] }) => groupsService.setAttendance(v.id, v.attendance) });
+export const useAddMembers = () => useMutation({ mutationFn: (v: { groupId: string; userIds: string[] }) => groupsService.addMembers(v.groupId, v.userIds) });
+export const useRemoveMember = () => useMutation({ mutationFn: (v: { groupId: string; userId: string }) => groupsService.removeMember(v.groupId, v.userId) });
+export const useCreateThread = () => useMutation({ mutationFn: (v: { groupId: string; title: string; body: RichDoc; lessonId?: string | null }) => discussionService.createThread(v.groupId, v) });
+export const usePost = () => useMutation({ mutationFn: (v: { threadId: string; body: RichDoc; parentId?: string | null; sharedReflectionId?: string | null }) => discussionService.post(v.threadId, v.body, v.parentId ?? null, v.sharedReflectionId ?? null) });
+export const useReact = () => useMutation({ mutationFn: (v: { postId: string; kind: 'amen' | 'thanks' | 'helpful' }) => discussionService.react(v.postId, v.kind) });
+export const useReportPost = () => useMutation({ mutationFn: (v: { postId: string; reason: Report['reason']; note?: string }) => discussionService.report(v.postId, v.reason, v.note) });
+export const useModerate = () => useMutation({ mutationFn: (v: Parameters<typeof discussionService.moderate>[0]) => discussionService.moderate(v) });
+export const useDismissReport = () => useMutation({ mutationFn: (id: string) => discussionService.dismissReport(id) });
+export const useCreatePrayer = () => useMutation({ mutationFn: (v: { body: string; privacy: PrayerPrivacy; groupId?: string | null; anonymous: boolean; category: PrayerRequest['category'] }) => prayerService.create(v) });
+export const usePray = () => useMutation({ mutationFn: (v: { id: string; praying: boolean }) => prayerService.pray(v.id, v.praying) });
+export const useAnswered = () => useMutation({ mutationFn: (v: { id: string; note: string }) => prayerService.markAnswered(v.id, v.note) });
+export const useDeletePrayer = () => useMutation({ mutationFn: (id: string) => prayerService.remove(id) });
+export const useEncourage = () => useMutation({ mutationFn: (v: { id: string; body: string }) => prayerService.encourage(v.id, v.body) });
+export const useHighlight = () => useMutation({ mutationFn: (v: Parameters<typeof bibleService.highlight>) => bibleService.highlight(...v) });
+export const useSaveNote = () => useMutation({ mutationFn: (v: Parameters<typeof bibleService.saveNote>[0]) => bibleService.saveNote(v) });
+export const useDeleteNote = () => useMutation({ mutationFn: (id: string) => bibleService.deleteNote(id) });

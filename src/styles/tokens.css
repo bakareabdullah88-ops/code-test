@@ -1,0 +1,286 @@
+/* Design tokens: single source of truth. See docs/DESIGN.md section 3.0 ("Clarity").
+   A calm, bright workspace: near-white page, white cards with hairline borders, one blue for action and progress,
+   and soft tints (amber, blue, green, mint, lavender, rose) for tags and activity.
+   Primitives -> semantic roles -> (Tailwind maps roles in globals.css). */
+
+:root {
+  /* Neutrals */
+  --gray-25: #fafafb;
+  --gray-50: #f6f6f8;
+  --gray-100: #efeff2;
+  --gray-200: #e6e6ea;
+  --gray-300: #d4d5db;
+  --gray-500: #6b6f7b;
+  --gray-600: #555a66;
+  --gray-700: #3d414b;
+  --gray-900: #16181d;
+
+  /* Blue (the one action colour) */
+  --blue-50: #eef3ff;
+  --blue-100: #dde7ff;
+  --blue-500: #4a78f5;
+  --blue-600: #2f5fe8;
+  --blue-700: #2650c8;
+
+  /* Radius */
+  --rad-xs: 6px;
+  --rad-sm: 8px;
+  --rad-md: 10px;
+  --rad-lg: 12px;
+  --rad-xl: 14px;
+  --rad-2xl: 16px;
+
+  /* Motion */
+  --dur-instant: 90ms;
+  --dur-fast: 150ms;
+  --dur-base: 240ms;
+  --dur-slow: 380ms;
+  --dur-sky: 0.01ms;
+  --e-standard: cubic-bezier(0.2, 0, 0, 1);
+  --e-enter: cubic-bezier(0, 0, 0.2, 1);
+  --e-exit: cubic-bezier(0.4, 0, 1, 1);
+  --e-spring: cubic-bezier(0.22, 1.1, 0.36, 1);
+
+  /* Reading preferences (set on <html> by prefs) */
+  --reading-scale: 1;
+  --reading-leading: 1.7;
+
+  /* Light roles */
+  --bg: var(--gray-50);
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-sunken: var(--gray-25);
+  --border: var(--gray-200);
+  --border-strong: #8a8e99;
+  --text: var(--gray-900);
+  --text-muted: var(--gray-600);
+  --text-subtle: #6a6e79;
+  --accent: var(--blue-600);
+  --accent-hover: var(--blue-700);
+  --accent-bright: var(--blue-500);
+  --on-accent-bright: #ffffff;
+  --accent-subtle: var(--blue-50);
+  --accent-subtle-text: var(--blue-700);
+  --on-accent: #ffffff;
+  --focus-ring: var(--blue-600);
+  --solid: var(--blue-600);
+  --on-solid: #ffffff;
+  --success: #15803d;
+  --success-subtle: #e8f8ef;
+  --warning: #9a6700;
+  --warning-subtle: #fff6dc;
+  --danger: #d1242f;
+  --danger-subtle: #fdecee;
+  --scrim: rgb(22 24 29 / 0.4);
+
+  /* Highlight and tint swatches (tags, activity cards, covers) */
+  --hl-straw: #fbeeb4;
+  --hl-sage: #d6ecd2;
+  --hl-rose: #f8d7df;
+  --hl-mist: #d8e4fb;
+  --tint-1: #fff6dc; --tint-2: #e8f8ef; --tint-3: #eef3ff; --tint-4: #effaf6; --tint-5: #f4f2ff; --tint-6: #fdf1f5;
+  --tint-line-1: #f6e2a6; --tint-line-2: #bfe8d0; --tint-line-3: #cddcff; --tint-line-4: #c9eedf; --tint-line-5: #dcd6fb; --tint-line-6: #f6d3df;
+  --tag-amber: #8f5e00; --tag-blue: #2650c8; --tag-green: #13753a; --tag-violet: #5b45c9; --tag-rose: #b4235a;
+
+  /* Promo panel: soft periwinkle, the only gradient in the system */
+  --promo: linear-gradient(120deg, #5a67e0 0%, #6672e6 55%, #7d88ee 100%);
+  --on-promo: #ffffff;
+
+  /* The page is flat in this system; the sky layers collapse to the background */
+  --sky-morning: var(--bg);
+  --sky-afternoon: var(--bg);
+  --sky-evening: var(--bg);
+  --sky-glow: none;
+  --stars: none;
+  --noise-opacity: 0;
+
+  /* "Glass" surfaces are now plain cards: white, hairline border, faint shadow */
+  --glass: #ffffff;
+  --glass-strong: #ffffff;
+  --glass-solid: #ffffff;
+  --glass-line: var(--gray-200);
+  --glass-edge: 0 1px 2px rgb(22 24 29 / 0.04);
+  --glass-highlight: 0 0 0 0 transparent;
+  --glass-blur: none;
+
+  /* Depth: barely there */
+  --shadow-card: 0 1px 2px rgb(22 24 29 / 0.04), 0 6px 16px -10px rgb(22 24 29 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(22 24 29 / 0.04), 0 14px 32px -14px rgb(22 24 29 / 0.16);
+  --shadow-2: 0 10px 30px -12px rgb(22 24 29 / 0.18);
+  --shadow-3: 0 24px 60px -20px rgb(22 24 29 / 0.3);
+  color-scheme: light;
+}
+
+/* Dark roles. Applied by explicit choice, or by system preference unless light is forced. */
+:root[data-theme='dark'] {
+  --bg: #0e0f12;
+  --surface: #16181d;
+  --surface-raised: #1b1d23;
+  --surface-sunken: #121317;
+  --border: #272a31;
+  --border-strong: #6c717e;
+  --text: #eef0f4;
+  --text-muted: #b2b6c1;
+  --text-subtle: #9a9eaa;
+  --accent: #7c9dfb;
+  --accent-hover: #9bb4fc;
+  --accent-bright: #7c9dfb;
+  --on-accent-bright: #0e1222;
+  --accent-subtle: #17213d;
+  --accent-subtle-text: #a9bffd;
+  --on-accent: #0e1222;
+  --focus-ring: #9bb4fc;
+  --solid: #7c9dfb;
+  --on-solid: #0e1222;
+  --success: #5dd28b;
+  --success-subtle: #12291c;
+  --warning: #f0c050;
+  --warning-subtle: #2c2410;
+  --danger: #ff8189;
+  --danger-subtle: #361519;
+  --scrim: rgb(0 0 0 / 0.6);
+  --hl-straw: #5b4d17;
+  --hl-sage: #2e4a2c;
+  --hl-rose: #5a2a3a;
+  --hl-mist: #24365a;
+  --tint-1: #2a2410; --tint-2: #12291c; --tint-3: #17213d; --tint-4: #10271f; --tint-5: #1f1b3a; --tint-6: #2d1622;
+  --tint-line-1: #4a3d17; --tint-line-2: #1f4a31; --tint-line-3: #2a3a66; --tint-line-4: #1d4436; --tint-line-5: #3a3366; --tint-line-6: #4d2538;
+  --tag-amber: #f0c050; --tag-blue: #a9bffd; --tag-green: #5dd28b; --tag-violet: #b9adff; --tag-rose: #ff9cc0;
+  --promo: linear-gradient(120deg, #3f4ab0 0%, #5560c8 60%, #6f78d6 100%);
+  --glass: var(--surface);
+  --glass-strong: var(--surface-raised);
+  --glass-solid: var(--surface);
+  --glass-line: var(--border);
+  --glass-edge: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-lift: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  --shadow-2: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+  --shadow-3: 0 30px 80px -20px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']):not([data-theme='dark']) {
+    --bg: #0e0f12;
+    --surface: #16181d;
+    --surface-raised: #1b1d23;
+    --surface-sunken: #121317;
+    --border: #272a31;
+    --border-strong: #6c717e;
+    --text: #eef0f4;
+    --text-muted: #b2b6c1;
+    --text-subtle: #9a9eaa;
+    --accent: #7c9dfb;
+    --accent-hover: #9bb4fc;
+    --accent-bright: #7c9dfb;
+    --on-accent-bright: #0e1222;
+    --accent-subtle: #17213d;
+    --accent-subtle-text: #a9bffd;
+    --on-accent: #0e1222;
+    --focus-ring: #9bb4fc;
+    --solid: #7c9dfb;
+    --on-solid: #0e1222;
+    --success: #5dd28b;
+    --success-subtle: #12291c;
+    --warning: #f0c050;
+    --warning-subtle: #2c2410;
+    --danger: #ff8189;
+    --danger-subtle: #361519;
+    --scrim: rgb(0 0 0 / 0.6);
+    --hl-straw: #5b4d17;
+    --hl-sage: #2e4a2c;
+    --hl-rose: #5a2a3a;
+    --hl-mist: #24365a;
+    --tint-1: #2a2410; --tint-2: #12291c; --tint-3: #17213d; --tint-4: #10271f; --tint-5: #1f1b3a; --tint-6: #2d1622;
+    --tint-line-1: #4a3d17; --tint-line-2: #1f4a31; --tint-line-3: #2a3a66; --tint-line-4: #1d4436; --tint-line-5: #3a3366; --tint-line-6: #4d2538;
+    --tag-amber: #f0c050; --tag-blue: #a9bffd; --tag-green: #5dd28b; --tag-violet: #b9adff; --tag-rose: #ff9cc0;
+    --promo: linear-gradient(120deg, #3f4ab0 0%, #5560c8 60%, #6f78d6 100%);
+    --glass: var(--surface);
+    --glass-strong: var(--surface-raised);
+    --glass-solid: var(--surface);
+    --glass-line: var(--border);
+    --glass-edge: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-lift: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+    --shadow-2: 0 16px 40px -16px rgb(0 0 0 / 0.6);
+    --shadow-3: 0 30px 80px -20px rgb(0 0 0 / 0.7);
+    color-scheme: dark;
+  }
+}
+
+/* Organisation accents (curated so contrast is guaranteed). Blue is the default. */
+:root[data-accent='moss'] {
+  --accent: #3f6b2e;
+  --accent-hover: #345a26;
+  --accent-bright: #4f7f3a;
+  --accent-subtle: #e9f1e4;
+  --accent-subtle-text: #2f4f22;
+  --focus-ring: #3f6b2e;
+  --solid: #3f6b2e;
+}
+:root[data-accent='ochre'] {
+  --accent: #8a6408;
+  --accent-hover: #74540a;
+  --accent-bright: #a87a0c;
+  --accent-subtle: #f8eedb;
+  --accent-subtle-text: #6e4f07;
+  --focus-ring: #8a6408;
+  --solid: #8a6408;
+}
+:root[data-accent='slate'] {
+  --accent: #2f5f7a;
+  --accent-hover: #264f66;
+  --accent-bright: #3a7090;
+  --accent-subtle: #e2ecf2;
+  --accent-subtle-text: #264f66;
+  --focus-ring: #2f5f7a;
+  --solid: #2f5f7a;
+}
+:root[data-theme='dark'][data-accent='moss'] {
+  --accent: #a3c183;
+  --accent-hover: #b5cf99;
+  --accent-bright: #a3c183;
+  --accent-subtle: #1f2916;
+  --accent-subtle-text: #b5cf99;
+  --focus-ring: #b5cf99;
+  --solid: #a3c183;
+  --on-accent: #10180a;
+  --on-solid: #10180a;
+}
+:root[data-theme='dark'][data-accent='ochre'] {
+  --accent: #e0a94a;
+  --accent-hover: #eab965;
+  --accent-bright: #e0a94a;
+  --accent-subtle: #31230c;
+  --accent-subtle-text: #eab965;
+  --focus-ring: #eab965;
+  --solid: #e0a94a;
+  --on-accent: #1a1206;
+  --on-solid: #1a1206;
+}
+:root[data-theme='dark'][data-accent='slate'] {
+  --accent: #8fbdd8;
+  --accent-hover: #a5cbe2;
+  --accent-bright: #8fbdd8;
+  --accent-subtle: #15283a;
+  --accent-subtle-text: #a5cbe2;
+  --focus-ring: #a5cbe2;
+  --solid: #8fbdd8;
+  --on-accent: #0a1626;
+  --on-solid: #0a1626;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) {
+    --dur-instant: 0.01ms;
+    --dur-fast: 0.01ms;
+    --dur-base: 0.01ms;
+    --dur-slow: 0.01ms;
+  }
+}
+:root[data-motion='reduce'] {
+  --dur-instant: 0.01ms;
+  --dur-fast: 0.01ms;
+  --dur-base: 0.01ms;
+  --dur-slow: 0.01ms;
+}

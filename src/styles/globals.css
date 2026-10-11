@@ -1,0 +1,322 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/literata/wght.css';
+@import '@fontsource-variable/literata/wght-italic.css';
+@import '@fontsource-variable/inter/wght.css';
+@import './tokens.css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+@custom-variant coarse (@media (pointer: coarse));
+
+/* Tailwind utilities map to our tokens. No raw values in components. */
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--text-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-subtle);
+  --color-accent-soft-ink: var(--accent-subtle-text);
+  --color-on-accent: var(--on-accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-on-accent-bright: var(--on-accent-bright);
+  --color-solid: var(--solid);
+  --color-on-solid: var(--on-solid);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-subtle);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-subtle);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-subtle);
+  --color-scrim: var(--scrim);
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-line: var(--glass-line);
+  --color-hl-straw: var(--hl-straw);
+  --color-hl-sage: var(--hl-sage);
+  --color-hl-rose: var(--hl-rose);
+  --color-hl-mist: var(--hl-mist);
+  --color-tint-1: var(--tint-1);
+  --color-tint-2: var(--tint-2);
+  --color-tint-3: var(--tint-3);
+  --color-tint-4: var(--tint-4);
+  --color-tint-5: var(--tint-5);
+  --color-tint-6: var(--tint-6);
+  --color-tint-line-1: var(--tint-line-1);
+  --color-tint-line-2: var(--tint-line-2);
+  --color-tint-line-3: var(--tint-line-3);
+  --color-tint-line-4: var(--tint-line-4);
+  --color-tint-line-5: var(--tint-line-5);
+  --color-tint-line-6: var(--tint-line-6);
+  --color-tag-amber: var(--tag-amber);
+  --color-tag-blue: var(--tag-blue);
+  --color-tag-green: var(--tag-green);
+  --color-tag-violet: var(--tag-violet);
+  --color-tag-rose: var(--tag-rose);
+  --color-on-promo: var(--on-promo);
+
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-serif: 'Literata Variable', 'Source Serif 4', Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --radius-xs: var(--rad-xs);
+  --radius-sm: var(--rad-sm);
+  --radius-md: var(--rad-md);
+  --radius-lg: var(--rad-lg);
+  --radius-xl: var(--rad-xl);
+  --radius-2xl: var(--rad-xl);
+  --radius-3xl: var(--rad-2xl);
+  --radius-4xl: var(--rad-2xl);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+  --shadow-pop: var(--shadow-2);
+  --shadow-dialog: var(--shadow-3);
+
+  /* Type scale: label 13, body 15, title 17, section 24, page 32. Aliases keep existing class names. */
+  --text-*: initial;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 0.9375rem;
+  --text-base--line-height: 1.55;
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.45;
+  --text-xl: 1.0625rem;
+  --text-xl--line-height: 1.45;
+  --text-h4: 1.0625rem;
+  --text-h4--line-height: 1.4;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 1.5rem;
+  --text-3xl--line-height: 1.25;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.25;
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 1.25;
+  --text-4xl: 2rem;
+  --text-4xl--line-height: 1.15;
+  --text-5xl: 2rem;
+  --text-5xl--line-height: 1.15;
+  --text-h1: 2rem;
+  --text-h1--line-height: 1.15;
+
+  --ease-standard: var(--e-standard);
+  --ease-enter: var(--e-enter);
+  --ease-exit: var(--e-exit);
+
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-block: 5rem;
+    scroll-behavior: smooth;
+    font-variant-numeric: lining-nums;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background-color: transparent;
+    color: var(--text);
+    min-block-size: 100dvh;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-sans); font-weight: 600; letter-spacing: -0.015em; text-wrap: balance; }
+  h1 { letter-spacing: -0.02em; }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  ::selection { background: var(--accent-subtle); color: var(--accent-subtle-text); }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  @media (forced-colors: active) {
+    :focus-visible { outline-color: Highlight; }
+  }
+}
+
+@layer components {
+  /* Reading typography for lessons, Bible and reflections. */
+  .prose-reading {
+    font-family: var(--font-serif);
+    font-size: calc(1.125rem * var(--reading-scale));
+    line-height: var(--reading-leading);
+    max-inline-size: 68ch;
+    font-variant-numeric: oldstyle-nums;
+    hanging-punctuation: first;
+  }
+  .prose-reading > * + * { margin-block-start: 1em; }
+  .prose-reading h2, .prose-reading h3 { margin-block-start: 1.6em; line-height: 1.25; }
+  .prose-reading blockquote {
+    border-inline-start: 2px solid var(--border-strong);
+    padding-inline-start: 1em;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+  .verse-num {
+    font-family: var(--font-sans);
+    font-size: 0.6em;
+    vertical-align: super;
+    color: var(--text-subtle);
+    margin-inline-end: 0.2em;
+    font-variant-numeric: lining-nums;
+  }
+
+  .skeleton {
+    background: var(--surface-sunken);
+    border-radius: var(--radius-sm);
+    position: relative;
+    overflow: hidden;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--border) 55%, transparent), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 1.6s var(--e-standard) infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :root:not([data-motion='full']) .skeleton::after { animation: none; }
+  }
+  :root[data-motion='reduce'] .skeleton::after { animation: none; }
+
+  .thread-line {
+    stroke-dasharray: var(--len, 1);
+    transition: stroke-dashoffset var(--dur-slow) var(--e-standard);
+  }
+}
+
+@keyframes shimmer { to { transform: translateX(100%); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes sheet-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes sheet-down { from { transform: translateY(0); } to { transform: translateY(100%); } }
+@keyframes sheet-in-end { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes sheet-out-end { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes pop-out { from { opacity: 1; } to { opacity: 0; transform: scale(0.98); } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes drift { from { transform: translateX(-8%); } to { transform: translateX(8%); } }
+@keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+@utility motion-fast { transition-duration: var(--dur-fast); transition-timing-function: var(--e-standard); }
+@utility motion-base { transition-duration: var(--dur-base); transition-timing-function: var(--e-standard); }
+@utility pb-safe { padding-block-end: env(safe-area-inset-bottom); }
+@utility pt-safe { padding-block-start: env(safe-area-inset-top); }
+
+/* Overlay surfaces (Radix data-state driven). Motion collapses via duration tokens. */
+.overlay { position: fixed; inset: 0; background: var(--scrim); z-index: 40; backdrop-filter: blur(6px) saturate(1.1); -webkit-backdrop-filter: blur(6px) saturate(1.1); }
+.overlay[data-state='open'] { animation: fade-in var(--dur-base) var(--e-enter); }
+.overlay[data-state='closed'] { animation: fade-out var(--dur-fast) var(--e-exit); }
+.dialog-panel { animation-duration: var(--dur-base); animation-timing-function: var(--e-spring); }
+.dialog-panel[data-state='open'] { animation-name: pop-in; }
+.dialog-panel[data-state='closed'] { animation-name: pop-out; animation-duration: var(--dur-fast); animation-timing-function: var(--e-exit); }
+.sheet-bottom[data-state='open'] { animation: sheet-up var(--dur-slow) var(--e-spring); }
+.sheet-bottom[data-state='closed'] { animation: sheet-down var(--dur-fast) var(--e-exit); }
+.sheet-end[data-state='open'] { animation: sheet-in-end var(--dur-slow) var(--e-spring); }
+.sheet-end[data-state='closed'] { animation: sheet-out-end var(--dur-fast) var(--e-exit); }
+.popper[data-state='open'] { animation: pop-in var(--dur-base) var(--e-spring); }
+.popper[data-state='closed'] { animation: pop-out var(--dur-instant) var(--e-exit); }
+.toast-root[data-state='open'] { animation: toast-in var(--dur-slow) var(--e-spring); }
+.toast-root[data-state='closed'] { animation: fade-out var(--dur-fast) var(--e-exit); }
+
+@layer components {
+/* Frosted surfaces. Without backdrop-filter they fall back to a near-solid fill so text contrast holds. */
+.glass, .glass-strong { background: var(--glass-solid); border-color: var(--glass-line); box-shadow: var(--glass-highlight), var(--glass-edge); }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: var(--glass); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
+  .glass-strong { background: var(--glass-strong); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); }
+}
+
+}
+
+/* Promo panel (the one gradient). */
+.promo { background: var(--promo); color: var(--on-promo); }
+
+/* The sky: fixed layers behind everything. Day parts cross-fade with opacity only. */
+.sky { position: fixed; inset: 0; z-index: -10; pointer-events: none; background: var(--bg); }
+.sky > span { position: absolute; inset: 0; opacity: 0; transition: opacity var(--dur-sky) var(--e-standard); }
+.sky .sky-morning { background: var(--sky-morning); }
+.sky .sky-afternoon { background: var(--sky-afternoon); }
+.sky .sky-evening { background: var(--sky-evening); }
+:root:not([data-daypart]) .sky .sky-morning,
+:root[data-daypart='morning'] .sky .sky-morning,
+:root[data-daypart='afternoon'] .sky .sky-afternoon,
+:root[data-daypart='evening'] .sky .sky-evening { opacity: 1; }
+.sky .sky-glow { opacity: 1; background: var(--sky-glow), var(--stars); }
+.sky .sky-noise {
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Entrances */
+.enter { animation: rise var(--dur-slow) var(--e-spring) both; }
+.stagger > * { animation: rise var(--dur-slow) var(--e-spring) both; }
+.stagger > *:nth-child(1) { animation-delay: 30ms; }
+.stagger > *:nth-child(2) { animation-delay: 90ms; }
+.stagger > *:nth-child(3) { animation-delay: 150ms; }
+.stagger > *:nth-child(4) { animation-delay: 210ms; }
+.stagger > *:nth-child(5) { animation-delay: 270ms; }
+.stagger > *:nth-child(6) { animation-delay: 330ms; }
+.stagger > *:nth-child(n+7) { animation-delay: 380ms; }
+.hover-lift { transition: transform var(--dur-base) var(--e-spring), box-shadow var(--dur-base) var(--e-standard), border-color var(--dur-fast) var(--e-standard); }
+.hover-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); border-color: var(--border-strong); }
+.hover-lift:active { transform: translateY(-1px) scale(0.995); }
+.float-slow { animation: float 9s ease-in-out infinite; }
+.drift { animation: drift 40s linear infinite; }
+.grow-x { transform-origin: left center; animation: grow-x 900ms var(--e-spring) both; animation-delay: 200ms; }
+.pop { animation: pop-in var(--dur-slow) var(--e-spring) both; }
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) .enter, :root:not([data-motion='full']) .stagger > *, :root:not([data-motion='full']) .float-slow, :root:not([data-motion='full']) .drift, :root:not([data-motion='full']) .grow-x, :root:not([data-motion='full']) .pop { animation: none; }
+  :root:not([data-motion='full']) .hover-lift { transition: none; }
+  :root:not([data-motion='full']) .hover-lift:hover { transform: none; }
+}
+:root[data-motion='reduce'] .enter, :root[data-motion='reduce'] .stagger > *, :root[data-motion='reduce'] .float-slow, :root[data-motion='reduce'] .drift, :root[data-motion='reduce'] .grow-x, :root[data-motion='reduce'] .pop { animation: none; }
+:root[data-motion='reduce'] .hover-lift { transition: none; }
+:root[data-motion='reduce'] .hover-lift:hover { transform: none; }
+
+@utility motion-fast { transition-duration: var(--dur-fast); transition-timing-function: var(--e-standard); }
+@utility motion-base { transition-duration: var(--dur-base); transition-timing-function: var(--e-standard); }
+@utility pb-safe { padding-block-end: env(safe-area-inset-bottom); }
+@utility pt-safe { padding-block-start: env(safe-area-inset-top); }
+
+/* Editor placeholder (Tiptap) */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: var(--text-subtle);
+  float: inline-start;
+  height: 0;
+  pointer-events: none;
+}
+.tiptap { outline: none; }
+.tiptap ul { list-style: disc; padding-inline-start: 1.5rem; }
+.tiptap blockquote { border-inline-start: 2px solid var(--border-strong); padding-inline-start: 1em; font-style: italic; color: var(--text-muted); }
+

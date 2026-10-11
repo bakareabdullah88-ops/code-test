@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fdfaf5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16120e" media="(prefers-color-scheme: dark)" />
+    <title>Tessera</title>
+    <script>
+      (function () {
+        try {
+          var p = JSON.parse(localStorage.getItem('tessera.prefs.v1') || '{}');
+          var r = document.documentElement;
+          if (p.theme === 'light' || p.theme === 'dark') r.setAttribute('data-theme', p.theme);
+          if (p.motion === 'reduce') r.setAttribute('data-motion', 'reduce');
+          var s = { s: '1', m: '1.12', l: '1.25', xl: '1.5' }[p.readingSize || 'm'];
+          r.style.setProperty('--reading-scale', s);
+          if (p.readingSpacing === 'relaxed') r.style.setProperty('--reading-leading', '1.9');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
